@@ -39,3 +39,17 @@ function findDerniersArticles(): array {
             LIMIT 5";
     return executeSelect($sql, []);
 }
+
+function findAllAuteurs(): array {
+    $sql = "SELECT u.*,
+            (SELECT COUNT(*) FROM article WHERE id_utilisateur = u.id_utilisateur) as nb_articles
+            FROM utilisateur u
+            WHERE u.role = 'auteur'
+            ORDER BY u.nom ASC";
+    return executeSelect($sql, []);
+}
+
+function toggleBanAuteur(int $id): void {
+    $sql = "UPDATE utilisateur SET banni = NOT banni WHERE id_utilisateur = :id";
+    executeUpdate($sql, ["id" => $id]);
+}
