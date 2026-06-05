@@ -38,7 +38,17 @@ $changerStatut = function () {
     }
     redirectTo("admin", "listeArticles");
 };
+$banirArticle = function () {
+    $id = (int)$_POST["id_article"];
+    updateStatutArticle($id, "Rejete");
+    redirectTo("admin", "listeArticles");
+};
 
+$supprimerCommentaire = function () {
+    $id = (int)$_POST["id_commentaire"];
+    deleteCommentaire($id);
+    redirectTo("admin", "listeArticles");
+};
 
 $listeAuteurs = function () {
     $auteurs = findAllAuteurs();
@@ -88,3 +98,87 @@ $supprimerAdmin = function () {
     }
     redirectTo("admin", "listeAdmins");
 };
+$listeCategories = function () {
+    $categories = findAllCategories();
+    $errors     = [];
+
+    if (isset($_POST["btn_ajouter"])) {
+        $libelle = trim($_POST["libelle"] ?? "");
+        if ($libelle === "") {
+            $errors["libelle"] = "Le nom de la catégorie est obligatoire.";
+        } elseif (categorieLibelleExiste($libelle)) {
+            $errors["libelle"] = "Cette catégorie existe déjà.";
+        } else {
+            addCategorie($libelle);
+            redirectTo("admin", "listeCategories");
+        }
+    }
+
+    loadView("admins/listeCategories", [
+        "categories" => $categories,
+        "errors"     => $errors,
+    ], "side");
+};
+
+$editCategorie = function () {
+    $id = (int)($_GET["id"] ?? $_POST["id_categorie"] ?? 0);
+    if (!$id) redirectTo("admin", "listeCategories");
+
+    $categorie = findCategorieById($id);
+    if (!$categorie) redirectTo("admin", "listeCategories");
+
+    $errors = [];
+
+    if (isset($_POST["btn_modifier"])) {
+        $libelle = trim($_POST["libelle"] ?? "");
+        if ($libelle === "") {
+            $errors["libelle"] = "Le nom de la catégorie est obligatoire.";
+        } elseif (categorieLibelleExiste($libelle, $id)) {
+            $errors["libelle"] = "Cette catégorie existe déjà.";
+        } else {
+            updateCategorie($id, $libelle);
+            redirectTo("admin", "listeCategories");
+        }
+    }
+
+    loadView("admins/editCategorie", [
+        "categorie" => $categorie,
+        "errors"    => $errors,
+    ], "side");
+};
+
+$supprimerCategorie = function () {
+    $id = (int)($_POST["id_categorie"] ?? 0);
+    if ($id) {
+        $cat = findCategorieById($id);
+        if ($cat && (int)$cat["nb_articles"] === 0) {
+            deleteCategorie($id);
+        }
+    }
+    redirectTo("admin", "listeCategorie");
+};
+
+//routing
+$actions = [
+    "index"                => $dashboard,
+    "dashboard"            => $dashboard,
+    "listeArticles"        => $listeArticles,
+    "changerStatut"        => $changerStatut,
+    "listeAuteurs"         => $listeAuteurs,
+    "banirAuteur"          => $banirAuteur,
+    "banirArticle"         => $banirArticle,
+    "supprimerCommentaire" => $supprimerCommentaire,
+    "listeCategories"      => $listeCategories,
+    "editCategorie"        => $editCategorie,
+    "supprimerCategorie"   => $supprimerCategorie,
+    "addAdmin"             => $addAdmin,
+    "listeAdmins"          => $listeAdmins,
+    "supprimerAdmin"       => $supprimerAdmin,
+];
+
+$action = $_REQUEST["action"] ?? "dashboard";
+if (array_key_exists($action, $actions)) {
+    $actions[$action]();
+} else {
+    echo "Action introuvable";
+}
