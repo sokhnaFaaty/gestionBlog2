@@ -38,7 +38,17 @@ $changerStatut = function () {
     }
     redirectTo("admin", "listeArticles");
 };
+$banirArticle = function () {
+    $id = (int)$_POST["id_article"];
+    updateStatutArticle($id, "Rejete");
+    redirectTo("admin", "listeArticles");
+};
 
+$supprimerCommentaire = function () {
+    $id = (int)$_POST["id_commentaire"];
+    deleteCommentaire($id);
+    redirectTo("admin", "listeArticles");
+};
 
 $listeAuteurs = function () {
     $auteurs = findAllAuteurs();
@@ -88,7 +98,6 @@ $supprimerAdmin = function () {
     }
     redirectTo("admin", "listeAdmins");
 };
-
 $listeCategories = function () {
     $categories = findAllCategories();
     $errors     = [];
@@ -148,3 +157,28 @@ $supprimerCategorie = function () {
     }
     redirectTo("admin", "listeCategorie");
 };
+
+//routing
+$actions = [
+    "index"                => $dashboard,
+    "dashboard"            => $dashboard,
+    "listeArticles"        => $listeArticles,
+    "changerStatut"        => $changerStatut,
+    "listeAuteurs"         => $listeAuteurs,
+    "banirAuteur"          => $banirAuteur,
+    "banirArticle"         => $banirArticle,
+    "supprimerCommentaire" => $supprimerCommentaire,
+    "listeCategories"      => $listeCategories,
+    "editCategorie"        => $editCategorie,
+    "supprimerCategorie"   => $supprimerCategorie,
+    "addAdmin"             => $addAdmin,
+    "listeAdmins"          => $listeAdmins,
+    "supprimerAdmin"       => $supprimerAdmin,
+];
+
+$action = $_REQUEST["action"] ?? "dashboard";
+if (array_key_exists($action, $actions)) {
+    $actions[$action]();
+} else {
+    echo "Action introuvable";
+}
