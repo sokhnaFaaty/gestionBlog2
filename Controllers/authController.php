@@ -1,5 +1,6 @@
 <?php
 require_once ROOT . "/models/authModel.php";
+
 $logout = function () {
     session_unset();
     session_destroy();
