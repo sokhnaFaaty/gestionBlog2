@@ -38,3 +38,15 @@ $changerStatut = function () {
     }
     redirectTo("admin", "listeArticles");
 };
+
+
+$listeAuteurs = function () {
+    $auteurs = findAllAuteurs();
+    loadView("admins/listeAuteurs", ["auteurs" => $auteurs], "side");
+};
+
+$banirAuteur = function () {
+    $id = (int)$_POST["id_utilisateur"];
+    toggleBanAuteur($id);
+    redirectTo("admin", "listeAuteurs");
+};
