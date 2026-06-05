@@ -1,20 +1,11 @@
 <?php
-$controllers=[
-    "admin"=>"admin",
-    "auteur"=>"auteur",
-    "lecteur"=>"lecteur",
-    "auth"=>"auth"
+define("WEBROOT","http://localhost:8005/");
+define("ROOT", str_replace("public","",$_SERVER['DOCUMENT_ROOT']));
+if(session_status() == PHP_SESSION_NONE){session_start();}
 
-];
+require_once ROOT."config/helpers.php";
+require_once ROOT."config/validator.php";
+// require_once ROOT."view/partials/header.php";
 
- $controller=$_REQUEST["controller"]??"auth";
- 
- if (array_key_exists($controller, $controllers)) {
-     $path=ROOT."controllers/".$controllers[$controller]."Controller.php";
-     }
-     else{
-         echo "controller introuvable";
-         exit();
-}
-         
- require_once($path);
+require_once("../routes/web/router.php");
+
