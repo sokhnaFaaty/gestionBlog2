@@ -53,3 +53,31 @@ function toggleBanAuteur(int $id): void {
     $sql = "UPDATE utilisateur SET banni = NOT banni WHERE id_utilisateur = :id";
     executeUpdate($sql, ["id" => $id]);
 }
+function emailAdminExiste(string $email): bool {
+    $sql    = "SELECT COUNT(*) as total FROM utilisateur WHERE email ILIKE :email";
+    $result = executeSelect($sql, ["email" => $email], true);
+    return (int)$result["total"] > 0;
+}
+
+//admin
+
+function addAdmin(array $data): void {
+    $sql = "INSERT INTO utilisateur (nom, prenom, email, mdp, role)
+            VALUES (:nom, :prenom, :email, :mdp, 'admin')";
+    executeUpdate($sql, [
+        "nom"    => $data["nom"],
+        "prenom" => $data["prenom"],
+        "email"  => $data["email"],
+        "mdp"    => $data["password"],
+    ]);
+}
+
+function findAllAdmins(): array {
+    $sql = "SELECT * FROM utilisateur WHERE role = 'admin' ORDER BY nom ASC";
+    return executeSelect($sql, []);
+}
+
+function deleteAdmin(int $id): void {
+    $sql = "DELETE FROM utilisateur WHERE id_utilisateur = :id AND role = 'admin'";
+    executeUpdate($sql, ["id" => $id]);
+}
