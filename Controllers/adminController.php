@@ -90,7 +90,7 @@ $listeAdmins = function () {
 
 $supprimerAdmin = function () {
     $id         = (int)($_POST["id_utilisateur"] ?? 0);
-    //  Utilise id_utilisateur (plus id_auteur)
+
     $idConnecte = (int)($_SESSION["user"]["id_utilisateur"] ?? 0);
 
     if ($id && $id !== $idConnecte) {
