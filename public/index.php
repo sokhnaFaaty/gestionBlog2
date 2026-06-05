@@ -1,5 +1,6 @@
 <?php
-define("WEBROOT","http://localhost:8002/");
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+define("WEBROOT", $protocol . "://" . $_SERVER['HTTP_HOST'] . "/");
 define("ROOT", str_replace("public","",$_SERVER['DOCUMENT_ROOT']));
 if(session_status() == PHP_SESSION_NONE){session_start();}
 
