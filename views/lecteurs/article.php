@@ -23,7 +23,7 @@
                   onsubmit="return confirm('Signaler cet article ?')">
                 <input type="hidden" name="id_article" value="<?= $article['id_article'] ?>">
                 <button class="text-xs text-gray-400 hover:text-red-500 transition">
-                    ⚑ Signaler cet article
+                    <i class="fa-solid fa-flag"></i> Signaler cet article
                 </button>
             </form>
         </div>
