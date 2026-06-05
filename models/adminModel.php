@@ -45,6 +45,7 @@ function findDerniersArticles(): array {
     return executeSelect($sql, []);
 }
 
+
 function findAllAuteurs(): array {
     $sql = "SELECT u.*,
             (SELECT COUNT(*) FROM article WHERE id_utilisateur = u.id_utilisateur) as nb_articles
