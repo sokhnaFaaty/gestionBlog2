@@ -50,3 +50,41 @@ $banirAuteur = function () {
     toggleBanAuteur($id);
     redirectTo("admin", "listeAuteurs");
 };
+
+//admin
+$addAdmin = function () {
+    $errors = [];
+
+    if (isset($_POST["btn_ajouter_admin"])) {
+        $rules = [
+            "nom"      => "required|string",
+            "prenom"   => "required|string",
+            "email"    => "required|email|unique",
+            "password" => "required",
+        ];
+        $errors = validations($_POST, $rules, "emailAdminExiste");
+
+        if (validate($errors)) {
+            addAdmin($_POST);
+            redirectTo("admin", "listeAdmins");
+        }
+    }
+
+    loadView("admins/addAdmin", ["errors" => $errors], "side");
+};
+
+$listeAdmins = function () {
+    $admins = findAllAdmins();
+    loadView("admins/listeAdmins", ["admins" => $admins], "side");
+};
+
+$supprimerAdmin = function () {
+    $id         = (int)($_POST["id_utilisateur"] ?? 0);
+    //  Utilise id_utilisateur (plus id_auteur)
+    $idConnecte = (int)($_SESSION["user"]["id_utilisateur"] ?? 0);
+
+    if ($id && $id !== $idConnecte) {
+        deleteAdmin($id);
+    }
+    redirectTo("admin", "listeAdmins");
+};
