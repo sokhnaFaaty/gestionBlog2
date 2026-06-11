@@ -9,7 +9,8 @@
             </p>
         </div>
         <div>
-            <a href="#" class="inline-flex items-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition shadow-sm">
+            <a href="<?= path('admin', 'addAdmin') ?>"
+ class="inline-flex items-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition shadow-sm">
                 <i class="fas fa-plus"></i>
                 Ajouter un administrateur
             </a>

@@ -1,5 +1,5 @@
 <?php
-define("WEBROOT","http://localhost:8002/");
+define("WEBROOT","https://nexuuusdev.alwaysdata.net/");
 define("ROOT", str_replace("public","",$_SERVER['DOCUMENT_ROOT']));
 if(session_status() == PHP_SESSION_NONE){session_start();}
 
