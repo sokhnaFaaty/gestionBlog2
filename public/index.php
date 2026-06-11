@@ -1,7 +1,9 @@
-<?php
-define("WEBROOT","https://nexuuusdev.alwaysdata.net/");
-define("ROOT", str_replace("public","",$_SERVER['DOCUMENT_ROOT']));
+<?
 if(session_status() == PHP_SESSION_NONE){session_start();}
+
+define("WEBROOT","https://nexuuusdev.alwaysdata.net/");
+define("ROOT", dirname(__DIR__) . "/");
+// define("ROOT", str_replace("public","",$_SERVER['DOCUMENT_ROOT']));
 
 require_once ROOT."config/helpers.php";
 require_once ROOT."config/validators.php";
