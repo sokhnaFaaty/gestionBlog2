@@ -37,13 +37,19 @@ function updateStatutArticle(int $id, string $statut): void {
 }
 
 function findDerniersArticles(): array {
-    $sql = "SELECT a.titre, a.statut, a.date_publication, u.nom as utilisateur_nom
+    $sql = "SELECT 
+                a.titre, 
+                a.statut, 
+                a.date_publication, 
+                u.nom AS utilisateur_nom
             FROM article a
-            INNER JOIN utilisateur u ON a.id_utilisateur = u.id_utilisateur
+            INNER JOIN utilisateur u ON u.id_utilisateur = a.id_utilisateur
             ORDER BY a.date_publication DESC
             LIMIT 5";
+            
     return executeSelect($sql, []);
 }
+
 
 
 function findAllAuteurs(): array {

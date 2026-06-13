@@ -3,8 +3,9 @@
 function openConnexion() {
     $con = null;
     try {
-        $con = new PDO('pgsql:host=localhost;dbname=gestionBlog', 'postgres', 'ubuntu'
-        );
+        $dsn = "pgsql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME;
+        $con = new PDO($dsn, DB_USERNAME, DB_PASSWORD);
+        
         $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $con->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         return $con;
