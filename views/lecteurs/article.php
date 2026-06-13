@@ -19,13 +19,19 @@
         <!-- Signaler -->
         <?php if (isConnected()): ?>
         <div class="mt-6 pt-4 border-t border-gray-100">
-            <form method="POST" action="index.php?controller=lecteur&action=signalerArticle"
-                  onsubmit="return confirm('Signaler cet article ?')">
+            <form id="form-signaler-<?= $article['id_article'] ?>"
+                  method="POST"
+                  action="index.php?controller=lecteur&action=signalerArticle"
+                  class="hidden">
                 <input type="hidden" name="id_article" value="<?= $article['id_article'] ?>">
-                <button class="text-xs text-gray-400 hover:text-red-500 transition">
-                    ⚑ Signaler cet article
-                </button>
             </form>
+            <button type="button"
+                    onclick="confirmerAction(this)"
+                    data-form="form-signaler-<?= $article['id_article'] ?>"
+                    data-message="Signaler cet article ?"
+                    class="text-xs text-gray-400 hover:text-red-500 transition">
+                ⚑ Signaler cet article
+            </button>
         </div>
         <?php endif; ?>
     </div>
@@ -43,7 +49,7 @@
             <?php foreach ($commentaires as $c): ?>
                 <div class="border-l-4 border-indigo-100 pl-4">
                     <p class="text-sm font-medium text-gray-700">
-                        <?= htmlspecialchars($c['utilisa.0teur_nom']) ?>
+                        <?= htmlspecialchars($c['utilisateur_nom']) ?>
                         <span class="font-normal text-gray-400 ml-2">
                             <?= date('d/m/Y à H:i', strtotime($c['date_commentaire'])) ?>
                         </span>
