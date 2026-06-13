@@ -43,7 +43,7 @@
             <?php foreach ($commentaires as $c): ?>
                 <div class="border-l-4 border-indigo-100 pl-4">
                     <p class="text-sm font-medium text-gray-700">
-                        <?= htmlspecialchars($c['utilisa.0teur_nom']) ?>
+                        <?= htmlspecialchars($c['utilisateur_nom']) ?>
                         <span class="font-normal text-gray-400 ml-2">
                             <?= date('d/m/Y à H:i', strtotime($c['date_commentaire'])) ?>
                         </span>

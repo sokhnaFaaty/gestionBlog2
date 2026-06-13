@@ -31,7 +31,7 @@ $ajouterCommentaire = function () {
     $errors = validations($_POST, $rules);
 
     if (validate($errors)) {
-        addCommentaire($id, $_SESSION["user"]["id_auteur"], $_POST["contenu"]);
+        addCommentaire($id, $_SESSION["user"]["id_utilisateur"], $_POST["contenu"]);
         redirectTo("lecteur", "article&id=" . $id);
     }
 
@@ -48,7 +48,7 @@ $ajouterCommentaire = function () {
 $signalerArticle = function () {
     auth();
     $id = (int)($_POST["id_article"] ?? 0);
-    signalerArticle($id, $_SESSION["user"]["id_auteur"]);
+    signalerArticle($id, $_SESSION["user"]["id_utilisateur"]);
     redirectTo("lecteur", "article&id=" . $id);
 };
 
