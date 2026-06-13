@@ -1,5 +1,5 @@
 <?php
-require_once ROOT . "/models/auth Model.php";
+require_once ROOT . "/models/authModel.php";
 
 $logout = function () {
     session_unset();

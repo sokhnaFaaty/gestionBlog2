@@ -2,7 +2,7 @@
 require_once ROOT . "/models/auteurModel.php";
 auth();
 
-// ✅ Le rôle dans la base est 'auteur', pas 'utilisateur'
+//  Le rôle dans la base est 'auteur', pas 'utilisateur'
 if (!hasRole("auteur") && !hasRole("admin")) {
     redirectTo("auth", "login");
 }

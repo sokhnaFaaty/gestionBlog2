@@ -10,7 +10,23 @@
         <div class="space-y-4">
         <?php foreach ($articles as $article): ?>
             <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-6 hover:shadow-md transition">
-                <div class="flex items-start justify-between gap-4">
+                <!-- <div class="flex items-start justify-between gap-4"> -->
+                    <div class="flex flex-col sm:flex-row items-start gap-6">
+            
+            <?php if (!empty($article['image'])): ?>
+                <div class="w-full sm:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
+            <img src="/uploads/<?= htmlspecialchars($article['image']); ?>" 
+             alt="<?= htmlspecialchars($article['titre']); ?>" 
+             class="w-full h-full object-cover">
+
+                </div>
+            <?php else: ?>
+                <!-- Image par défaut si aucune image n'est enregistrée -->
+                <div class="w-full sm:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center border border-gray-200">
+                    <span class="text-gray-400 text-xs">Pas d'image</span>
+                </div>
+            <?php endif; ?>
+
                     <div class="flex-1">
                         <span class="inline-block px-2.5 py-0.5 rounded-full text-xs bg-blue-50 text-blue-700 border border-blue-100 mb-2">
                             <?= htmlspecialchars($article['categorie_nom']) ?>

@@ -1,8 +1,7 @@
 <?php
 require_once(ROOT . "/db/database.php");
 
-// ── ARTICLES ─────────────────────────────────────────────────────────────────
-
+// ── ARTICLES 
 function findAllArticlesAdmin(?string $statut = null): array {
     $where = $statut ? "WHERE a.statut = :statut" : "";
     $params = $statut ? ["statut" => $statut] : [];
@@ -19,6 +18,12 @@ function findAllArticlesAdmin(?string $statut = null): array {
 
     return executeSelect($sql, $params);
 }
+function countArticlesByStatut(string $statut): int {
+    $sql    = "SELECT COUNT(*) as total FROM article WHERE statut = :statut";
+    $result = executeSelect($sql, ["statut" => $statut], true);
+    return (int)$result["total"];
+}
+
 
 function countUtilisateursByRole(string $role): int {
     $sql    = "SELECT COUNT(*) as total FROM utilisateur WHERE role = :role";
@@ -32,13 +37,20 @@ function updateStatutArticle(int $id, string $statut): void {
 }
 
 function findDerniersArticles(): array {
-    $sql = "SELECT a.titre, a.statut, a.date_publication, u.nom as utilisateur_nom
+    $sql = "SELECT 
+                a.titre, 
+                a.statut, 
+                a.date_publication, 
+                u.nom AS utilisateur_nom
             FROM article a
-            INNER JOIN utilisateur u ON a.id_utilisateur = u.id_utilisateur
+            INNER JOIN utilisateur u ON u.id_utilisateur = a.id_utilisateur
             ORDER BY a.date_publication DESC
             LIMIT 5";
+            
     return executeSelect($sql, []);
 }
+
+
 
 function findAllAuteurs(): array {
     $sql = "SELECT u.*,
@@ -53,6 +65,7 @@ function toggleBanAuteur(int $id): void {
     $sql = "UPDATE utilisateur SET banni = NOT banni WHERE id_utilisateur = :id";
     executeUpdate($sql, ["id" => $id]);
 }
+
 function emailAdminExiste(string $email): bool {
     $sql    = "SELECT COUNT(*) as total FROM utilisateur WHERE email ILIKE :email";
     $result = executeSelect($sql, ["email" => $email], true);
@@ -83,7 +96,6 @@ function deleteAdmin(int $id): void {
 }
 
 //categorie
-
 function findAllCategories(): array {
     $sql = "SELECT c.id_categorie, c.libelle,
             (SELECT COUNT(*) FROM article_categorie ac WHERE ac.id_categorie = c.id_categorie) as nb_articles
@@ -121,4 +133,20 @@ function updateCategorie(int $id, string $libelle): void {
 function deleteCategorie(int $id): void {
     $sql = "DELETE FROM categorie WHERE id_categorie = :id";
     executeUpdate($sql, ["id" => $id]);
+}
+
+//commentaire
+
+function deleteCommentaire(int $id): void {
+    $sql = "DELETE FROM commentaire WHERE id_commentaire = :id";
+    executeUpdate($sql, ["id" => $id]);
+}
+
+function findCommentairesByArticle(int $id_article): array {
+    $sql = "SELECT c.*, u.nom as utilisateur_nom
+            FROM commentaire c
+            INNER JOIN utilisateur u ON c.id_utilisateur = u.id_utilisateur
+            WHERE c.id_article = :id
+            ORDER BY c.date_commentaire DESC";
+    return executeSelect($sql, ["id" => $id_article]);
 }
