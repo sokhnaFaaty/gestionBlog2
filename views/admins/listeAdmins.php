@@ -8,7 +8,7 @@
             </p>
         </div>
         <div>
-            <a href="<?= path('admin', 'addAdmin') ?>"
+                        <a href="<?= path('admin', 'addAdmin') ?>"
  class="inline-flex items-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition shadow-sm">
                 <i class="fas fa-plus"></i>
                 Ajouter un administrateur
@@ -58,9 +58,27 @@
                                 <!-- Actions -->
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex items-center justify-end gap-4 text-base">
-                                        <a href="#" class="text-gray-400 hover:text-red-600 transition" title="Supprimer">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </a>
+                                        <?php $estMoi = (int)$admin['id_utilisateur'] === (int)($_SESSION['user']['id_utilisateur'] ?? 0); ?>
+                                        <?php if ($estMoi): ?>
+                                            <span class="text-gray-300 cursor-not-allowed" title="Vous ne pouvez pas supprimer votre propre compte">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </span>
+                                        <?php else: ?>
+                                            <form id="form-supprimer-admin-<?= $admin['id_utilisateur'] ?>"
+                                                  method="POST"
+                                                  action="<?= path('admin', 'supprimerAdmin') ?>"
+                                                  class="hidden">
+                                                <input type="hidden" name="id_utilisateur" value="<?= $admin['id_utilisateur'] ?>">
+                                            </form>
+                                            <button type="button"
+                                                    onclick="confirmerAction(this)"
+                                                    data-form="form-supprimer-admin-<?= $admin['id_utilisateur'] ?>"
+                                                    data-message="Supprimer l'administrateur <?= htmlspecialchars($admin['prenom'] . ' ' . $admin['nom'], ENT_QUOTES) ?> ?"
+                                                    class="text-gray-400 hover:text-red-600 transition"
+                                                    title="Supprimer">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        <?php endif; ?>
                                     </div>
                                 </td>
                             </tr>

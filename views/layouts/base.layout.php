@@ -10,7 +10,30 @@
 
 </head>
 <body class="bg-gray-50 font-sans antialiased">
- 
+  <div id="modal-confirm"
+         class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"
+         role="dialog" aria-modal="true">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="fermerModal()"></div>
+        <div class="relative bg-white rounded-2xl shadow-xl w-full max-w-sm p-6 z-10">
+            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-red-50 border border-red-100 mx-auto mb-4">
+                <i class="fa-solid fa-triangle-exclamation text-red-500 text-xl"></i>
+            </div>
+            <h3 class="text-center text-lg font-bold text-gray-800 mb-2">Confirmation</h3>
+            <p id="modal-message" class="text-center text-sm text-gray-500 mb-6">
+                Êtes-vous sûr de vouloir effectuer cette action ?
+            </p>
+            <div class="flex gap-3">
+                <button onclick="fermerModal()"
+                        class="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
+                    Annuler
+                </button>
+                <button id="modal-btn-confirmer"
+                        class="flex-1 px-4 py-2.5 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition">
+                    Confirmer
+                </button>
+            </div>
+        </div>
+    </div>
   <!-- Navigation -->
   <nav class="bg-white shadow-sm border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
