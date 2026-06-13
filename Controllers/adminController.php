@@ -7,7 +7,7 @@ if (!hasRole("admin")) {
 $dashboard = function () {
     $stats = [
         "total_articles"      => countTable("article"),
-        //  Comptage précis par rôle
+        //Comptage précis par rôle
         "total_auteurs"       => countUtilisateursByRole("auteur"),
         "total_lecteurs"      => countUtilisateursByRole("lecteur"),
         "total_admins"        => countUtilisateursByRole("admin"),
@@ -90,7 +90,7 @@ $listeAdmins = function () {
 
 $supprimerAdmin = function () {
     $id         = (int)($_POST["id_utilisateur"] ?? 0);
-    //  Utilise id_utilisateur (plus id_auteur)
+
     $idConnecte = (int)($_SESSION["user"]["id_utilisateur"] ?? 0);
 
     if ($id && $id !== $idConnecte) {
