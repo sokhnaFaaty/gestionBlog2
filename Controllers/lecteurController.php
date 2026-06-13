@@ -2,6 +2,11 @@
 require_once ROOT . "/models/lecteurModel.php";
 //dd($_REQUEST);
 
+$home = function () {
+    $articles = findArticlesPublies();
+    loadView("lecteurs/home", ["articles" => $articles], "base");
+};
+
 $listeArticles = function () {
     $articles = findArticlesPublies();
     loadView("lecteurs/liste", ["articles" => $articles], "base");
@@ -53,6 +58,7 @@ $signalerArticle = function () {
 };
 
 $actions = [
+    "home"               => $home,
     "liste"              => $listeArticles,
     "index"              => $listeArticles,
     "article"            => $voirArticle,
@@ -60,7 +66,7 @@ $actions = [
     "signalerArticle"    => $signalerArticle,
 ];
 
-$action = $_REQUEST["action"] ?? "liste";
+$action = $_REQUEST["action"] ?? "home";
 if (array_key_exists($action, $actions)) {
     $actions[$action]();
 } else {

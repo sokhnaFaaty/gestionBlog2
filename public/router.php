@@ -1,0 +1,9 @@
+<?php
+// Serveur PHP intégré : sert les fichiers statiques tels quels, redirige le reste vers index.php
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+if ($uri !== '/' && file_exists(__DIR__ . $uri)) {
+    return false;
+}
+
+require_once __DIR__ . '/index.php';
