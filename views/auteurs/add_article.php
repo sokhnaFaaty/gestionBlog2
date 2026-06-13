@@ -23,6 +23,7 @@
       <div>
         <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Photo de couverture</label>
         <input type="file" name="image" id="image" accept="image/*"
+                           value="<?= htmlspecialchars($_POST['image'] ?? '') ?>"
                class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 border border-gray-300 rounded-lg p-1.5 focus:ring-2 focus:ring-indigo-500 outline-none transition">
         <span class="text-red-800 text-xs"> <?=$errors["image"] ?? "" ?></span>
       </div>

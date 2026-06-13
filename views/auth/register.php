@@ -1,7 +1,8 @@
 <div class="bg-white rounded-2xl shadow-xl border border-gray-200 w-full max-w-md p-8">
     <!-- Titre -->
-    <div class="text-center mb-6">
-      <div class="text-4xl mb-2">✍️</div>
+    <div class="text-center mb-6 text-blue-600">
+      <div class="text-4xl mb-2"> <i class="fa-solid fa-pen-to-square"></i>
+</div>
       <h1 class="text-2xl font-bold text-gray-900">INSCRIPTION</h1>
       <p class="text-sm text-gray-500 mt-1">Créez votre compte pour rejoindre le blog</p>
     </div>

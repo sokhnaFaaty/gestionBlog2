@@ -7,7 +7,7 @@ if (!hasRole("admin")) {
 $dashboard = function () {
     $stats = [
         "total_articles"      => countTable("article"),
-        //  Comptage précis par rôle
+        //Comptage précis par rôle
         "total_auteurs"       => countUtilisateursByRole("auteur"),
         "total_lecteurs"      => countUtilisateursByRole("lecteur"),
         "total_admins"        => countUtilisateursByRole("admin"),
