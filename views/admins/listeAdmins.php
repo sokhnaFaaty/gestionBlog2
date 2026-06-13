@@ -1,11 +1,10 @@
 <div class="max-w-6xl mx-auto my-8 px-4">
-
     <!-- En-tête avec bouton d'ajout -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 pb-4 border-b border-gray-200 gap-4">
         <div>
             <h2 class="text-2xl font-bold text-gray-800">Liste des Administrateurs</h2>
             <p class="text-sm text-gray-500 mt-1">
-                Gestion des utilisateurs possédant un accès complet à la plateforme.
+            Gestion des utilisateurs possédant un accès complet à la plateforme.
             </p>
         </div>
         <div>
@@ -59,9 +58,6 @@
                                 <!-- Actions -->
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex items-center justify-end gap-4 text-base">
-                                        <a href="#" class="text-gray-400 hover:text-indigo-600 transition" title="Modifier">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
                                         <a href="#" class="text-gray-400 hover:text-red-600 transition" title="Supprimer">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
