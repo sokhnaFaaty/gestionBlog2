@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8b7e243d532803bdc9bea85c6484706004f473b9
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,6 +10,7 @@
   <title>Gestion Blog</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+<<<<<<< HEAD
 </head>
 <body class="bg-gray-50 font-sans antialiased">
 
@@ -38,11 +43,21 @@
       </div>
   </div>
 
+=======
+
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+ 
+>>>>>>> 8b7e243d532803bdc9bea85c6484706004f473b9
   <!-- Navigation -->
   <nav class="bg-white shadow-sm border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 8b7e243d532803bdc9bea85c6484706004f473b9
         <!-- Logo + liens -->
         <div class="flex items-center space-x-8">
           <a href="<?= path('admin', 'dashboard') ?>" class="text-xl font-bold text-indigo-600">📖 GES-BLOG</a>
@@ -63,7 +78,11 @@
             <?php endif; ?>
           </div>
         </div>
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 8b7e243d532803bdc9bea85c6484706004f473b9
         <!-- Utilisateur connecté + déconnexion -->
         <div class="flex items-center space-x-4">
           <?php if (isConnected()): ?>
@@ -76,6 +95,7 @@
             </a>
           <?php endif; ?>
         </div>
+<<<<<<< HEAD
 
       </div>
     </div>
@@ -108,3 +128,14 @@ document.addEventListener('keydown', function (e) {
 </script>
 </body>
 </html>
+=======
+ 
+      </div>
+    </div>
+  </nav>
+ 
+  <!-- Contenu principal -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <?= $content ?>
+  </main>
+>>>>>>> 8b7e243d532803bdc9bea85c6484706004f473b9
