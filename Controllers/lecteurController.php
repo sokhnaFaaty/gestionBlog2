@@ -49,7 +49,7 @@ $signalerArticle = function () {
     auth();
     $id = (int)($_POST["id_article"] ?? 0);
     signalerArticle($id, $_SESSION["user"]["id_utilisateur"]);
-    redirectTo("lecteur", "article&id=" . $id);
+    redirectTo("lecteur", "article", ["id" => $id]);
 };
 
 $actions = [

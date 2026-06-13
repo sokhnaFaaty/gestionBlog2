@@ -6,7 +6,7 @@
             <p class="text-sm text-gray-500 mt-1">Retrouvez la liste et le statut de vos publications.</p>
         </div>
         <div class="mt-4 md:mt-0">
-            <a href="<?=path("admins","ajout")?>"
+            <a href="<?=path("auteur","add")?>"
                 class="inline-flex items-center px-4 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition shadow-sm">
                 <span class="mr-2 text-base">+</span> Écrire un article
             </a>

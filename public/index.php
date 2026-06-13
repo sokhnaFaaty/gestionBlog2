@@ -38,4 +38,4 @@ require_once ROOT."env.dev.php";
 }
 // require_once ROOT."view/partials/header.php";
 
-require_once("../routes/web/router.php");
+require_once(ROOT . "routes/web/router.php");
