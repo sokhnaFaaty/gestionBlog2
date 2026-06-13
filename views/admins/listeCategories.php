@@ -68,13 +68,19 @@
                                     </a>
                                     <!-- Supprimer — désactivé si la catégorie a des articles -->
                                     <?php if ((int)$cat['nb_articles'] === 0): ?>
-                                    <form method="POST" action="index.php?controller=admin&action=supprimerCategorie"
-                                          onsubmit="return confirm('Supprimer la catégorie « <?= htmlspecialchars($cat['libelle']) ?> » ?')">
+                                    <form id="form-supprimer-cat-<?= $cat['id_categorie'] ?>"
+                                          method="POST"
+                                          action="index.php?controller=admin&action=supprimerCategorie"
+                                          class="hidden">
                                         <input type="hidden" name="id_categorie" value="<?= $cat['id_categorie'] ?>">
-                                        <button class="px-3 py-1.5 text-xs font-medium rounded-lg border bg-red-50 text-red-700 border-red-200 hover:bg-red-100 transition">
-                                            Supprimer
-                                        </button>
                                     </form>
+                                    <button type="button"
+                                            onclick="confirmerAction(this)"
+                                            data-form="form-supprimer-cat-<?= $cat['id_categorie'] ?>"
+                                            data-message="Supprimer la catégorie « <?= htmlspecialchars($cat['libelle'], ENT_QUOTES) ?> » ?"
+                                            class="px-3 py-1.5 text-xs font-medium rounded-lg border bg-red-50 text-red-700 border-red-200 hover:bg-red-100 transition">
+                                        Supprimer
+                                    </button>
                                     <?php else: ?>
                                     <span class="px-3 py-1.5 text-xs font-medium rounded-lg border bg-gray-50 text-gray-400 border-gray-200 cursor-not-allowed"
                                           title="Impossible de supprimer une catégorie utilisée par des articles">

@@ -67,14 +67,20 @@
         <i class="fas fa-trash-alt"></i>
     </span>
 <?php else: ?>
-    <form method="POST"
+    <form id="form-supprimer-admin-<?= $admin['id_utilisateur'] ?>"
+          method="POST"
           action="<?= path('admin', 'supprimerAdmin') ?>"
-          onsubmit="return confirm('Supprimer <?= htmlspecialchars($admin['prenom'] . ' ' . $admin['nom']) ?> ?')">
+          class="hidden">
         <input type="hidden" name="id_utilisateur" value="<?= $admin['id_utilisateur'] ?>">
-        <button type="submit" class="text-gray-400 hover:text-red-600 transition" title="Supprimer">
-            <i class="fas fa-trash-alt"></i>
-        </button>
     </form>
+    <button type="button"
+            onclick="confirmerAction(this)"
+            data-form="form-supprimer-admin-<?= $admin['id_utilisateur'] ?>"
+            data-message="Supprimer l'administrateur <?= htmlspecialchars($admin['prenom'] . ' ' . $admin['nom'], ENT_QUOTES) ?> ?"
+            class="text-gray-400 hover:text-red-600 transition"
+            title="Supprimer">
+        <i class="fas fa-trash-alt"></i>
+    </button>
 <?php endif; ?>
                                     </div>
                                 </td>
