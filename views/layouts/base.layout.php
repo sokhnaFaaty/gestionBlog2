@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,7 +6,6 @@
   <title>Gestion Blog</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-
 </head>
 <body class="bg-gray-50 font-sans antialiased">
   <div id="modal-confirm"
@@ -38,7 +36,7 @@
   <nav class="bg-white shadow-sm border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
- 
+
         <!-- Logo + liens -->
         <div class="flex items-center space-x-8">
           <a href="<?= path('admin', 'dashboard') ?>" class="text-xl font-bold text-indigo-600">📖 GES-BLOG</a>
@@ -59,7 +57,7 @@
             <?php endif; ?>
           </div>
         </div>
- 
+
         <!-- Utilisateur connecté + déconnexion -->
         <div class="flex items-center space-x-4">
           <?php if (isConnected()): ?>
@@ -72,12 +70,35 @@
             </a>
           <?php endif; ?>
         </div>
- 
+
       </div>
     </div>
   </nav>
- 
+
   <!-- Contenu principal -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <?= $content ?>
   </main>
+
+<script>
+function confirmerAction(btn) {
+    var formId  = btn.dataset.form;
+    var message = btn.dataset.message || 'Êtes-vous sûr de vouloir effectuer cette action ?';
+    document.getElementById('modal-message').textContent = message;
+    document.getElementById('modal-btn-confirmer').onclick = function () {
+        document.getElementById(formId).submit();
+    };
+    document.getElementById('modal-confirm').classList.remove('hidden');
+}
+
+function fermerModal() {
+    document.getElementById('modal-confirm').classList.add('hidden');
+    document.getElementById('modal-btn-confirmer').onclick = null;
+}
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') fermerModal();
+});
+</script>
+</body>
+</html>

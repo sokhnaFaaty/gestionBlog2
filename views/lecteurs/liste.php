@@ -32,7 +32,7 @@
                             <?= htmlspecialchars($article['categorie_nom']) ?>
                         </span>
                         <h3 class="text-lg font-semibold text-gray-900">
-                            <a href="index.php?controller=lecteur&action=article&id=<?= $article['id_article'] ?>"
+                            <a href="<?= path('lecteur', 'article', ['id' => $article['id_article']]) ?>"
                                class="hover:text-indigo-600 transition">
                                 <?= htmlspecialchars($article['titre']) ?>
                             </a>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="mt-4">
-                    <a href="index.php?controller=lecteur&action=article&id=<?= $article['id_article'] ?>"
+                    <a href="<?= path('lecteur', 'article', ['id' => $article['id_article']]) ?>"
                        class="text-sm font-medium text-indigo-600 hover:text-indigo-800 transition">
                         Lire la suite →
                     </a>

@@ -7,7 +7,7 @@
         </p>
     </div>
 
-    <form action="index.php?controller=auteur&action=edit" method="POST" enctype="multipart/form-data" class="space-y-6" class="space-y-6 ">
+    <form action="<?= path('auteur', 'edit') ?>" method="POST" enctype="multipart/form-data" class="space-y-6" class="space-y-6 ">
         <input type="hidden" name="id_article" value="<?= $article['id_article'] ?>">
 
         <!-- Titre -->
@@ -62,16 +62,17 @@
         <!-- Barre d'actions -->
         <div class="flex items-center justify-between pt-4 border-t border-gray-100">
 
-            <!-- Bouton Supprimer — soumet form-delete via l'attribut form= -->
-            <button type="submit"
-                    form="form-delete"
-                    onclick="return confirm('Supprimer définitivement cet article ?')"
+            <!-- Bouton Supprimer — ouvre le modal, puis soumet form-delete -->
+            <button type="button"
+                    onclick="confirmerAction(this)"
+                    data-form="form-delete"
+                    data-message="Supprimer définitivement cet article ?"
                     class="px-4 py-2.5 bg-red-50 text-red-700 border border-red-200 text-sm font-medium rounded-lg hover:bg-red-100 transition">
                 Supprimer
             </button>
 
             <div class="flex gap-3">
-                <a href="index.php?controller=auteur&action=liste"
+                <a href="<?= path('auteur', 'liste') ?>"
                    class="px-4 py-2.5 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
                     Annuler
                 </a>
@@ -86,7 +87,7 @@
     <!-- Formulaire de suppression  -->
     <form id="form-delete"
           method="POST"
-          action="index.php?controller=auteur&action=delete">
+          action="<?= path('auteur', 'delete') ?>">
         <input type="hidden" name="id_article" value="<?= $article['id_article'] ?>">
     </form>
 </div>

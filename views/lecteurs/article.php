@@ -19,13 +19,19 @@
         <!-- Signaler -->
         <?php if (isConnected()): ?>
         <div class="mt-6 pt-4 border-t border-gray-100">
-            <form method="POST" action="index.php?controller=lecteur&action=signalerArticle"
-                  onsubmit="return confirm('Signaler cet article ?')">
+            <form id="form-signaler-<?= $article['id_article'] ?>"
+                  method="POST"
+                  action="<?= path('lecteur', 'signalerArticle') ?>"
+                  class="hidden">
                 <input type="hidden" name="id_article" value="<?= $article['id_article'] ?>">
-                <button class="text-xs text-gray-400 hover:text-red-500 transition">
-                    <i class="fa-solid fa-flag"></i> Signaler cet article
-                </button>
             </form>
+            <button type="button"
+                    onclick="confirmerAction(this)"
+                    data-form="form-signaler-<?= $article['id_article'] ?>"
+                    data-message="Signaler cet article ?"
+                    class="text-xs text-gray-400 hover:text-red-500 transition">
+                <i class="fa-solid fa-flag"></i> Signaler cet article
+            </button>
         </div>
         <?php endif; ?>
     </div>
@@ -60,7 +66,7 @@
     <?php if (isConnected()): ?>
     <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
         <h2 class="text-lg font-semibold text-gray-800 mb-4">Laisser un commentaire</h2>
-        <form method="POST" action="index.php?controller=lecteur&action=ajouterCommentaire" class="space-y-4">
+        <form method="POST" action="<?= path('lecteur', 'ajouterCommentaire') ?>" class="space-y-4">
             <input type="hidden" name="id_article" value="<?= $article['id_article'] ?>">
             <div>
                 <textarea name="contenu" rows="4" placeholder="Votre commentaire..."
