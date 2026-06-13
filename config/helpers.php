@@ -15,12 +15,20 @@ function loadView(string $view, array $datas = [], string $layout = "base") {
     require_once ROOT . "/views/layouts/$layout.layout.php";
 }
 
-function path(string $controller, string $action): string {
-    return WEBROOT . "?controller=$controller&action=$action";
+function path(string $controller, string $action, array $params = []): string {
+    $url = WEBROOT . "$controller/$action";
+    if ($params) {
+        $url .= '?' . http_build_query($params);
+    }
+    return $url;
 }
 
-function redirectTo(string $controller, string $action): void {
-    header('Location:' . WEBROOT . "?controller=$controller&action=$action");
+function redirectTo(string $controller, string $action, array $params = []): void {
+    $url = WEBROOT . "$controller/$action";
+    if ($params) {
+        $url .= '?' . http_build_query($params);
+    }
+    header('Location:' . $url);
     exit();
 }
 

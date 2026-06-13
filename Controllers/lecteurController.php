@@ -32,7 +32,7 @@ $ajouterCommentaire = function () {
 
     if (validate($errors)) {
         addCommentaire($id, $_SESSION["user"]["id_utilisateur"], $_POST["contenu"]);
-        redirectTo("lecteur", "article&id=" . $id);
+        redirectTo("lecteur", "article", ["id" => $id]);
     }
 
     $article      = findArticleById($id);

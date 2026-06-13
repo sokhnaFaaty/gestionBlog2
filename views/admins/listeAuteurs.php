@@ -36,7 +36,7 @@
                 <td class="px-5 py-4 text-right">
                     <form id="form-banir-<?= $auteur['id_utilisateur'] ?>"
                           method="POST"
-                          action="index.php?controller=admin&action=banirAuteur"
+                          action="<?= path('admin', 'banirAuteur') ?>"
                           class="hidden">
                         <input type="hidden" name="id_utilisateur" value="<?= $auteur['id_utilisateur'] ?>">
                     </form>
