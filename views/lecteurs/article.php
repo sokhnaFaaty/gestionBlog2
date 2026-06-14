@@ -85,10 +85,17 @@
     </div>
     <?php else: ?>
     <div class="bg-gray-50 rounded-xl border border-gray-200 p-6 text-center">
-        <p class="text-sm text-gray-500">
-            <a href="<?= path('auth', 'login') ?>" class="text-indigo-600 font-medium hover:underline">Connectez-vous</a>
-            pour laisser un commentaire.
-        </p>
+        <p class="text-sm text-gray-500 mb-3">Vous devez avoir un compte pour commenter ou signaler un article.</p>
+        <div class="flex justify-center gap-3">
+            <a href="<?= path('auth', 'register') ?>"
+               class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition">
+                S'inscrire
+            </a>
+            <a href="<?= path('auth', 'login') ?>"
+               class="px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-100 transition">
+                Se connecter
+            </a>
+        </div>
     </div>
     <?php endif; ?>
 

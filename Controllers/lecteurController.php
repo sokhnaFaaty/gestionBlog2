@@ -2,6 +2,11 @@
 require_once ROOT . "/models/lecteurModel.php";
 //dd($_REQUEST);
 
+$home = function () {
+    $articles = findArticlesPublies();
+    loadView("lecteurs/home", ["articles" => $articles], "base");
+};
+
 $listeArticles = function () {
     $articles = findArticlesPublies();
     loadView("lecteurs/liste", ["articles" => $articles], "base");
@@ -32,7 +37,7 @@ $ajouterCommentaire = function () {
 
     if (validate($errors)) {
         addCommentaire($id, $_SESSION["user"]["id_utilisateur"], $_POST["contenu"]);
-        redirectTo("lecteur", "article&id=" . $id);
+        redirectTo("lecteur", "article", ["id" => $id]);
     }
 
     $article      = findArticleById($id);
@@ -49,10 +54,11 @@ $signalerArticle = function () {
     auth();
     $id = (int)($_POST["id_article"] ?? 0);
     signalerArticle($id, $_SESSION["user"]["id_utilisateur"]);
-    redirectTo("lecteur", "article&id=" . $id);
+    redirectTo("lecteur", "article", ["id" => $id]);
 };
 
 $actions = [
+    "home"               => $home,
     "liste"              => $listeArticles,
     "index"              => $listeArticles,
     "article"            => $voirArticle,
@@ -60,7 +66,7 @@ $actions = [
     "signalerArticle"    => $signalerArticle,
 ];
 
-$action = $_REQUEST["action"] ?? "liste";
+$action = $_REQUEST["action"] ?? "home";
 if (array_key_exists($action, $actions)) {
     $actions[$action]();
 } else {
