@@ -90,6 +90,6 @@
 
     <!-- Lien vers connexion -->
     <p class="mt-6 text-center text-sm text-gray-500">
-      Déjà inscrit ? <a href="<?= WEBROOT ?>?controller=auth&action=login" class="text-indigo-600 hover:underline">Se connecter</a>
+      Déjà inscrit ? <a href="<?= path('auth', 'login') ?>" class="text-indigo-600 hover:underline">Se connecter</a>
     </p>
 </div>

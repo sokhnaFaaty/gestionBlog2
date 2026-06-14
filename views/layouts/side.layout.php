@@ -193,7 +193,7 @@
 
     <!-- Contenu principal -->
     <main class='flex-1 overflow-y-auto p-8'>
-        <?= $content ?>
+        <?php /** @var string $content */ echo $content; ?>
     </main>
 
 

@@ -43,6 +43,6 @@
       Démo : admin@gesBlog.fr / password
     </p>
     <p class="mt-6 text-center text-sm text-gray-500">
-  Pas encore de compte ? <a href="<?= WEBROOT ?>?controller=auth&action=register" class="text-indigo-600 hover:underline">S'inscrire</a>
+  Pas encore de compte ? <a href="<?= path('auth', 'register') ?>" class="text-indigo-600 hover:underline">S'inscrire</a>
 </p>
   </div>
