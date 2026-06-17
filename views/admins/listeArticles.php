@@ -11,7 +11,7 @@
             foreach ($statuts as $val => $label):
                 $active = ($statut_filtre ?? "") === $val;
             ?>
-            <a href="index.php?controller=admin&action=listeArticles<?= $val ? '&statut='.urlencode($val) : '' ?>"
+            <a href="<?= $val ? path('admin', 'listeArticles', ['statut' => $val]) : path('admin', 'listeArticles') ?>"
                class="px-3 py-1.5 rounded-lg text-sm font-medium border transition
                <?= $active ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50' ?>">
                 <?= $label ?>
@@ -78,7 +78,7 @@
                         <div class="flex gap-2 justify-end flex-wrap">
                             <!-- Publier -->
                             <?php if ($art['statut'] !== 'Publie'): ?>
-                            <form method="POST" action="index.php?controller=admin&action=changerStatut">
+                            <form method="POST" action="<?= path('admin', 'changerStatut') ?>">
                                 <input type="hidden" name="id_article" value="<?= $art['id_article'] ?>">
                                 <input type="hidden" name="statut" value="Publie">
                                 <button class="px-3 py-1.5 bg-green-600 text-white text-xs rounded-lg hover:bg-green-700 transition">Publier</button>
@@ -86,7 +86,7 @@
                             <?php endif; ?>
                             <!-- Rejeter -->
                             <?php if ($art['statut'] !== 'Rejete'): ?>
-                            <form method="POST" action="index.php?controller=admin&action=changerStatut">
+                            <form method="POST" action="<?= path('admin', 'changerStatut') ?>">
                                 <input type="hidden" name="id_article" value="<?= $art['id_article'] ?>">
                                 <input type="hidden" name="statut" value="Rejete">
                                 <button class="px-3 py-1.5 bg-red-500 text-white text-xs rounded-lg hover:bg-red-600 transition">Rejeter</button>
@@ -94,12 +94,17 @@
                             <?php endif; ?>
                             <!-- Bannir si signalements >= 5 -->
                             <?php if ((int)$art['nb_signalements'] >= 5 && $art['statut'] !== 'Rejete'): ?>
-                            <form method="POST" action="index.php?controller=admin&action=banirArticle"
-                                  onsubmit="return confirm('Bannir cet article signalé ?')">
+                            <form id="form-banir-art-<?= $art['id_article'] ?>"
+                                  method="POST" action="<?= path('admin', 'banirArticle') ?>" class="hidden">
                                 <input type="hidden" name="id_article" value="<?= $art['id_article'] ?>">
-                                <button class="px-3 py-1.5 bg-orange-600 text-white text-xs rounded-lg hover:bg-orange-700 transition">
+                            </form>
+                            <button type="button"
+                                    onclick="confirmerAction(this)"
+                                    data-form="form-banir-art-<?= $art['id_article'] ?>"
+                                    data-message="Bannir cet article signalé ?"
+                                    class="px-3 py-1.5 bg-orange-600 text-white text-xs rounded-lg hover:bg-orange-700 transition">
                                     Bannir
-                                </button>
+                            </button>
                             </form>
                             <?php endif; ?>
                         </div>

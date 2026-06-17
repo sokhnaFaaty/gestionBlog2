@@ -7,10 +7,10 @@ $controllers=[
 
 ];
 
- $controller=$_REQUEST["controller"]??"auth";
+ $controller=$_REQUEST["controller"]??"lecteur";
  
  if (array_key_exists($controller, $controllers)) {
-     $path=ROOT."controllers/".$controllers[$controller]."Controller.php";
+     $path=ROOT."Controllers/".$controllers[$controller]."Controller.php";
      }
      else{
          echo "controller introuvable";

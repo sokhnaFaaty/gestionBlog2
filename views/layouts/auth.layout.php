@@ -9,7 +9,7 @@
 </head>
 <body class="bg-gradient-to-br from-indigo-100 to-blue-50 font-sans antialiased min-h-screen flex items-center justify-center p-4">
 
-   <?= $content ?>
+   <?php /** @var string $content */ echo $content; ?>
 
 
 </body>

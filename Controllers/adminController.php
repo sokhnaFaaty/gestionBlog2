@@ -158,22 +158,35 @@ $supprimerCategorie = function () {
     redirectTo("admin", "listeCategorie");
 };
 
+$signalementsCommentaires = function () {
+    $signalements = findSignalementsCommentaires();
+    loadView("admins/signalementsCommentaires", ["signalements" => $signalements], "side");
+};
+
+$supprimerCommentaireSignale = function () {
+    $id = (int)($_POST["id_commentaire"] ?? 0);
+    if ($id) deleteCommentaire($id);
+    redirectTo("admin", "signalementsCommentaires");
+};
+
 //routing
 $actions = [
-    "index"                => $dashboard,
-    "dashboard"            => $dashboard,
-    "listeArticles"        => $listeArticles,
-    "changerStatut"        => $changerStatut,
-    "listeAuteurs"         => $listeAuteurs,
-    "banirAuteur"          => $banirAuteur,
-    "banirArticle"         => $banirArticle,
-    "supprimerCommentaire" => $supprimerCommentaire,
-    "listeCategories"      => $listeCategories,
-    "editCategorie"        => $editCategorie,
-    "supprimerCategorie"   => $supprimerCategorie,
-    "addAdmin"             => $addAdmin,
-    "listeAdmins"          => $listeAdmins,
-    "supprimerAdmin"       => $supprimerAdmin,
+    "index"                       => $dashboard,
+    "dashboard"                   => $dashboard,
+    "listeArticles"               => $listeArticles,
+    "changerStatut"               => $changerStatut,
+    "listeAuteurs"                => $listeAuteurs,
+    "banirAuteur"                 => $banirAuteur,
+    "banirArticle"                => $banirArticle,
+    "supprimerCommentaire"        => $supprimerCommentaire,
+    "listeCategories"             => $listeCategories,
+    "editCategorie"               => $editCategorie,
+    "supprimerCategorie"          => $supprimerCategorie,
+    "addAdmin"                    => $addAdmin,
+    "listeAdmins"                 => $listeAdmins,
+    "supprimerAdmin"              => $supprimerAdmin,
+    "signalementsCommentaires"    => $signalementsCommentaires,
+    "supprimerCommentaireSignale" => $supprimerCommentaireSignale,
 ];
 
 $action = $_REQUEST["action"] ?? "dashboard";

@@ -1,11 +1,10 @@
 <div class="max-w-6xl mx-auto my-8 px-4">
-
     <!-- En-tête avec bouton d'ajout -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 pb-4 border-b border-gray-200 gap-4">
         <div>
             <h2 class="text-2xl font-bold text-gray-800">Liste des Administrateurs</h2>
             <p class="text-sm text-gray-500 mt-1">
-                Gestion des utilisateurs possédant un accès complet à la plateforme.
+            Gestion des utilisateurs possédant un accès complet à la plateforme.
             </p>
         </div>
         <div>
@@ -59,23 +58,27 @@
                                 <!-- Actions -->
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex items-center justify-end gap-4 text-base">
-                                        
-
-<?php $estMoi = (int)$admin['id_utilisateur'] === (int)($_SESSION['user']['id_utilisateur'] ?? 0); ?>
-<?php if ($estMoi): ?>
-    <span class="text-gray-300 cursor-not-allowed" title="Vous ne pouvez pas supprimer votre propre compte">
-        <i class="fas fa-trash-alt"></i>
-    </span>
-<?php else: ?>
-    <form method="POST"
-          action="<?= path('admin', 'supprimerAdmin') ?>"
-          onsubmit="return confirm('Supprimer <?= htmlspecialchars($admin['prenom'] . ' ' . $admin['nom']) ?> ?')">
-        <input type="hidden" name="id_utilisateur" value="<?= $admin['id_utilisateur'] ?>">
-        <button type="submit" class="text-gray-400 hover:text-red-600 transition" title="Supprimer">
-            <i class="fas fa-trash-alt"></i>
-        </button>
-    </form>
-<?php endif; ?>
+                                        <?php $estMoi = (int)$admin['id_utilisateur'] === (int)($_SESSION['user']['id_utilisateur'] ?? 0); ?>
+                                        <?php if ($estMoi): ?>
+                                            <span class="text-gray-300 cursor-not-allowed" title="Vous ne pouvez pas supprimer votre propre compte">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </span>
+                                        <?php else: ?>
+                                            <form id="form-supprimer-admin-<?= $admin['id_utilisateur'] ?>"
+                                                  method="POST"
+                                                  action="<?= path('admin', 'supprimerAdmin') ?>"
+                                                  class="hidden">
+                                                <input type="hidden" name="id_utilisateur" value="<?= $admin['id_utilisateur'] ?>">
+                                            </form>
+                                            <button type="button"
+                                                    onclick="confirmerAction(this)"
+                                                    data-form="form-supprimer-admin-<?= $admin['id_utilisateur'] ?>"
+                                                    data-message="Supprimer l'administrateur <?= htmlspecialchars($admin['prenom'] . ' ' . $admin['nom'], ENT_QUOTES) ?> ?"
+                                                    class="text-gray-400 hover:text-red-600 transition"
+                                                    title="Supprimer">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        <?php endif; ?>
                                     </div>
                                 </td>
                             </tr>

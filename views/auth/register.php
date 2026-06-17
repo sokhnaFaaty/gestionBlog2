@@ -1,6 +1,6 @@
 <div class="bg-white rounded-2xl shadow-xl border border-gray-200 w-full max-w-md p-8">
     <!-- Titre -->
-    <div class="text-center mb-6 text-blue-600">
+    <div class="text-center mb-6 text-[#1A237E]">
       <div class="text-4xl mb-2"> <i class="fa-solid fa-pen-to-square"></i>
 </div>
       <h1 class="text-2xl font-bold text-gray-900">INSCRIPTION</h1>
@@ -63,16 +63,16 @@
         <div class="grid grid-cols-2 gap-4">
           <label class="flex items-center justify-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition">
             <input type="radio" name="role" value="lecteur" class="sr-only peer" <?= (isset($_POST['role']) && $_POST['role'] === 'lecteur') ? 'checked' : (!isset($_POST['role']) ? 'checked' : '') ?>>
-            <div class="text-center peer-checked:text-indigo-600 font-medium text-sm">
-<span class="block text-xl text-blue-600">
+            <div class="text-center peer-checked:text-[#1A237E] font-medium text-sm">
+<span class="block text-xl text-[#1A237E]">
     <i class="fa-solid fa-eye"></i>
 </span>Lecteur
             </div>
           </label>
           <label class="flex items-center justify-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition">
             <input type="radio" name="role" value="auteur" class="sr-only peer" <?= (isset($_POST['role']) && $_POST['role'] === 'auteur') ? 'checked' : '' ?>>
-            <div class="text-center peer-checked:text-indigo-600 font-medium text-sm">
-              <span class="block text-xl text-blue-600">
+            <div class="text-center peer-checked:text-[#1A237E] font-medium text-sm">
+              <span class="block text-xl text-[#1A237E]">
     <i class="fa-solid fa-pen-to-square"></i>
 </span>Auteur
             </div>
@@ -83,13 +83,13 @@
 
       <!-- Bouton -->
       <button type="submit" name="register_btn"
-              class="w-full py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition shadow-sm mt-2">
+              class="w-full py-2.5 bg-[#1A237E] text-white text-sm font-medium rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition shadow-sm mt-2">
         S'inscrire
       </button>
     </form>
 
     <!-- Lien vers connexion -->
     <p class="mt-6 text-center text-sm text-gray-500">
-      Déjà inscrit ? <a href="<?= WEBROOT ?>?controller=auth&action=login" class="text-indigo-600 hover:underline">Se connecter</a>
+      Déjà inscrit ? <a href="<?= path('auth', 'login') ?>" class="text-indigo-600 hover:underline">Se connecter</a>
     </p>
 </div>
