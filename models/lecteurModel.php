@@ -42,6 +42,24 @@ function addCommentaire(int $id_article, int $id_utilisateur, string $contenu): 
     ]);
 }
 
+function signalerCommentaire(int $id_commentaire, int $id_utilisateur): void {
+    $check = "SELECT COUNT(*) as total FROM signalement_commentaire
+              WHERE id_commentaire = :id_commentaire AND id_utilisateur = :id_utilisateur";
+    $res = executeSelect($check, [
+        "id_commentaire" => $id_commentaire,
+        "id_utilisateur" => $id_utilisateur,
+    ], true);
+
+    if ((int)$res["total"] === 0) {
+        $sql = "INSERT INTO signalement_commentaire (id_commentaire, id_utilisateur)
+                VALUES (:id_commentaire, :id_utilisateur)";
+        executeUpdate($sql, [
+            "id_commentaire" => $id_commentaire,
+            "id_utilisateur" => $id_utilisateur,
+        ]);
+    }
+}
+
 function signalerArticle(int $id_article, int $id_utilisateur): void {
     $check = "SELECT COUNT(*) as total FROM signalement
               WHERE id_article = :id_article AND id_utilisateur = :id_utilisateur";
