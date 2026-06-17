@@ -1,6 +1,10 @@
 <?php
 require_once ROOT . "/models/lecteurModel.php";
-//dd($_REQUEST);
+
+$home = function () {
+    $articles = findArticlesPublies();
+    loadView("lecteurs/home", ["articles" => $articles], "base");
+};
 
 $listeArticles = function () {
     $articles = findArticlesPublies();
@@ -31,8 +35,8 @@ $ajouterCommentaire = function () {
     $errors = validations($_POST, $rules);
 
     if (validate($errors)) {
-        addCommentaire($id, $_SESSION["user"]["id_auteur"], $_POST["contenu"]);
-        redirectTo("lecteur", "article&id=" . $id);
+        addCommentaire($id, $_SESSION["user"]["id_utilisateur"], $_POST["contenu"]);
+        redirectTo("lecteur", "article", ["id" => $id]);
     }
 
     $article      = findArticleById($id);
@@ -48,19 +52,29 @@ $ajouterCommentaire = function () {
 $signalerArticle = function () {
     auth();
     $id = (int)($_POST["id_article"] ?? 0);
-    signalerArticle($id, $_SESSION["user"]["id_auteur"]);
-    redirectTo("lecteur", "article&id=" . $id);
+    signalerArticle($id, $_SESSION["user"]["id_utilisateur"]);
+    redirectTo("lecteur", "article", ["id" => $id]);
+};
+
+$signalerCommentaire = function () {
+    auth();
+    $id_commentaire = (int)($_POST["id_commentaire"] ?? 0);
+    $id_article     = (int)($_POST["id_article"] ?? 0);
+    signalerCommentaire($id_commentaire, $_SESSION["user"]["id_utilisateur"]);
+    redirectTo("lecteur", "article", ["id" => $id_article]);
 };
 
 $actions = [
-    "liste"              => $listeArticles,
-    "index"              => $listeArticles,
-    "article"            => $voirArticle,
-    "ajouterCommentaire" => $ajouterCommentaire,
-    "signalerArticle"    => $signalerArticle,
+    "home"                => $home,
+    "liste"               => $listeArticles,
+    "index"               => $listeArticles,
+    "article"             => $voirArticle,
+    "ajouterCommentaire"  => $ajouterCommentaire,
+    "signalerArticle"     => $signalerArticle,
+    "signalerCommentaire" => $signalerCommentaire,
 ];
 
-$action = $_REQUEST["action"] ?? "liste";
+$action = $_REQUEST["action"] ?? "home";
 if (array_key_exists($action, $actions)) {
     $actions[$action]();
 } else {
