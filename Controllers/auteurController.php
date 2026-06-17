@@ -3,7 +3,6 @@ require_once ROOT . "/models/auteurModel.php";
 require_once ROOT . "/models/lecteurModel.php";
 auth();
 
-//  Le rôle dans la base est 'auteur', pas 'utilisateur'
 if (!hasRole("auteur") && !hasRole("admin")) {
     redirectTo("auth", "login");
 }
@@ -15,6 +14,60 @@ $liste = function () {
         "articles"       => $articles,
         "total_articles" => $total_articles,
     ], "side");
+};
+
+$home = function () {
+    $articles = findArticlesPublies();
+    loadView("auteurs/home", ["articles" => $articles], "side");
+};
+
+$voirArticle = function () {
+    $id = (int)($_GET["id"] ?? 0);
+    if (!$id) redirectTo("auteur", "home");
+
+    $article      = findArticleById($id);
+    $commentaires = findCommentairesByArticle($id);
+
+    if (!$article) redirectTo("auteur", "home");
+
+    loadView("auteurs/article", [
+        "article"      => $article,
+        "commentaires" => $commentaires,
+        "errors"       => [],
+    ], "side");
+};
+
+$ajouterCommentaireAuteur = function () {
+    $id     = (int)($_POST["id_article"] ?? 0);
+    $rules  = ["contenu" => "required"];
+    $errors = validations($_POST, $rules);
+
+    if (validate($errors)) {
+        addCommentaire($id, $_SESSION["user"]["id_utilisateur"], $_POST["contenu"]);
+        redirectTo("auteur", "article", ["id" => $id]);
+    }
+
+    $article      = findArticleById($id);
+    $commentaires = findCommentairesByArticle($id);
+
+    loadView("auteurs/article", [
+        "article"      => $article,
+        "commentaires" => $commentaires,
+        "errors"       => $errors,
+    ], "side");
+};
+
+$signalerArticleAuteur = function () {
+    $id = (int)($_POST["id_article"] ?? 0);
+    signalerArticle($id, $_SESSION["user"]["id_utilisateur"]);
+    redirectTo("auteur", "article", ["id" => $id]);
+};
+
+$signalerCommentaireAuteur = function () {
+    $id_commentaire = (int)($_POST["id_commentaire"] ?? 0);
+    $id_article     = (int)($_POST["id_article"] ?? 0);
+    signalerCommentaire($id_commentaire, $_SESSION["user"]["id_utilisateur"]);
+    redirectTo("auteur", "article", ["id" => $id_article]);
 };
 
 $addArticleAction = function () {
@@ -29,7 +82,6 @@ $addArticleAction = function () {
         ];
         $errors = validations($_POST, $rules);
 
-        // Gestion de l'image
         $imageName = null;
         if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
             $fileTmpPath       = $_FILES["image"]["tmp_name"];
@@ -91,7 +143,6 @@ $editArticleAction = function () {
         ];
         $errors = validations($_POST, $rules);
 
-        // Image optionnelle à l'édition : on conserve l'existante par défaut
         $imageName = $article["image"];
         if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
             $fileExtension     = strtolower(pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION));
@@ -181,14 +232,19 @@ $signalerCommentaireAuteur = function () {
 };
 
 $actions = [
-    "index"  => $liste,
-    "liste"  => $liste,
-    "add"    => $addArticleAction,
-    "edit"   => $editArticleAction,
-    "delete" => $deleteArticleAction,
+    "index"               => $liste,
+    "liste"               => $liste,
+    "home"                => $home,
+    "article"             => $voirArticle,
+    "ajouterCommentaire"  => $ajouterCommentaireAuteur,
+    "signalerArticle"     => $signalerArticleAuteur,
+    "signalerCommentaire" => $signalerCommentaireAuteur,
+    "add"                 => $addArticleAction,
+    "edit"                => $editArticleAction,
+    "delete"              => $deleteArticleAction,
 ];
 
-$action = $_REQUEST["action"] ?? "liste";
+$action = $_REQUEST["action"] ?? "home";
 if (array_key_exists($action, $actions)) {
     $actions[$action]();
 } else {
