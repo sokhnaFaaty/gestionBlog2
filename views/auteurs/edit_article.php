@@ -62,10 +62,11 @@
         <!-- Barre d'actions -->
         <div class="flex items-center justify-between pt-4 border-t border-gray-100">
 
-            <!-- Bouton Supprimer — soumet form-delete via l'attribut form= -->
-            <button type="submit"
-                    form="form-delete"
-                    onclick="return confirm('Supprimer définitivement cet article ?')"
+            <!-- Bouton Supprimer — ouvre le modal, puis soumet form-delete -->
+            <button type="button"
+                    onclick="confirmerAction(this)"
+                    data-form="form-delete"
+                    data-message="Supprimer définitivement cet article ?"
                     class="px-4 py-2.5 bg-red-50 text-red-700 border border-red-200 text-sm font-medium rounded-lg hover:bg-red-100 transition">
                 Supprimer
             </button>
