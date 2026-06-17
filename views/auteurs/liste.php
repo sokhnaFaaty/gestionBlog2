@@ -68,7 +68,7 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 text-right space-x-2">
-                                    <a href="index.php?controller=auteur&action=edit&id=<?= $article['id_article'] ?>"
+                                    <a href="<?= path('auteur', 'edit', ['id' => $article['id_article']]) ?>"
                                         class="text-indigo-600 hover:text-indigo-900 font-medium transition">Modifier</a>
                                 </td>
                             </tr>

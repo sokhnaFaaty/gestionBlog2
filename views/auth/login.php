@@ -3,7 +3,7 @@
   <div class="bg-white rounded-2xl shadow-xl border border-gray-200 w-full max-w-md p-8">
     <!-- Logo / Titre -->
     <div class="text-center mb-8">
-      <div class="text-4xl mb-2 text-blue-600">    <i class="fa-solid fa-book"></i></div>
+      <div class="text-4xl mb-2 text-[#1A237E]">    <i class="fa-solid fa-book"></i></div>
       <h1 class="text-2xl font-bold text-gray-900">GESTION BLOG</h1>
       <p class="text-sm text-gray-500 mt-1">Connectez-vous pour accéder au tableau de bord</p>
     </div>
@@ -33,7 +33,7 @@
     <input type="hidden" name="action" value="login">
       <!-- Bouton -->
       <button type="submit" name="connect"
-              class="w-full py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition shadow-sm">
+              class="w-full py-2.5 bg-[#1A237E] text-white text-sm font-medium rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition shadow-sm">
         Se connecter
       </button>
     </form>
@@ -43,6 +43,6 @@
       Démo : admin@gesBlog.fr / password
     </p>
     <p class="mt-6 text-center text-sm text-gray-500">
-  Pas encore de compte ? <a href="<?= WEBROOT ?>?controller=auth&action=register" class="text-indigo-600 hover:underline">S'inscrire</a>
+  Pas encore de compte ? <a href="<?= path('auth', 'register') ?>" class="text-indigo-600 hover:underline">S'inscrire</a>
 </p>
   </div>

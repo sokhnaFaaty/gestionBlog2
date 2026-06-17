@@ -24,7 +24,6 @@ function findArticleById(int $id): array|false {
 }
 
 function findCommentairesByArticle(int $id): array {
-    // id_utilisateur (plus id_lecteur)
     $sql = "SELECT c.*, u.nom as utilisateur_nom
             FROM commentaire c
             INNER JOIN utilisateur u ON c.id_utilisateur = u.id_utilisateur
@@ -34,7 +33,6 @@ function findCommentairesByArticle(int $id): array {
 }
 
 function addCommentaire(int $id_article, int $id_utilisateur, string $contenu): void {
-    // id_utilisateur (plus id_lecteur)
     $sql = "INSERT INTO commentaire (id_article, id_utilisateur, contenu)
             VALUES (:id_article, :id_utilisateur, :contenu)";
     executeUpdate($sql, [

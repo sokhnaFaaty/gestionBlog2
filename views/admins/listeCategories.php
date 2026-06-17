@@ -11,7 +11,7 @@
         <div class="md:col-span-1">
             <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
                 <h3 class="text-sm font-semibold text-gray-800 mb-4">Nouvelle catégorie</h3>
-                <form method="POST" action="index.php?controller=admin&action=listeCategories" class="space-y-4">
+                <form method="POST" action="<?= path('admin', 'listeCategories') ?>" class="space-y-4">
                     <div>
                         <label for="libelle" class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
                         <input type="text" name="libelle" id="libelle"
@@ -62,19 +62,25 @@
                             <td class="px-5 py-4 text-right">
                                 <div class="flex gap-2 justify-end">
                                     <!-- Modifier -->
-                                    <a href="index.php?controller=admin&action=editCategorie&id=<?= $cat['id_categorie'] ?>"
+                                    <a href="<?= path('admin', 'editCategorie', ['id' => $cat['id_categorie']]) ?>"
                                        class="px-3 py-1.5 text-xs font-medium rounded-lg border bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100 transition">
                                         Modifier
                                     </a>
                                     <!-- Supprimer — désactivé si la catégorie a des articles -->
                                     <?php if ((int)$cat['nb_articles'] === 0): ?>
-                                    <form method="POST" action="index.php?controller=admin&action=supprimerCategorie"
-                                          onsubmit="return confirm('Supprimer la catégorie « <?= htmlspecialchars($cat['libelle']) ?> » ?')">
+                                    <form id="form-supprimer-cat-<?= $cat['id_categorie'] ?>"
+                                          method="POST"
+                                          action="<?= path('admin', 'supprimerCategorie') ?>"
+                                          class="hidden">
                                         <input type="hidden" name="id_categorie" value="<?= $cat['id_categorie'] ?>">
-                                        <button class="px-3 py-1.5 text-xs font-medium rounded-lg border bg-red-50 text-red-700 border-red-200 hover:bg-red-100 transition">
-                                            Supprimer
-                                        </button>
                                     </form>
+                                    <button type="button"
+                                            onclick="confirmerAction(this)"
+                                            data-form="form-supprimer-cat-<?= $cat['id_categorie'] ?>"
+                                            data-message="Supprimer la catégorie « <?= htmlspecialchars($cat['libelle'], ENT_QUOTES) ?> » ?"
+                                            class="px-3 py-1.5 text-xs font-medium rounded-lg border bg-red-50 text-red-700 border-red-200 hover:bg-red-100 transition">
+                                        Supprimer
+                                    </button>
                                     <?php else: ?>
                                     <span class="px-3 py-1.5 text-xs font-medium rounded-lg border bg-gray-50 text-gray-400 border-gray-200 cursor-not-allowed"
                                           title="Impossible de supprimer une catégorie utilisée par des articles">

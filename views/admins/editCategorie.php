@@ -9,7 +9,7 @@
 
     <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
         <form method="POST"
-              action="index.php?controller=admin&action=editCategorie"
+              action="<?= path('admin', 'editCategorie') ?>"
               class="space-y-5">
 
             <input type="hidden" name="id_categorie" value="<?= $categorie['id_categorie'] ?>">
@@ -27,7 +27,7 @@
             </div>
 
             <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                <a href="index.php?controller=admin&action=listeCategories"
+                <a href="<?= path('admin', 'listeCategories') ?>"
                    class="px-4 py-2.5 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
                     Annuler
                 </a>
