@@ -165,16 +165,3 @@ function findCommentairesByArticle(int $id_article): array {
     return executeSelect($sql, ["id" => $id_article]);
 }
 
-function findSignalementsCommentaires(): array {
-    $sql = "SELECT c.id_commentaire, c.contenu, c.date_commentaire, c.id_article,
-            u.nom as auteur_nom,
-            a.titre as article_titre,
-            COUNT(sc.id_utilisateur) as nb_signalements
-            FROM commentaire c
-            INNER JOIN utilisateur u ON c.id_utilisateur = u.id_utilisateur
-            INNER JOIN article a ON c.id_article = a.id_article
-            INNER JOIN signalement_commentaire sc ON c.id_commentaire = sc.id_commentaire
-            GROUP BY c.id_commentaire, u.nom, a.titre, a.id_article
-            ORDER BY nb_signalements DESC, c.date_commentaire DESC";
-    return executeSelect($sql, []);
-}

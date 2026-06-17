@@ -133,18 +133,30 @@
             $role = $_SESSION['user']['role'];
 
             if ($role === 'auteur'): ?>
-                <p class='px-4 pt-2 pb-1 text-xs text-indigo-400 uppercase font-semibold tracking-wider'>Articles</p>
+                <p class='px-4 pt-2 pb-1 text-xs text-indigo-400 uppercase font-semibold tracking-wider'>Blog</p>
+                <a href='<?= path("auteur", "home") ?>'
+                    class='<?= in_array($currentAction, ["home", "article"]) ? $active : $normal ?>'>
+                    <i class='fa-solid fa-newspaper w-4 text-center'></i> Articles publiés
+                </a>
+
+                <p class='px-4 pt-4 pb-1 text-xs text-indigo-400 uppercase font-semibold tracking-wider'>Mes articles</p>
                 <a href='<?= path("auteur", "liste") ?>'
-                    class='<?= ($currentController === 'auteur' && $currentAction !== 'add') ? $active : $normal ?>'>
+                    class='<?= in_array($currentAction, ["liste", "index", "edit"]) ? $active : $normal ?>'>
                     <i class='fa-solid fa-file-lines w-4 text-center'></i> Mes articles
                 </a>
                 <a href='<?= path("auteur", "add") ?>'
-                    class='<?= ($currentController === 'auteur' && $currentAction === 'add') ? $active : $normal ?>'>
+                    class='<?= ($currentAction === "add") ? $active : $normal ?>'>
                     <i class='fa-solid fa-plus w-4 text-center'></i> Nouvel article
                 </a>
 
             <?php elseif ($role === 'admin'): ?>
-                <p class='px-4 pt-2 pb-1 text-xs text-indigo-400 uppercase font-semibold tracking-wider'>Tableau de bord</p>
+                <p class='px-4 pt-2 pb-1 text-xs text-indigo-400 uppercase font-semibold tracking-wider'>Blog</p>
+                <a href='<?= path("auteur", "home") ?>'
+                    class='<?= in_array($currentAction, ["home", "article"]) && $currentController === "auteur" ? $active : $normal ?>'>
+                    <i class='fa-solid fa-eye w-4 text-center'></i> Voir les articles
+                </a>
+
+                <p class='px-4 pt-4 pb-1 text-xs text-indigo-400 uppercase font-semibold tracking-wider'>Tableau de bord</p>
                 <a href='<?= path("admin", "dashboard") ?>'
                     class='<?= in_array($currentAction, ['dashboard', 'index']) ? $active : $normal ?>'>
                     <i class='fa-solid fa-gauge w-4 text-center'></i> Vue d'ensemble

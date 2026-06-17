@@ -6,11 +6,6 @@ $home = function () {
     loadView("lecteurs/home", ["articles" => $articles], "base");
 };
 
-$home = function () {
-    $articles = findArticlesPublies();
-    loadView("lecteurs/home", ["articles" => $articles], "base");
-};
-
 $listeArticles = function () {
     $articles = findArticlesPublies();
     loadView("lecteurs/liste", ["articles" => $articles], "base");
