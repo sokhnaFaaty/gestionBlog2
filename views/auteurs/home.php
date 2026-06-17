@@ -8,7 +8,6 @@
         <?php foreach ($articles as $article): ?>
             <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-6 hover:shadow-md transition">
                 <div class="flex flex-col sm:flex-row items-start gap-6">
-
                     <?php if (!empty($article['image'])): ?>
                         <div class="w-full sm:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
                             <img src="/uploads/<?= htmlspecialchars($article['image']) ?>"
@@ -16,11 +15,10 @@
                                  class="w-full h-full object-cover">
                         </div>
                     <?php else: ?>
-                        <div class="w-full sm:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center border border-gray-200">
-                            <span class="text-gray-400 text-xs">Pas d'image</span>
+                        <div class="w-full sm:w-48 h-32 flex-shrink-0 rounded-lg bg-gray-100 flex items-center justify-center border border-gray-200">
+                            <span class="text-gray-400 text-xs">Pas d image</span>
                         </div>
                     <?php endif; ?>
-
                     <div class="flex-1">
                         <span class="inline-block px-2.5 py-0.5 rounded-full text-xs bg-blue-50 text-blue-700 border border-blue-100 mb-2">
                             <?= htmlspecialchars($article['categorie_nom']) ?>
@@ -36,15 +34,15 @@
                             · <?= date('d/m/Y', strtotime($article['date_publication'])) ?>
                             · <?= $article['nb_commentaires'] ?> commentaire(s)
                         </p>
-                        <p class="text-sm text-gray-600 mt-3 line-clamp-2">
-                            <?= htmlspecialchars(substr($article['contenu'], 0, 200)) ?>…
+                        <p class="text-sm text-gray-600 mt-3">
+                            <?= htmlspecialchars(substr($article['contenu'], 0, 200)) ?>...
                         </p>
                     </div>
                 </div>
                 <div class="mt-4">
                     <a href="<?= path('auteur', 'article', ['id' => $article['id_article']]) ?>"
-                       class="text-sm font-medium text-[#1A237E] hover:text-indigo-800 transition">
-                        Lire la suite →
+                       class="text-sm font-medium text-indigo-700 hover:text-indigo-800 transition">
+                        Lire la suite &rarr;
                     </a>
                 </div>
             </div>

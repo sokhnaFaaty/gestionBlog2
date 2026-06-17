@@ -10,15 +10,14 @@
         </h1>
         <p class="text-sm text-gray-500 mb-6">
             Par <strong><?= htmlspecialchars($article['utilisateur_nom']) ?></strong>
-            · <?= date('d/m/Y à H:i', strtotime($article['date_publication'])) ?>
+            &middot; <?= date('d/m/Y', strtotime($article['date_publication'])) ?>
         </p>
         <div class="text-gray-700 leading-relaxed whitespace-pre-line">
             <?= htmlspecialchars($article['contenu']) ?>
         </div>
 
-        <!-- Signaler article -->
         <div class="mt-6 pt-4 border-t border-gray-100">
-            <form id="form-signaler-art-<?= $article['id_article'] ?>"
+            <form id="form-sig-art-<?= $article['id_article'] ?>"
                   method="POST"
                   action="<?= path('auteur', 'signalerArticle') ?>"
                   class="hidden">
@@ -26,7 +25,7 @@
             </form>
             <button type="button"
                     onclick="confirmerAction(this)"
-                    data-form="form-signaler-art-<?= $article['id_article'] ?>"
+                    data-form="form-sig-art-<?= $article['id_article'] ?>"
                     data-message="Signaler cet article ?"
                     class="text-xs text-gray-400 hover:text-red-500 transition">
                 <i class="fa-solid fa-flag"></i> Signaler cet article
@@ -51,13 +50,13 @@
                             <p class="text-sm font-medium text-gray-700">
                                 <?= htmlspecialchars($c['utilisateur_nom']) ?>
                                 <span class="font-normal text-gray-400 ml-2">
-                                    <?= date('d/m/Y à H:i', strtotime($c['date_commentaire'])) ?>
+                                    <?= date('d/m/Y', strtotime($c['date_commentaire'])) ?>
                                 </span>
                             </p>
                             <p class="text-sm text-gray-600 mt-1"><?= htmlspecialchars($c['contenu']) ?></p>
                         </div>
                         <div class="flex-shrink-0">
-                            <form id="form-signaler-com-<?= $c['id_commentaire'] ?>"
+                            <form id="form-sig-com-<?= $c['id_commentaire'] ?>"
                                   method="POST"
                                   action="<?= path('auteur', 'signalerCommentaire') ?>"
                                   class="hidden">
@@ -66,7 +65,7 @@
                             </form>
                             <button type="button"
                                     onclick="confirmerAction(this)"
-                                    data-form="form-signaler-com-<?= $c['id_commentaire'] ?>"
+                                    data-form="form-sig-com-<?= $c['id_commentaire'] ?>"
                                     data-message="Signaler ce commentaire ?"
                                     class="text-xs text-gray-300 hover:text-red-400 transition">
                                 <i class="fa-solid fa-flag"></i>
@@ -102,7 +101,7 @@
 
     <div class="mt-4">
         <a href="<?= path('auteur', 'home') ?>" class="text-sm text-gray-500 hover:text-gray-700 transition">
-            ← Retour aux articles
+            &larr; Retour aux articles
         </a>
     </div>
 </div>
