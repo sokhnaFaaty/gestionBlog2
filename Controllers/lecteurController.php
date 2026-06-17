@@ -1,6 +1,10 @@
 <?php
 require_once ROOT . "/models/lecteurModel.php";
-//dd($_REQUEST);
+
+$home = function () {
+    $articles = findArticlesPublies();
+    loadView("lecteurs/home", ["articles" => $articles], "base");
+};
 
 $home = function () {
     $articles = findArticlesPublies();
@@ -14,12 +18,12 @@ $listeArticles = function () {
 
 $voirArticle = function () {
     $id = (int)($_GET["id"] ?? 0);
-    if (!$id) redirectTo("lecteur", "liste");
+    if (!$id) redirectTo("lecteur", "home");
 
     $article      = findArticleById($id);
     $commentaires = findCommentairesByArticle($id);
 
-    if (!$article) redirectTo("lecteur", "liste");
+    if (!$article) redirectTo("lecteur", "home");
 
     loadView("lecteurs/article", [
         "article"      => $article,
@@ -30,8 +34,7 @@ $voirArticle = function () {
 
 $ajouterCommentaire = function () {
     auth();
-    $id = (int)($_POST["id_article"] ?? 0);
-
+    $id     = (int)($_POST["id_article"] ?? 0);
     $rules  = ["contenu" => "required"];
     $errors = validations($_POST, $rules);
 
