@@ -57,13 +57,22 @@ $signalerArticle = function () {
     redirectTo("lecteur", "article", ["id" => $id]);
 };
 
+$signalerCommentaire = function () {
+    auth();
+    $id_commentaire = (int)($_POST["id_commentaire"] ?? 0);
+    $id_article     = (int)($_POST["id_article"] ?? 0);
+    signalerCommentaire($id_commentaire, $_SESSION["user"]["id_utilisateur"]);
+    redirectTo("lecteur", "article", ["id" => $id_article]);
+};
+
 $actions = [
-    "home"               => $home,
-    "liste"              => $listeArticles,
-    "index"              => $listeArticles,
-    "article"            => $voirArticle,
-    "ajouterCommentaire" => $ajouterCommentaire,
-    "signalerArticle"    => $signalerArticle,
+    "home"                => $home,
+    "liste"               => $listeArticles,
+    "index"               => $listeArticles,
+    "article"             => $voirArticle,
+    "ajouterCommentaire"  => $ajouterCommentaire,
+    "signalerArticle"     => $signalerArticle,
+    "signalerCommentaire" => $signalerCommentaire,
 ];
 
 $action = $_REQUEST["action"] ?? "home";

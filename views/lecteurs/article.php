@@ -48,13 +48,35 @@
             <div class="space-y-4">
             <?php foreach ($commentaires as $c): ?>
                 <div class="border-l-4 border-indigo-100 pl-4">
-                    <p class="text-sm font-medium text-gray-700">
-                        <?= htmlspecialchars($c['utilisateur_nom']) ?>
-                        <span class="font-normal text-gray-400 ml-2">
-                            <?= date('d/m/Y à H:i', strtotime($c['date_commentaire'])) ?>
-                        </span>
-                    </p>
-                    <p class="text-sm text-gray-600 mt-1"><?= htmlspecialchars($c['contenu']) ?></p>
+                    <div class="flex items-start justify-between gap-2">
+                        <div>
+                            <p class="text-sm font-medium text-gray-700">
+                                <?= htmlspecialchars($c['utilisateur_nom']) ?>
+                                <span class="font-normal text-gray-400 ml-2">
+                                    <?= date('d/m/Y à H:i', strtotime($c['date_commentaire'])) ?>
+                                </span>
+                            </p>
+                            <p class="text-sm text-gray-600 mt-1"><?= htmlspecialchars($c['contenu']) ?></p>
+                        </div>
+                        <?php if (isConnected()): ?>
+                        <div class="flex-shrink-0">
+                            <form id="form-signaler-com-<?= $c['id_commentaire'] ?>"
+                                  method="POST"
+                                  action="<?= path('lecteur', 'signalerCommentaire') ?>"
+                                  class="hidden">
+                                <input type="hidden" name="id_commentaire" value="<?= $c['id_commentaire'] ?>">
+                                <input type="hidden" name="id_article"     value="<?= $article['id_article'] ?>">
+                            </form>
+                            <button type="button"
+                                    onclick="confirmerAction(this)"
+                                    data-form="form-signaler-com-<?= $c['id_commentaire'] ?>"
+                                    data-message="Signaler ce commentaire ?"
+                                    class="text-xs text-gray-300 hover:text-red-400 transition">
+                                <i class="fa-solid fa-flag"></i>
+                            </button>
+                        </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
             <?php endforeach; ?>
             </div>

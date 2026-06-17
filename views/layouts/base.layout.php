@@ -41,7 +41,7 @@
  
         <!-- Logo + liens -->
         <div class="flex items-center space-x-8">
-          <a href="<?= path('admin', 'dashboard') ?>" class="text-xl font-bold text-indigo-600">📖 GES-BLOG</a>
+          <a href="<?= path('admin', 'dashboard') ?>" class="text-xl font-bold text-[#1A237E] ">📖 GES-BLOG</a>
           <div class="hidden sm:flex space-x-2">
             <a href="<?= path('admin', 'dashboard') ?>"
                class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'dashboard' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">

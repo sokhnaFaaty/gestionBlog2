@@ -1,10 +1,10 @@
 <?php if (!isConnected()): ?>
-<div class="bg-indigo-600 text-white py-12 px-4 rounded-2xl mb-10 text-center shadow-lg">
+<div class="bg-[#1A237E] text-white py-12 px-4 rounded-2xl mb-10 text-center shadow-lg">
     <h1 class="text-3xl font-bold mb-3">Bienvenue sur GES-BLOG</h1>
     <p class="text-indigo-100 mb-6 text-sm">Lisez nos articles et rejoignez la communauté pour commenter et interagir.</p>
     <div class="flex justify-center gap-4">
         <a href="<?= path('auth', 'register') ?>"
-           class="px-6 py-2.5 bg-white text-indigo-600 font-semibold rounded-lg hover:bg-indigo-50 transition text-sm">
+           class="px-6 py-2.5 bg-white text-[#1A237E]  font-semibold rounded-lg hover:bg-indigo-50 transition text-sm">
             S'inscrire
         </a>
         <a href="<?= path('auth', 'login') ?>"
@@ -60,7 +60,7 @@
                 </div>
                 <div class="mt-4">
                     <a href="<?= path('lecteur', 'article', ['id' => $article['id_article']]) ?>"
-                       class="text-sm font-medium text-indigo-600 hover:text-indigo-800 transition">
+                       class="text-sm font-medium text-[#1A237E]  hover:text-indigo-800 transition">
                         Lire la suite →
                     </a>
                 </div>

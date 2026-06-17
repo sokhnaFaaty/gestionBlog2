@@ -1,5 +1,6 @@
 <?php
 require_once ROOT . "/models/auteurModel.php";
+require_once ROOT . "/models/lecteurModel.php";
 auth();
 
 //  Le rôle dans la base est 'auteur', pas 'utilisateur'

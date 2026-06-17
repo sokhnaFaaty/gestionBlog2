@@ -84,7 +84,7 @@
     </div>
 
     <!-- Sidebar -->
-    <aside class='w-64 bg-indigo-900 text-white flex-shrink-0 flex flex-col h-full'>
+    <aside class='w-64 bg-[#1A237E]  text-white flex-shrink-0 flex flex-col h-full'>
 
         <!-- Logo -->
         <div class='px-6 py-5 border-b border-indigo-700'>
