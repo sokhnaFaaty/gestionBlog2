@@ -140,6 +140,46 @@ $deleteArticleAction = function () {
     redirectTo("auteur", "liste");
 };
 
+$home = function () {
+    $articles = findArticlesPublies();
+    loadView("auteurs/home", ["articles" => $articles], "side");
+};
+
+$voirArticle = function () {
+    $id = (int)($_GET["id"] ?? 0);
+    if (!$id) redirectTo("auteur", "home");
+    $article      = findArticleById($id);
+    $commentaires = findCommentairesByArticle($id);
+    if (!$article) redirectTo("auteur", "home");
+    loadView("auteurs/article", ["article" => $article, "commentaires" => $commentaires, "errors" => []], "side");
+};
+
+$ajouterCommentaireAuteur = function () {
+    $id     = (int)($_POST["id_article"] ?? 0);
+    $rules  = ["contenu" => "required"];
+    $errors = validations($_POST, $rules);
+    if (validate($errors)) {
+        addCommentaire($id, $_SESSION["user"]["id_utilisateur"], $_POST["contenu"]);
+        redirectTo("auteur", "article", ["id" => $id]);
+    }
+    $article = findArticleById($id);
+    $commentaires = findCommentairesByArticle($id);
+    loadView("auteurs/article", ["article" => $article, "commentaires" => $commentaires, "errors" => $errors], "side");
+};
+
+$signalerArticleAuteur = function () {
+    $id = (int)($_POST["id_article"] ?? 0);
+    signalerArticle($id, $_SESSION["user"]["id_utilisateur"]);
+    redirectTo("auteur", "article", ["id" => $id]);
+};
+
+$signalerCommentaireAuteur = function () {
+    $id_commentaire = (int)($_POST["id_commentaire"] ?? 0);
+    $id_article     = (int)($_POST["id_article"] ?? 0);
+    signalerCommentaire($id_commentaire, $_SESSION["user"]["id_utilisateur"]);
+    redirectTo("auteur", "article", ["id" => $id_article]);
+};
+
 $actions = [
     "index"  => $liste,
     "liste"  => $liste,
