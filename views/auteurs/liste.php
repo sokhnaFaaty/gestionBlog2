@@ -1,4 +1,4 @@
-<div class="max-w-6xl mx-auto my-8 px-4">
+﻿<div class="max-w-6xl mx-auto my-8 px-4">
     <!-- En-tête de la page -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 pb-4 border-b border-gray-200">
         <div>
@@ -8,7 +8,7 @@
         <div class="mt-4 md:mt-0">
             <a href="<?=path("auteur","add")?>"
                 class="inline-flex items-center px-4 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition shadow-sm">
-                <span class="mr-2 text-base">+</span> Écrire un article
+                <i class="fa-solid fa-plus mr-2"></i> Écrire un article
             </a>
         </div>
     </div>
@@ -31,7 +31,7 @@
                     <?php if (empty($articles)): ?>
                         <tr>
                             <td colspan="5" class="px-6 py-12 text-center text-gray-400 font-medium">
-                                📁 Aucun article rédigé pour le moment.
+                                <i class="fa-solid fa-folder-open mr-2"></i> Aucun article rédigé pour le moment.
                             </td>
                         </tr>
                     <?php else: ?>

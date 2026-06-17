@@ -1,4 +1,4 @@
-<?php if (!isConnected()): ?>
+﻿<?php if (!isConnected()): ?>
 <div class="bg-[#1A237E] text-white py-12 px-4 rounded-2xl mb-10 text-center shadow-lg">
     <h1 class="text-3xl font-bold mb-3">Bienvenue sur GES-BLOG</h1>
     <p class="text-indigo-100 mb-6 text-sm">Lisez nos articles et rejoignez la communauté pour commenter et interagir.</p>
@@ -61,7 +61,7 @@
                 <div class="mt-4">
                     <a href="<?= path('lecteur', 'article', ['id' => $article['id_article']]) ?>"
                        class="text-sm font-medium text-[#1A237E]  hover:text-indigo-800 transition">
-                        Lire la suite →
+                        Lire la suite <i class="fa-solid fa-arrow-right ml-1"></i>
                     </a>
                 </div>
             </div>

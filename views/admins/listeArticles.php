@@ -1,4 +1,4 @@
-<div class="max-w-6xl mx-auto my-8 px-4">
+﻿<div class="max-w-6xl mx-auto my-8 px-4">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 pb-4 border-b border-gray-200">
         <div>
             <h2 class="text-2xl font-bold text-gray-800">Gestion des articles</h2>
@@ -61,7 +61,7 @@
                         <?php $nb = (int)$art['nb_signalements']; ?>
                         <span class="px-2.5 py-1 rounded-md text-xs font-semibold border
                             <?= $nb >= 5 ? 'bg-red-50 text-red-700 border-red-200' : 'bg-gray-50 text-gray-600 border-gray-200' ?>">
-                            <?= $nb ?> <?= $nb >= 5 ? '⚠️' : '' ?>
+                            <?= $nb ?> <?= $nb >= 5 ? '<i class="fa-solid fa-triangle-exclamation ml-1"></i>' : '' ?>
                         </span>
                     </td>
                     <td class="px-5 py-4">

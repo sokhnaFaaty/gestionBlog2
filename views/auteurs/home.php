@@ -1,4 +1,4 @@
-<div class="max-w-4xl mx-auto">
+﻿<div class="max-w-4xl mx-auto">
     <h2 class="text-xl font-bold text-gray-800 mb-6">Articles publiés</h2>
 
     <?php if (empty($articles)): ?>
@@ -42,7 +42,7 @@
                 <div class="mt-4">
                     <a href="<?= path('auteur', 'article', ['id' => $article['id_article']]) ?>"
                        class="text-sm font-medium text-indigo-700 hover:text-indigo-800 transition">
-                        Lire la suite &rarr;
+                        Lire la suite <i class="fa-solid fa-arrow-right ml-1"></i>
                     </a>
                 </div>
             </div>

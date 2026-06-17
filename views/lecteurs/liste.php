@@ -1,4 +1,4 @@
-<div class="max-w-4xl mx-auto my-8 px-4">
+﻿<div class="max-w-4xl mx-auto my-8 px-4">
     <div class="mb-8">
         <h2 class="text-2xl font-bold text-gray-800">Articles publiés</h2>
         <p class="text-sm text-gray-500 mt-1">Découvrez les dernières publications.</p>
@@ -50,7 +50,7 @@
                 <div class="mt-4">
                     <a href="<?= path('lecteur', 'article', ['id' => $article['id_article']]) ?>"
                        class="text-sm font-medium text-indigo-600 hover:text-indigo-800 transition">
-                        Lire la suite →
+                        Lire la suite <i class="fa-solid fa-arrow-right ml-1"></i>
                     </a>
                 </div>
             </div>
