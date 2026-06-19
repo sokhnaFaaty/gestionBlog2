@@ -1,4 +1,4 @@
-﻿<div class="max-w-3xl mx-auto my-8 px-4">
+<div class="max-w-3xl mx-auto my-8 px-4">
 
     <!-- Article -->
     <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-8 mb-6">
@@ -46,35 +46,87 @@
         <?php else: ?>
             <div class="space-y-4">
             <?php foreach ($commentaires as $c): ?>
+                <?php $isOwner = isConnected() && (int)$_SESSION['user']['id_utilisateur'] === (int)$c['id_utilisateur']; ?>
                 <div class="border-l-4 border-indigo-100 pl-4">
                     <div class="flex items-start justify-between gap-2">
-                        <div>
+                        <div class="flex-1 min-w-0">
                             <p class="text-sm font-medium text-gray-700">
                                 <?= htmlspecialchars($c['utilisateur_nom']) ?>
                                 <span class="font-normal text-gray-400 ml-2">
                                     <?= date('d/m/Y à H:i', strtotime($c['date_commentaire'])) ?>
                                 </span>
                             </p>
-                            <p class="text-sm text-gray-600 mt-1"><?= htmlspecialchars($c['contenu']) ?></p>
+                            <!-- Texte du commentaire -->
+                            <p id="texte-com-<?= $c['id_commentaire'] ?>" class="text-sm text-gray-600 mt-1">
+                                <?= htmlspecialchars($c['contenu']) ?>
+                            </p>
+                            <!-- Formulaire d'édition inline (caché par défaut) -->
+                            <div id="edit-form-<?= $c['id_commentaire'] ?>" class="hidden mt-3">
+                                <form method="POST" action="<?= path('lecteur', 'modifierCommentaire') ?>">
+                                    <input type="hidden" name="id_commentaire" value="<?= $c['id_commentaire'] ?>">
+                                    <input type="hidden" name="id_article"     value="<?= $article['id_article'] ?>">
+                                    <textarea name="contenu" rows="3"
+                                              class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none resize-none"><?= htmlspecialchars($c['contenu']) ?></textarea>
+                                    <div class="flex gap-2 mt-2 justify-end">
+                                        <button type="button"
+                                                onclick="toggleEditComment(<?= $c['id_commentaire'] ?>)"
+                                                class="px-3 py-1.5 border border-gray-300 text-gray-600 text-xs font-medium rounded-lg hover:bg-gray-50 transition">
+                                            Annuler
+                                        </button>
+                                        <button type="submit"
+                                                class="px-3 py-1.5 bg-indigo-600 text-white text-xs font-medium rounded-lg hover:bg-indigo-700 transition">
+                                            Sauvegarder
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <?php if (isConnected()): ?>
-                        <div class="flex-shrink-0">
-                            <form id="form-signaler-com-<?= $c['id_commentaire'] ?>"
-                                  method="POST"
-                                  action="<?= path('lecteur', 'signalerCommentaire') ?>"
-                                  class="hidden">
-                                <input type="hidden" name="id_commentaire" value="<?= $c['id_commentaire'] ?>">
-                                <input type="hidden" name="id_article"     value="<?= $article['id_article'] ?>">
-                            </form>
-                            <button type="button"
-                                    onclick="confirmerAction(this)"
-                                    data-form="form-signaler-com-<?= $c['id_commentaire'] ?>"
-                                    data-message="Signaler ce commentaire ?"
-                                    class="text-xs text-gray-300 hover:text-red-400 transition">
-                                <i class="fa-solid fa-flag"></i>
-                            </button>
+
+                        <!-- Boutons d'action -->
+                        <div class="flex-shrink-0 flex items-center gap-1.5">
+                            <?php if ($isOwner): ?>
+                                <!-- Modifier -->
+                                <button type="button"
+                                        onclick="toggleEditComment(<?= $c['id_commentaire'] ?>)"
+                                        title="Modifier mon commentaire"
+                                        class="text-xs text-gray-300 hover:text-indigo-500 transition">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+                                <!-- Supprimer -->
+                                <form id="form-supprimer-com-<?= $c['id_commentaire'] ?>"
+                                      method="POST"
+                                      action="<?= path('lecteur', 'supprimerCommentaire') ?>"
+                                      class="hidden">
+                                    <input type="hidden" name="id_commentaire" value="<?= $c['id_commentaire'] ?>">
+                                    <input type="hidden" name="id_article"     value="<?= $article['id_article'] ?>">
+                                </form>
+                                <button type="button"
+                                        onclick="confirmerAction(this)"
+                                        data-form="form-supprimer-com-<?= $c['id_commentaire'] ?>"
+                                        data-message="Supprimer ce commentaire définitivement ?"
+                                        title="Supprimer mon commentaire"
+                                        class="text-xs text-gray-300 hover:text-red-400 transition">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            <?php elseif (isConnected()): ?>
+                                <!-- Signaler (autres utilisateurs) -->
+                                <form id="form-signaler-com-<?= $c['id_commentaire'] ?>"
+                                      method="POST"
+                                      action="<?= path('lecteur', 'signalerCommentaire') ?>"
+                                      class="hidden">
+                                    <input type="hidden" name="id_commentaire" value="<?= $c['id_commentaire'] ?>">
+                                    <input type="hidden" name="id_article"     value="<?= $article['id_article'] ?>">
+                                </form>
+                                <button type="button"
+                                        onclick="confirmerAction(this)"
+                                        data-form="form-signaler-com-<?= $c['id_commentaire'] ?>"
+                                        data-message="Signaler ce commentaire ?"
+                                        title="Signaler ce commentaire"
+                                        class="text-xs text-gray-300 hover:text-red-400 transition">
+                                    <i class="fa-solid fa-flag"></i>
+                                </button>
+                            <?php endif; ?>
                         </div>
-                        <?php endif; ?>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -125,3 +177,12 @@
         </a>
     </div>
 </div>
+
+<script>
+function toggleEditComment(id) {
+    var texte  = document.getElementById('texte-com-'  + id);
+    var form   = document.getElementById('edit-form-'  + id);
+    texte.classList.toggle('hidden');
+    form.classList.toggle('hidden');
+}
+</script>

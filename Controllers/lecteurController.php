@@ -63,14 +63,36 @@ $signalerCommentaire = function () {
     redirectTo("lecteur", "article", ["id" => $id_article]);
 };
 
+$modifierCommentaire = function () {
+    auth();
+    $id_commentaire = (int)($_POST["id_commentaire"] ?? 0);
+    $id_article     = (int)($_POST["id_article"] ?? 0);
+    $contenu        = trim($_POST["contenu"] ?? "");
+
+    if ($contenu) {
+        modifierCommentaire($id_commentaire, $_SESSION["user"]["id_utilisateur"], $contenu);
+    }
+    redirectTo("lecteur", "article", ["id" => $id_article]);
+};
+
+$supprimerCommentaire = function () {
+    auth();
+    $id_commentaire = (int)($_POST["id_commentaire"] ?? 0);
+    $id_article     = (int)($_POST["id_article"] ?? 0);
+    supprimerCommentaire($id_commentaire, $_SESSION["user"]["id_utilisateur"]);
+    redirectTo("lecteur", "article", ["id" => $id_article]);
+};
+
 $actions = [
     "home"                => $home,
     "liste"               => $listeArticles,
     "index"               => $listeArticles,
     "article"             => $voirArticle,
-    "ajouterCommentaire"  => $ajouterCommentaire,
-    "signalerArticle"     => $signalerArticle,
-    "signalerCommentaire" => $signalerCommentaire,
+    "ajouterCommentaire"   => $ajouterCommentaire,
+    "signalerArticle"      => $signalerArticle,
+    "signalerCommentaire"  => $signalerCommentaire,
+    "modifierCommentaire"  => $modifierCommentaire,
+    "supprimerCommentaire" => $supprimerCommentaire,
 ];
 
 $action = $_REQUEST["action"] ?? "home";

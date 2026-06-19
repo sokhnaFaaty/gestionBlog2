@@ -42,6 +42,25 @@ function addCommentaire(int $id_article, int $id_utilisateur, string $contenu): 
     ]);
 }
 
+function modifierCommentaire(int $id_commentaire, int $id_utilisateur, string $contenu): void {
+    $sql = "UPDATE commentaire SET contenu = :contenu
+            WHERE id_commentaire = :id AND id_utilisateur = :id_utilisateur";
+    executeUpdate($sql, [
+        "contenu"        => $contenu,
+        "id"             => $id_commentaire,
+        "id_utilisateur" => $id_utilisateur,
+    ]);
+}
+
+function supprimerCommentaire(int $id_commentaire, int $id_utilisateur): void {
+    $sql = "DELETE FROM commentaire
+            WHERE id_commentaire = :id AND id_utilisateur = :id_utilisateur";
+    executeUpdate($sql, [
+        "id"             => $id_commentaire,
+        "id_utilisateur" => $id_utilisateur,
+    ]);
+}
+
 function signalerCommentaire(int $id_commentaire, int $id_utilisateur): void {
     $check = "SELECT COUNT(*) as total FROM signalement_commentaire
               WHERE id_commentaire = :id_commentaire AND id_utilisateur = :id_utilisateur";

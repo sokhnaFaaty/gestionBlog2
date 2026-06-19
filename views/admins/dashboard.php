@@ -80,7 +80,7 @@
     <!-- Liens rapides (admin seulement) -->
     <?php if (hasRole('admin')): ?>
     <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <a href="<?= path('admin', 'listeArticles') ?>&statut=En+attente"
+        <a href="<?= path('admin', 'listeArticles', ['statut' => 'En attente']) ?>"
            class="block bg-yellow-50 border border-yellow-200 rounded-xl p-5 hover:bg-yellow-100 transition">
             <p class="font-semibold text-yellow-800">Articles en attente</p>
             <p class="text-sm text-yellow-600 mt-1">Valider ou rejeter</p>
