@@ -168,10 +168,9 @@ $supprimerCommentaireSignale = function () {
     if ($id) deleteCommentaire($id);
     redirectTo("admin", "signalementsCommentaires");
 };
-$listeNewsletter=function(){
-$newsletters=findAllNewslettersEmails();
- loadView("admins/signalementsCommentaires", ["newsletters" => $newsletters], "side");
-
+$listeNewsletter = function () {
+    $newsletters = findAllNewslettersEmails();
+    loadView("admins/listeNewsletter", ["newsletters" => $newsletters], "side");
 }
 ;
 //routing

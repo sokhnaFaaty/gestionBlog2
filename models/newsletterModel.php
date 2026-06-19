@@ -1,6 +1,6 @@
 <?php
 require_once(ROOT . "/db/database.php");
-function inscrireNwesletter(string $email){
+function inscrireNewsletter(string $email){
     $sql = "INSERT INTO newsletter (email) VALUES (:email)";
         executeUpdate($sql, [':email' => $email]);
     return true; 
@@ -8,9 +8,7 @@ function inscrireNwesletter(string $email){
 
 }
 function findAllNewslettersEmails(){
- $sql = "SELECT email FROM newsletter ORDER BY date_inscription DESC";
+ $sql = "SELECT email, date_inscription FROM newsletter ORDER BY date_inscription DESC";
     
     return executeSelect($sql);
-
-
 }
