@@ -168,7 +168,11 @@ $supprimerCommentaireSignale = function () {
     if ($id) deleteCommentaire($id);
     redirectTo("admin", "signalementsCommentaires");
 };
-
+$listeNewsletter = function () {
+    $newsletters = findAllNewslettersEmails();
+    loadView("admins/listeNewsletter", ["newsletters" => $newsletters], "side");
+}
+;
 //routing
 $actions = [
     "index"                       => $dashboard,
@@ -187,6 +191,7 @@ $actions = [
     "supprimerAdmin"              => $supprimerAdmin,
     "signalementsCommentaires"    => $signalementsCommentaires,
     "supprimerCommentaireSignale" => $supprimerCommentaireSignale,
+    "listeNewsletters" => $listeNewsletter
 ];
 
 $action = $_REQUEST["action"] ?? "dashboard";
@@ -195,3 +200,4 @@ if (array_key_exists($action, $actions)) {
 } else {
     echo "Action introuvable";
 }
+

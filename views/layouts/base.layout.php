@@ -105,6 +105,9 @@
             <a href="#" class="w-8 h-8 rounded-full bg-indigo-700 hover:bg-indigo-600 flex items-center justify-center transition" aria-label="Twitter">
               <i class="fa-brands fa-x-twitter text-xs"></i>
             </a>
+            <a href="#" class="w-8 h-8 rounded-full bg-indigo-700 hover:bg-indigo-600 flex items-center justify-center transition" aria-label="Instagram">
+              <i class="fa-brands fa-instagram text-xs"></i>
+            </a>
             <a href="#" class="w-8 h-8 rounded-full bg-indigo-700 hover:bg-indigo-600 flex items-center justify-center transition" aria-label="Facebook">
               <i class="fa-brands fa-facebook-f text-xs"></i>
             </a>
@@ -149,8 +152,9 @@
           <p class="text-indigo-200 text-sm mb-4 leading-relaxed">
             Inscrivez-vous à notre newsletter pour ne manquer aucune publication.
           </p>
-          <form class="flex gap-2" onsubmit="return false;">
-            <input type="email" placeholder="Votre email..."
+          <form class="flex gap-2" method="POST" action="<?= path('newsletter', 'subscribe') ?>">
+            <input type="email" name="email" placeholder="Votre email..."
+                   required
                    class="flex-1 px-3 py-2 rounded-lg text-sm text-gray-800 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-300 min-w-0">
             <button type="submit"
                     class="px-4 py-2 bg-white text-[#1A237E] text-sm font-semibold rounded-lg hover:bg-indigo-50 transition whitespace-nowrap">
@@ -162,13 +166,7 @@
       </div>
     </div>
 
-    <!-- Barre copyright -->
-    <div class="border-t border-indigo-800">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
-        <p class="text-indigo-300 text-xs">&copy; <?= date('Y') ?> GES-BLOG &mdash; Tous droits réservés</p>
-        <p class="text-indigo-300 text-xs">Fait par <i class="fa-solid fa-heart text-red-400 mx-1"></i> Sokhna Faty Gueye etudiante en licence 2 a ESP 221 </p>
-      </div>
-    </div>
+    
   </footer>
 
 <script>

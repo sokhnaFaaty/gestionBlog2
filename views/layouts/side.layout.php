@@ -187,6 +187,10 @@
                     class='<?= $currentAction === "signalementsCommentaires" ? $active : $normal ?>'>
                     <i class='fa-solid fa-comment-slash w-4 text-center'></i> Signalements
                 </a>
+                <a href='<?= path("admin", "listeNewsletters") ?>'
+                    class='<?= $currentAction === "listeNewsletters" ? $active : $normal ?>'>
+                    <i class='fa-solid fa-envelope w-4 text-center'></i> Newsletter
+                </a>
 
             <?php elseif ($role === 'lecteur'): ?>
                 <p class='px-4 pt-2 pb-1 text-xs text-indigo-400 uppercase font-semibold tracking-wider'>Blog</p>

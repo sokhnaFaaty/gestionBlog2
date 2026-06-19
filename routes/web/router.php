@@ -3,7 +3,8 @@ $controllers=[
     "admin"=>"admin",
     "auteur"=>"auteur",
     "lecteur"=>"lecteur",
-    "auth"=>"auth"
+    "auth"=>"auth",
+    "newsletter"=>"newsletter"
 
 ];
 
