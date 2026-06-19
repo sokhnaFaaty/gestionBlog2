@@ -1,5 +1,5 @@
-<div class="max-w-5xl mx-auto my-8 px-4">
-    <div class="mb-8">
+<div class="mx-auto mt-4 mb-6 px-6">
+    <div class="mb-5">
         <h2 class="text-2xl font-bold text-gray-800">Tableau de bord</h2>
         <p class="text-sm text-gray-500 mt-1">
             Bonjour <strong><?= htmlspecialchars($_SESSION['user']['nom']) ?></strong>,
@@ -8,41 +8,41 @@
     </div>
 
     <!-- Stats -->
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-            <p class="text-xs text-gray-500 uppercase font-semibold tracking-wide">Articles total</p>
-            <p class="text-3xl font-bold text-gray-800 mt-1"><?= $total_articles ?></p>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-5">
+        <div class="bg-indigo-50 rounded-[5px] border-r-4 border-indigo-500 shadow-sm p-5">
+            <p class="text-xs text-indigo-500 uppercase font-semibold tracking-wide">Articles total</p>
+            <p class="text-3xl font-bold text-indigo-600 mt-1"><?= $total_articles ?></p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-            <p class="text-xs text-yellow-600 uppercase font-semibold tracking-wide">En attente</p>
+        <div class="bg-yellow-50 rounded-[5px] border-r-4 border-yellow-400 shadow-sm p-5">
+            <p class="text-xs text-yellow-500 uppercase font-semibold tracking-wide">En attente</p>
             <p class="text-3xl font-bold text-yellow-500 mt-1"><?= $articles_en_attente ?></p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+        <div class="bg-green-50 rounded-[5px] border-r-4 border-green-500 shadow-sm p-5">
             <p class="text-xs text-green-600 uppercase font-semibold tracking-wide">Publiés</p>
             <p class="text-3xl font-bold text-green-500 mt-1"><?= $articles_publies ?></p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+        <div class="bg-red-50 rounded-[5px] border-r-4 border-red-500 shadow-sm p-5">
             <p class="text-xs text-red-500 uppercase font-semibold tracking-wide">Rejetés</p>
-            <p class="text-3xl font-bold text-red-400 mt-1"><?= $articles_rejetes ?></p>
+            <p class="text-3xl font-bold text-red-500 mt-1"><?= $articles_rejetes ?></p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-            <p class="text-xs text-gray-500 uppercase font-semibold tracking-wide">Auteurs</p>
+        <div class="bg-gray-100 rounded-[5px] border-r-4 border-gray-700 shadow-sm p-5">
+            <p class="text-xs text-gray-600 uppercase font-semibold tracking-wide">Auteurs</p>
             <p class="text-3xl font-bold text-gray-800 mt-1"><?= $total_auteurs ?></p>
         </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-            <p class="text-xs text-gray-500 uppercase font-semibold tracking-wide">Commentaires</p>
-            <p class="text-3xl font-bold text-gray-800 mt-1"><?= $total_commentaires ?></p>
+        <div class="bg-purple-50 rounded-[5px] border-r-4 border-purple-500 shadow-sm p-5">
+            <p class="text-xs text-purple-500 uppercase font-semibold tracking-wide">Commentaires</p>
+            <p class="text-3xl font-bold text-purple-500 mt-1"><?= $total_commentaires ?></p>
         </div>
     </div>
 
     <!-- Derniers articles -->
     <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-        <div class="px-6 py-4 border-b border-gray-100">
+        <div class="px-6 py-4">
             <h3 class="font-semibold text-gray-800">5 derniers articles</h3>
         </div>
         <table class="w-full text-left text-sm">
             <thead>
-                <tr class="bg-gray-50 text-xs uppercase text-gray-500 font-semibold border-b border-gray-100">
+                <tr class="bg-[#1A237E] text-xs uppercase text-white font-semibold">
                     <th class="px-6 py-3">Titre</th>
                     <th class="px-6 py-3">Auteur</th>
                     <th class="px-6 py-3">Date</th>

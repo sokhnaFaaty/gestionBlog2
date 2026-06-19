@@ -211,10 +211,44 @@
 
     </aside>
 
-    <!-- Contenu principal -->
-    <main class='flex-1 overflow-y-auto p-8'>
-        <?php /** @var string $content */ echo $content; ?>
-    </main>
+    <!-- Zone droite : navbar + contenu -->
+    <div class='flex-1 flex flex-col overflow-hidden'>
+
+        <!-- Barre supérieure -->
+        <header class='bg-[#1A237E] px-6 py-3 flex items-center justify-between flex-shrink-0 rounded-[10px] mx-3 mt-1'>
+            <!-- Recherche -->
+            <div class='relative w-80'>
+                <i class='fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm'></i>
+                <input type='text'
+                       placeholder='Rechercher global...'
+                       class='w-full pl-9 pr-4 py-2 text-sm bg-white border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 transition'>
+            </div>
+
+            <!-- Droite : cloche + avatar -->
+            <div class='flex items-center gap-5'>
+                <!-- Cloche -->
+                <button class='relative text-white hover:text-indigo-200 transition'>
+                    <i class='fa-solid fa-bell text-lg'></i>
+                </button>
+
+                <!-- Avatar + nom -->
+                <div class='flex items-center gap-3'>
+                    <div class='w-9 h-9 rounded-full bg-white text-[#1A237E] flex items-center justify-center text-sm font-bold uppercase'>
+                        <?= mb_substr($_SESSION['user']['prenom'] ?? '', 0, 1) . mb_substr($_SESSION['user']['nom'] ?? '', 0, 1) ?>
+                    </div>
+                    <span class='text-sm font-medium text-white'>
+                        <?= htmlspecialchars(($_SESSION['user']['prenom'] ?? '') . ' ' . ($_SESSION['user']['nom'] ?? '')) ?>
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Contenu principal -->
+        <main class='flex-1 overflow-y-auto p-8'>
+            <?php /** @var string $content */ echo $content; ?>
+        </main>
+
+    </div>
 
 
 <script>
