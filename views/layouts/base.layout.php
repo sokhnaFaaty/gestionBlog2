@@ -105,6 +105,9 @@
             <a href="#" class="w-8 h-8 rounded-full bg-indigo-700 hover:bg-indigo-600 flex items-center justify-center transition" aria-label="Twitter">
               <i class="fa-brands fa-x-twitter text-xs"></i>
             </a>
+            <a href="#" class="w-8 h-8 rounded-full bg-indigo-700 hover:bg-indigo-600 flex items-center justify-center transition" aria-label="Instagram">
+              <i class="fa-brands fa-instagram text-xs"></i>
+            </a>
             <a href="#" class="w-8 h-8 rounded-full bg-indigo-700 hover:bg-indigo-600 flex items-center justify-center transition" aria-label="Facebook">
               <i class="fa-brands fa-facebook-f text-xs"></i>
             </a>
