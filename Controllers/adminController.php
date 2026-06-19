@@ -1,5 +1,6 @@
 <?php
 require_once ROOT . "/models/adminModel.php";
+require_once ROOT . "/models/newsletterModel.php";
 auth();
 if (!hasRole("admin")) {
     redirectTo("auth", "login");
