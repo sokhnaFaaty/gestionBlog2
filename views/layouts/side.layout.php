@@ -57,7 +57,7 @@
     <!-- Modal de confirmation réutilisable
          Usage : <button type="button" onclick="confirmerAction(this)"
                          data-form="id-du-formulaire"
-                         data-message="Votre message"> -->
+                         data-message=" message"> -->
     <div id="modal-confirm"
          class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"
          role="dialog" aria-modal="true">
