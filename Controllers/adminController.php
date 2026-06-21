@@ -1,6 +1,6 @@
 <?php
 require_once ROOT . "/models/adminModel.php";
-require_once ROOT ."models/newsletterModel.php";
+require_once ROOT . "/models/newsletterModel.php";
 auth();
 if (!hasRole("admin")) {
     redirectTo("auth", "login");
@@ -172,8 +172,19 @@ $supprimerCommentaireSignale = function () {
 $listeNewsletter = function () {
     $newsletters = findAllNewslettersEmails();
     loadView("admins/listeNewsletter", ["newsletters" => $newsletters], "side");
-}
-;
+};
+
+$search = function () {
+    $q = trim($_GET['q'] ?? '');
+    header('Content-Type: application/json');
+    if (strlen($q) < 2) {
+        echo json_encode(['articles' => [], 'auteurs' => [], 'categories' => []]);
+        exit();
+    }
+    echo json_encode(searchGlobal($q));
+    exit();
+};
+
 //routing
 $actions = [
     "index"                       => $dashboard,
@@ -192,7 +203,8 @@ $actions = [
     "supprimerAdmin"              => $supprimerAdmin,
     "signalementsCommentaires"    => $signalementsCommentaires,
     "supprimerCommentaireSignale" => $supprimerCommentaireSignale,
-    "listeNewsletters" => $listeNewsletter
+    "listeNewsletters"            => $listeNewsletter,
+    "search"                      => $search,
 ];
 
 $action = $_REQUEST["action"] ?? "dashboard";

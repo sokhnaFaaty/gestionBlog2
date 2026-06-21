@@ -151,6 +151,28 @@ function findSignalementsCommentaires(): array {
     return executeSelect($sql, []);
 }
 
+function searchGlobal(string $query): array {
+    $q = '%' . $query . '%';
+
+    $articles = executeSelect(
+        "SELECT id_article, titre, statut FROM article WHERE titre ILIKE :q LIMIT 5",
+        ['q' => $q]
+    );
+
+    $auteurs = executeSelect(
+        "SELECT id_utilisateur, nom, prenom FROM utilisateur
+         WHERE role = 'auteur' AND (nom ILIKE :q1 OR prenom ILIKE :q2 OR email ILIKE :q3) LIMIT 5",
+        ['q1' => $q, 'q2' => $q, 'q3' => $q]
+    );
+
+    $categories = executeSelect(
+        "SELECT id_categorie, libelle FROM categorie WHERE libelle ILIKE :q LIMIT 5",
+        ['q' => $q]
+    );
+
+    return compact('articles', 'auteurs', 'categories');
+}
+
 function deleteCommentaire(int $id): void {
     $sql = "DELETE FROM commentaire WHERE id_commentaire = :id";
     executeUpdate($sql, ["id" => $id]);

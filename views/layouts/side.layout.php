@@ -217,11 +217,16 @@
         <!-- Barre supérieure -->
         <header class='bg-[#1A237E] px-6 py-3 flex items-center justify-between flex-shrink-0 rounded-[10px] mx-3 mt-1'>
             <!-- Recherche -->
-            <div class='relative w-80'>
+            <div class='relative w-80' id='search-wrapper'>
                 <i class='fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm'></i>
                 <input type='text'
+                       id='search-global'
                        placeholder='Rechercher global...'
+                       autocomplete='off'
                        class='w-full pl-9 pr-4 py-2 text-sm bg-white border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 transition'>
+                <div id='search-results'
+                     class='hidden absolute top-full mt-1 left-0 w-full bg-white rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto text-sm border border-gray-100'>
+                </div>
             </div>
 
             <!-- Droite : cloche + avatar -->
@@ -270,6 +275,83 @@ function fermerModal() {
 document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') fermerModal();
 });
+</script>
+
+<script>
+(function () {
+    var input   = document.getElementById('search-global');
+    var results = document.getElementById('search-results');
+    var timer   = null;
+
+    input.addEventListener('input', function () {
+        clearTimeout(timer);
+        var q = this.value.trim();
+        if (q.length < 2) { results.classList.add('hidden'); return; }
+        timer = setTimeout(function () { doSearch(q); }, 300);
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!document.getElementById('search-wrapper').contains(e.target)) {
+            results.classList.add('hidden');
+        }
+    });
+
+    function doSearch(q) {
+        fetch('<?= WEBROOT ?>admin/search?q=' + encodeURIComponent(q))
+            .then(function (r) { return r.json(); })
+            .then(function (data) { render(data); });
+    }
+
+    function render(data) {
+        var html = '';
+
+        if (data.articles && data.articles.length) {
+            html += '<div class="px-3 py-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider bg-gray-50">Articles</div>';
+            data.articles.forEach(function (a) {
+                html += '<a href="<?= WEBROOT ?>admin/listeArticles" class="flex items-center gap-2 px-3 py-2 hover:bg-indigo-50 text-gray-700 border-b border-gray-50">'
+                      + '<i class="fa-solid fa-newspaper text-indigo-400 text-xs w-4 shrink-0"></i>'
+                      + '<span class="truncate flex-1">' + esc(a.titre) + '</span>'
+                      + '<span class="ml-auto text-xs text-gray-400 shrink-0">' + esc(a.statut) + '</span>'
+                      + '</a>';
+            });
+        }
+
+        if (data.auteurs && data.auteurs.length) {
+            html += '<div class="px-3 py-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider bg-gray-50 border-t border-gray-100">Auteurs</div>';
+            data.auteurs.forEach(function (u) {
+                html += '<a href="<?= WEBROOT ?>admin/listeAuteurs" class="flex items-center gap-2 px-3 py-2 hover:bg-indigo-50 text-gray-700 border-b border-gray-50">'
+                      + '<i class="fa-solid fa-user text-indigo-400 text-xs w-4 shrink-0"></i>'
+                      + '<span class="truncate">' + esc(u.prenom + ' ' + u.nom) + '</span>'
+                      + '</a>';
+            });
+        }
+
+        if (data.categories && data.categories.length) {
+            html += '<div class="px-3 py-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider bg-gray-50 border-t border-gray-100">Catégories</div>';
+            data.categories.forEach(function (c) {
+                html += '<a href="<?= WEBROOT ?>admin/listeCategories" class="flex items-center gap-2 px-3 py-2 hover:bg-indigo-50 text-gray-700 border-b border-gray-50">'
+                      + '<i class="fa-solid fa-tag text-indigo-400 text-xs w-4 shrink-0"></i>'
+                      + '<span class="truncate">' + esc(c.libelle) + '</span>'
+                      + '</a>';
+            });
+        }
+
+        if (!html) {
+            html = '<div class="px-3 py-4 text-center text-gray-400">Aucun résultat</div>';
+        }
+
+        results.innerHTML = html;
+        results.classList.remove('hidden');
+    }
+
+    function esc(str) {
+        return String(str ?? '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+})();
 </script>
 </body>
 
