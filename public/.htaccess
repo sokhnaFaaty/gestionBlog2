@@ -1,0 +1,9 @@
+Options -Indexes
+RewriteEngine On
+
+# Laisser passer les fichiers et dossiers réels (CSS, uploads, etc.)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Tout le reste → index.php
+RewriteRule ^ index.php [L]
