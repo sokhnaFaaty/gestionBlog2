@@ -7,7 +7,17 @@
       <h1 class="text-2xl font-bold text-gray-900">GESTION BLOG</h1>
       <p class="text-sm text-gray-500 mt-1">Connectez-vous pour accéder au tableau de bord</p>
     </div>
-          <span class="text-red-800"> <?=$errors["connect"] ?? "" ?></span>
+          <?php if (!empty($errors["banned"])): ?>
+          <div class="flex items-start gap-3 bg-red-50 border border-red-200 rounded-xl px-4 py-3 mb-2">
+            <i class="fa-solid fa-ban text-red-500 mt-0.5 text-sm"></i>
+            <div>
+              <p class="text-sm font-semibold text-red-700">Compte suspendu</p>
+              <p class="text-xs text-red-500 mt-0.5"><?= htmlspecialchars($errors["banned"]) ?></p>
+            </div>
+          </div>
+          <?php elseif (!empty($errors["connect"])): ?>
+          <span class="text-red-800 text-sm"> <?= htmlspecialchars($errors["connect"]) ?></span>
+          <?php endif; ?>
 
     <!-- TODO: Remplacer action par le contrôleur PHP d'authentification -->
     <form action="<?= WEBROOT ?>" method="POST" class="space-y-5">
