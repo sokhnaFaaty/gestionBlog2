@@ -29,22 +29,26 @@ $login = function () {
 
         if (validate($errors)) {
             $user = login($_POST["email"]);
-            
+
             if ($user && $_POST["password"] == $user["mdp"]) {
-                $_SESSION["user"] = $user;
-                
-                // Redirection selon le rôle (Seul l'admin va sur l'espace admin)
-                switch ($user["role"]) {
-                    case "admin":
-                        redirectTo("admin", "index");
-                        break;
-                    case "auteur":
-                        redirectTo("auteur", "liste");
-                        break;
-                    case "lecteur":
-                    default:
-                        redirectTo("lecteur", "liste");
-                        break;
+                if (!empty($user["banni"])) {
+                    $errors["banned"] = "Votre compte a été suspendu par un administrateur.";
+                } else {
+                    $_SESSION["user"] = $user;
+
+                    // Redirection selon le rôle (Seul l'admin va sur l'espace admin)
+                    switch ($user["role"]) {
+                        case "admin":
+                            redirectTo("admin", "index");
+                            break;
+                        case "auteur":
+                            redirectTo("auteur", "liste");
+                            break;
+                        case "lecteur":
+                        default:
+                            redirectTo("lecteur", "liste");
+                            break;
+                    }
                 }
             } else {
                 $errors["connect"] = "email ou mot de passe incorrect";

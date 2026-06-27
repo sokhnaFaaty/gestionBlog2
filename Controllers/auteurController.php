@@ -7,6 +7,10 @@ if (!hasRole("auteur") && !hasRole("admin")) {
     redirectTo("auth", "login");
 }
 
+if (hasRole("auteur") && !empty($_SESSION["user"]["banni"])) {
+    redirectTo("lecteur", "liste");
+}
+
 $liste = function () {
     $articles       = findAllArticles();
     $total_articles = countTable("article");
