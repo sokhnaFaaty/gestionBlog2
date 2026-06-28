@@ -2,7 +2,12 @@
 require_once ROOT . "/models/articleModel.php";
 require_once ROOT . "/models/categorieModel.php";
 
-auth();
+$action = $_REQUEST["action"] ?? "home";
+$actionsPubliques = ["home", "index", "voir"];
+if (!in_array($action, $actionsPubliques)) {
+    auth();
+}
+
 
 // ── LISTE 
 
@@ -219,6 +224,11 @@ $search = function () {
     echo json_encode(searchGlobal($q));
     exit();
 };
+$signalerArticle = function () {
+    $id = (int)($_POST["id_article"] ?? 0);
+    signalerArticle($id, $_SESSION["user"]["id_utilisateur"]);
+    redirectTo("article", "voir", ["id" => $id]);
+};
 
 // ── ROUTING 
 
@@ -226,7 +236,7 @@ $actions = [
     "index"        => $home,
     "home"         => $home,
     "liste"        => $liste,
-    "article"      => $voirArticle,
+    "voir"      => $voirArticle,
     "add"          => $add,
     "edit"         => $edit,
     "delete"       => $delete,
@@ -234,6 +244,7 @@ $actions = [
     "listeAdmin"   => $listeAdmin,
     "banir"        => $banir,
     "search"       => $search,
+    "signalerArticle" => $signalerArticle,
 ];
 
 $action = $_REQUEST["action"] ?? "home";
