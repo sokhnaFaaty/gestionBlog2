@@ -45,20 +45,20 @@
 
         <!-- Logo + liens -->
         <div class="flex items-center space-x-8">
-          <a href="<?= path('admin', 'dashboard') ?>" class="text-xl font-bold text-[#1A237E]"><i class="fa-solid fa-book-open mr-2"></i>GES-BLOG</a>
+          <a href="<?= path('utilisateur', 'dashboard') ?>" class="text-xl font-bold text-[#1A237E]"><i class="fa-solid fa-book-open mr-2"></i>GES-BLOG</a>
           <div class="hidden sm:flex space-x-2">
             <?php if (!hasRole('lecteur')): ?>
-            <a href="<?= path('admin', 'dashboard') ?>"
+            <a href="<?= path('utilisateur', 'dashboard') ?>"
                class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'dashboard' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
               Dashboard
             </a>
             <?php endif; ?>
-            <a href="<?= path('auteur', 'liste') ?>"
+            <a href="<?= path('article', 'liste') ?>"
                class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'auteur' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
               Articles
             </a>
             <?php if (hasRole('admin')): ?>
-            <a href="<?= path('admin', 'index') ?>"
+            <a href="<?= path('utilisateur', 'dashboard') ?>"
                class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'admin' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
               Administration
             </a>
@@ -122,12 +122,12 @@
           <h3 class="text-sm font-semibold text-indigo-100 uppercase tracking-wider mb-4">Navigation</h3>
           <ul class="space-y-2.5">
             <li>
-              <a href="<?= path('lecteur', 'home') ?>" class="text-indigo-200 hover:text-white text-sm transition flex items-center gap-2">
+              <a href="<?= path('article', 'home') ?>" class="text-indigo-200 hover:text-white text-sm transition flex items-center gap-2">
                 <i class="fa-solid fa-house w-4"></i>Accueil
               </a>
             </li>
             <li>
-              <a href="<?= path('lecteur', 'liste') ?>" class="text-indigo-200 hover:text-white text-sm transition flex items-center gap-2">
+              <a href="<?= path('article', 'home') ?>" class="text-indigo-200 hover:text-white text-sm transition flex items-center gap-2">
                 <i class="fa-solid fa-newspaper w-4"></i>Articles
               </a>
             </li>

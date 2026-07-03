@@ -1,9 +1,9 @@
 <?php
 $controllers = [
-    "article"      => "Article",
-    "commentaire"  => "Commentaire",
-    "categorie"    => "Categorie",
-    "utilisateur"  => "Utilisateur",
+    "article"      => "article",
+    "commentaire"  => "commentaire",
+    "categorie"    => "categorie",
+    "utilisateur"  => "utilisateur",
     "auth"         => "auth",
     "newsletter"   => "newsletter"
 ];
