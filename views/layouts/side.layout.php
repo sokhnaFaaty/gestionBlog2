@@ -134,67 +134,67 @@
 
             if ($role === 'auteur'): ?>
                 <p class='px-4 pt-2 pb-1 text-xs text-indigo-400 uppercase font-semibold tracking-wider'>Blog</p>
-                <a href='<?= path("auteur", "home") ?>'
+                <a href='<?= path("article", "home") ?>'
                     class='<?= in_array($currentAction, ["home", "article"]) ? $active : $normal ?>'>
                     <i class='fa-solid fa-newspaper w-4 text-center'></i> Articles publiés
                 </a>
 
                 <p class='px-4 pt-4 pb-1 text-xs text-indigo-400 uppercase font-semibold tracking-wider'>Mes articles</p>
-                <a href='<?= path("auteur", "liste") ?>'
+                <a href='<?= path("article", "liste") ?>'
                     class='<?= in_array($currentAction, ["liste", "index", "edit"]) ? $active : $normal ?>'>
                     <i class='fa-solid fa-file-lines w-4 text-center'></i> Mes articles
                 </a>
-                <a href='<?= path("auteur", "add") ?>'
+                <a href='<?= path("article", "add") ?>'
                     class='<?= ($currentAction === "add") ? $active : $normal ?>'>
                     <i class='fa-solid fa-plus w-4 text-center'></i> Nouvel article
                 </a>
 
             <?php elseif ($role === 'admin'): ?>
                 <p class='px-4 pt-2 pb-1 text-xs text-indigo-400 uppercase font-semibold tracking-wider'>Blog</p>
-                <a href='<?= path("auteur", "home") ?>'
+                <a href='<?= path("article", "home") ?>'
                     class='<?= in_array($currentAction, ["home", "article"]) && $currentController === "auteur" ? $active : $normal ?>'>
                     <i class='fa-solid fa-eye w-4 text-center'></i> Voir les articles
                 </a>
 
                 <p class='px-4 pt-4 pb-1 text-xs text-indigo-400 uppercase font-semibold tracking-wider'>Tableau de bord</p>
-                <a href='<?= path("admin", "dashboard") ?>'
+                <a href='<?= path("utilisateur", "dashboard") ?>'
                     class='<?= in_array($currentAction, ['dashboard', 'index']) ? $active : $normal ?>'>
                     <i class='fa-solid fa-gauge w-4 text-center'></i> Vue d'ensemble
                 </a>
 
                 <p class='px-4 pt-4 pb-1 text-xs text-indigo-400 uppercase font-semibold tracking-wider'>Gestion</p>
-                <a href='<?= path("admin", "listeArticles") ?>'
+                <a href='<?= path("article", "listeAdmin") ?>'
                     class='<?= $currentAction === 'listeArticles' ? $active : $normal ?>'>
                     <i class='fa-solid fa-newspaper w-4 text-center'></i> Articles
                 </a>
-                <a href='<?= path("admin", "listeAuteurs") ?>'
+                <a href='<?= path("utilisateur", "listeAuteurs") ?>'
                     class='<?= $currentAction === 'listeAuteurs' ? $active : $normal ?>'>
                     <i class='fa-solid fa-users w-4 text-center'></i> Auteurs
                 </a>
-                <a href='<?= path("admin", "listeCategories") ?>'
+                <a href='<?= path("categorie", "liste") ?>'
                     class='<?= $currentAction === 'listeCategories' ? $active : $normal ?>'>
                     <i class='fa-solid fa-tags w-4 text-center'></i> Catégories
                 </a>
-                <a href='<?= path("admin", "addAdmin") ?>'
+                <a href='<?= path("utilisateur", "addAdmin") ?>'
                     class='<?= $currentAction === 'addAdmin' ? $active : $normal ?>'>
                     <i class='fa-solid fa-user-shield w-4 text-center'></i> Ajouter un admin
                 </a>
-                <a href='<?= path("admin", "listeAdmins") ?>'
+                <a href='<?= path("utilisateur", "listeAdmins") ?>'
                     class='<?= $currentAction === "listeAdmins" ? $active : $normal ?>'>
                     <i class='fa-solid fa-user-shield w-4 text-center'></i> Administrateurs
                 </a>
-                <a href='<?= path("admin", "signalementsCommentaires") ?>'
+                <a href='<?= path("commentaire", "signalements") ?>'
                     class='<?= $currentAction === "signalementsCommentaires" ? $active : $normal ?>'>
                     <i class='fa-solid fa-comment-slash w-4 text-center'></i> Signalements
                 </a>
-                <a href='<?= path("admin", "listeNewsletters") ?>'
+                <a href='<?= path("utilisateur", "listeNewsletters") ?>'
                     class='<?= $currentAction === "listeNewsletters" ? $active : $normal ?>'>
                     <i class='fa-solid fa-envelope w-4 text-center'></i> Newsletter
                 </a>
 
             <?php elseif ($role === 'lecteur'): ?>
                 <p class='px-4 pt-2 pb-1 text-xs text-indigo-400 uppercase font-semibold tracking-wider'>Blog</p>
-                <a href='<?= path("lecteur", "liste") ?>'
+                <a href='<?= path("article", "home") ?>'
                     class='<?= $currentAction === 'liste' ? $active : $normal ?>'>
                     <i class='fa-solid fa-newspaper w-4 text-center'></i> Articles publiés
                 </a>
@@ -297,7 +297,7 @@ document.addEventListener('keydown', function (e) {
     });
 
     function doSearch(q) {
-        fetch('<?= WEBROOT ?>admin/search?q=' + encodeURIComponent(q))
+        fetch('<?= WEBROOT ?>article/search?q=' + encodeURIComponent(q))
             .then(function (r) { return r.json(); })
             .then(function (data) { render(data); });
     }
@@ -308,7 +308,7 @@ document.addEventListener('keydown', function (e) {
         if (data.articles && data.articles.length) {
             html += '<div class="px-3 py-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider bg-gray-50">Articles</div>';
             data.articles.forEach(function (a) {
-                html += '<a href="<?= WEBROOT ?>admin/listeArticles" class="flex items-center gap-2 px-3 py-2 hover:bg-indigo-50 text-gray-700 border-b border-gray-50">'
+                html += '<a href="<?= WEBROOT ?>article/listeAdmin" class="flex items-center gap-2 px-3 py-2 hover:bg-indigo-50 text-gray-700 border-b border-gray-50">'
                       + '<i class="fa-solid fa-newspaper text-indigo-400 text-xs w-4 shrink-0"></i>'
                       + '<span class="truncate flex-1">' + esc(a.titre) + '</span>'
                       + '<span class="ml-auto text-xs text-gray-400 shrink-0">' + esc(a.statut) + '</span>'
@@ -319,7 +319,7 @@ document.addEventListener('keydown', function (e) {
         if (data.auteurs && data.auteurs.length) {
             html += '<div class="px-3 py-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider bg-gray-50 border-t border-gray-100">Auteurs</div>';
             data.auteurs.forEach(function (u) {
-                html += '<a href="<?= WEBROOT ?>admin/listeAuteurs" class="flex items-center gap-2 px-3 py-2 hover:bg-indigo-50 text-gray-700 border-b border-gray-50">'
+                html += '<a href="<?= WEBROOT ?>utilisateur/listeAuteurs" class="flex items-center gap-2 px-3 py-2 hover:bg-indigo-50 text-gray-700 border-b border-gray-50">'
                       + '<i class="fa-solid fa-user text-indigo-400 text-xs w-4 shrink-0"></i>'
                       + '<span class="truncate">' + esc(u.prenom + ' ' + u.nom) + '</span>'
                       + '</a>';
@@ -329,7 +329,7 @@ document.addEventListener('keydown', function (e) {
         if (data.categories && data.categories.length) {
             html += '<div class="px-3 py-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider bg-gray-50 border-t border-gray-100">Catégories</div>';
             data.categories.forEach(function (c) {
-                html += '<a href="<?= WEBROOT ?>admin/listeCategories" class="flex items-center gap-2 px-3 py-2 hover:bg-indigo-50 text-gray-700 border-b border-gray-50">'
+                html += '<a href="<?= WEBROOT ?>categorie/liste" class="flex items-center gap-2 px-3 py-2 hover:bg-indigo-50 text-gray-700 border-b border-gray-50">'
                       + '<i class="fa-solid fa-tag text-indigo-400 text-xs w-4 shrink-0"></i>'
                       + '<span class="truncate">' + esc(c.libelle) + '</span>'
                       + '</a>';
