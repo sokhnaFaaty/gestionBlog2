@@ -83,17 +83,17 @@
     <!-- Liens rapides (admin seulement) -->
     <?php if (hasRole('admin')): ?>
     <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <a href="<?= path('admin', 'listeArticles', ['statut' => 'En attente']) ?>"
+        <a href="<?= path('article', 'listeArticles', ['statut' => 'En attente']) ?>"
            class="block bg-yellow-50 border border-yellow-200 rounded-xl p-5 hover:bg-yellow-100 transition">
             <p class="font-semibold text-yellow-800">Articles en attente</p>
             <p class="text-sm text-yellow-600 mt-1">Valider ou rejeter</p>
         </a>
-        <a href="<?= path('admin', 'listeArticles') ?>"
+        <a href="<?= path('article', 'listeArticles') ?>"
            class="block bg-indigo-50 border border-indigo-200 rounded-xl p-5 hover:bg-indigo-100 transition">
             <p class="font-semibold text-indigo-800">Tous les articles</p>
             <p class="text-sm text-indigo-600 mt-1">Gérer les signalements</p>
         </a>
-        <a href="<?= path('admin', 'listeAuteurs') ?>"
+        <a href="<?= path('utilisateur', 'listeAuteurs') ?>"
            class="block bg-gray-50 border border-gray-200 rounded-xl p-5 hover:bg-gray-100 transition">
             <p class="font-semibold text-gray-800">Auteurs</p>
             <p class="text-sm text-gray-500 mt-1">Voir les profils</p>
