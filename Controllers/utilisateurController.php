@@ -61,6 +61,13 @@ $supprimerAdmin = function () {
     redirectTo("utilisateur", "listeAdmins");
 };
 
+$listeNewsletters = function () {
+    if (!hasRole("admin")) redirectTo("article", "home");
+    require_once ROOT . "/models/newsletterModel.php";
+    $newsletters = findAllNewslettersEmails();
+    loadView("utilisateurs/listeNewsletter", ["newsletters" => $newsletters], "side");
+};
+
 $dashboard = function () {
     if (!hasRole("admin")) redirectTo("article", "home");
     require_once ROOT . "/models/ArticleModel.php";
@@ -79,6 +86,7 @@ $dashboard = function () {
     loadView("utilisateurs/dashboard", $stats, "side");
 };
 
+
 // ── ROUTING 
 
 $actions = [
@@ -89,6 +97,7 @@ $actions = [
     "listeAdmins"    => $listeAdmins,
     "addAdmin"       => $addAdmin,
     "supprimerAdmin" => $supprimerAdmin,
+    "listeNewsletters" => $listeNewsletters,
 ];
 
 if (array_key_exists($action, $actions)) {
