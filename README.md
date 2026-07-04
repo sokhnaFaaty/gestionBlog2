@@ -77,13 +77,6 @@ php -S localhost:8003 -t public router.php
 **5. Accéder à l'application**
 http://localhost:8003
 
-### Comptes de démonstration
-| Rôle | Email | Mot de passe |
-|------|-------|--------------|
-| Admin | admin@gesblog.fr | password |
-| Auteur | auteur@gesblog.fr | password |
-| Lecteur | lecteur@gesblog.fr | password |
-
 ## Structure du projet
 gestionBlog/
 ├── config/
