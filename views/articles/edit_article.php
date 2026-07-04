@@ -7,7 +7,7 @@
         </p>
     </div>
 
-    <form action="<?= path('auteur', 'edit') ?>" method="POST" enctype="multipart/form-data" class="space-y-6">
+    <form action="<?= path('article', 'edit') ?>" method="POST" enctype="multipart/form-data" class="space-y-6">
         <input type="hidden" name="id_article" value="<?= $article['id_article'] ?>">
 
         <!-- Titre -->
@@ -72,7 +72,7 @@
             </button>
 
             <div class="flex gap-3">
-                <a href="<?= path('auteur', 'liste') ?>"
+                <a href="<?= path('article', 'liste') ?>"
                    class="px-4 py-2.5 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
                     Annuler
                 </a>
@@ -87,7 +87,7 @@
     <!-- Formulaire de suppression  -->
     <form id="form-delete"
           method="POST"
-          action="<?= path('auteur', 'delete') ?>">
+          action="<?= path('article', 'delete') ?>">
         <input type="hidden" name="id_article" value="<?= $article['id_article'] ?>">
     </form>
 </div>

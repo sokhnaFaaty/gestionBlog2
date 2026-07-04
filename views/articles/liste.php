@@ -6,7 +6,7 @@
             <p class="text-sm text-gray-500 mt-1">Retrouvez la liste et le statut de vos publications.</p>
         </div>
         <div class="mt-4 md:mt-0">
-            <a href="<?=path("auteur","add")?>"
+            <a href="<?=path("article","add")?>
                 class="inline-flex items-center px-4 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition shadow-sm">
                 <i class="fa-solid fa-plus mr-2"></i> Écrire un article
             </a>
@@ -68,7 +68,7 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 text-right space-x-2">
-                                    <a href="<?= path('auteur', 'edit', ['id' => $article['id_article']]) ?>"
+                                    <a href="<?= path('article', 'edit', ['id' => $article['id_article']]) ?>"
                                         class="text-indigo-600 hover:text-indigo-900 font-medium transition">Modifier</a>
                                 </td>
                             </tr>
@@ -79,3 +79,4 @@
         </div>
     </div>
 </div>
+<?php require_once ROOT . "/views/partials/pagination.php"; ?>

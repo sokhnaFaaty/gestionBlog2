@@ -36,7 +36,7 @@
                 <td class="px-5 py-4 text-right">
                     <form id="form-banir-<?= $auteur['id_utilisateur'] ?>"
                           method="POST"
-                          action="<?= path('admin', 'banirAuteur') ?>"
+                          action="<?= path('utilisateur', 'banirAuteur') ?>"
                           class="hidden">
                         <input type="hidden" name="id_utilisateur" value="<?= $auteur['id_utilisateur'] ?>">
                     </form>
@@ -57,3 +57,4 @@
         </table>
     </div>
 </div>
+<?php require_once ROOT . "/views/partials/pagination.php"; ?>

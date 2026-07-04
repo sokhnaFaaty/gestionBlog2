@@ -11,11 +11,11 @@ $login = function () {
     // Redirection intelligente si déjà connecté (Seul l'admin accède au dashboard)
     if (isConnected()) {
         if ($_SESSION["user"]["role"] === "admin") {
-            redirectTo("admin", "index");
+            redirectTo("utilisateur", "dashboard");
         } elseif ($_SESSION["user"]["role"] === "auteur") {
-            redirectTo("auteur", "index");
+            redirectTo("article", "liste");
         } else {
-            redirectTo("lecteur", "index");
+            redirectTo("article", "home");
         }
     }
     
@@ -39,14 +39,14 @@ $login = function () {
                     // Redirection selon le rôle (Seul l'admin va sur l'espace admin)
                     switch ($user["role"]) {
                         case "admin":
-                            redirectTo("admin", "index");
+                            redirectTo("utilisateur", "dashboard");
                             break;
                         case "auteur":
-                            redirectTo("auteur", "liste");
+                            redirectTo("article", "liste");
                             break;
                         case "lecteur":
                         default:
-                            redirectTo("lecteur", "liste");
+                            redirectTo("article", "home");
                             break;
                     }
                 }
@@ -61,11 +61,11 @@ $login = function () {
 $register = function () {
     if (isConnected()) {
         if ($_SESSION["user"]["role"] === "admin") {
-            redirectTo("admin", "index");
+            redirectTo("utilisateur", "dashboard");
         } elseif ($_SESSION["user"]["role"] === "auteur") {
-            redirectTo("auteur", "liste");
+            redirectTo("article", "liste");
         } else {
-            redirectTo("lecteur", "liste");
+            redirectTo("article", "home");
         }
     }
     

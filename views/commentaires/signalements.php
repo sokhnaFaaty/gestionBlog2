@@ -36,7 +36,7 @@
                     <div class="flex-shrink-0">
                         <form id="form-sup-com-<?= $s['id_commentaire'] ?>"
                               method="POST"
-                              action="<?= path('admin', 'supprimerCommentaireSignale') ?>"
+                              action="<?= path('commentaire', 'supprimerSignale') ?>"
                               class="hidden">
                             <input type="hidden" name="id_commentaire" value="<?= $s['id_commentaire'] ?>">
                         </form>

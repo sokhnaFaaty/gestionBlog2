@@ -43,7 +43,7 @@
                             <?= htmlspecialchars($article['categorie_nom']) ?>
                         </span>
                         <h3 class="text-lg font-semibold text-gray-900">
-                            <a href="<?= path('lecteur', 'article', ['id' => $article['id_article']]) ?>"
+                            <a href="<?= path('article', 'voir', ['id' => $article['id_article']]) ?>"
                                class="hover:text-indigo-600 transition">
                                 <?= htmlspecialchars($article['titre']) ?>
                             </a>
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="mt-4">
-                    <a href="<?= path('lecteur', 'article', ['id' => $article['id_article']]) ?>"
+                    <a href="<?= path('article', 'voir', ['id' => $article['id_article']]) ?>"
                        class="text-sm font-medium text-[#1A237E]  hover:text-indigo-800 transition">
                         Lire la suite <i class="fa-solid fa-arrow-right ml-1"></i>
                     </a>
@@ -69,3 +69,4 @@
         </div>
     <?php endif; ?>
 </div>
+<?php require_once ROOT . "/views/partials/pagination.php"; ?>

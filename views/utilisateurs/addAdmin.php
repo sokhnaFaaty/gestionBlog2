@@ -16,7 +16,7 @@
         <?php endif; ?>
 
         <form method="POST"
-              action="<?= path('admin', 'addAdmin') ?>"
+              action="<?= path('utilisateur', 'addAdmin') ?>"
               class="space-y-5">
 
             <!-- Prénom + Nom -->
@@ -75,7 +75,7 @@
             </div>
 
             <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                <a href="<?= path('admin', 'listeAuteurs') ?>"
+                <a href="<?= path('utilisateur', 'listeAuteurs') ?>"
                    class="px-4 py-2.5 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
                     Annuler
                 </a>

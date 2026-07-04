@@ -1,4 +1,4 @@
-<div class="max-w-3xl mx-auto my-8 px-4">
+﻿<div class="max-w-3xl mx-auto my-8 px-4">
 
     <!-- Article -->
     <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-8 mb-6">
@@ -20,7 +20,7 @@
         <div class="mt-6 pt-4 border-t border-gray-100">
             <form id="form-signaler-art-<?= $article['id_article'] ?>"
                   method="POST"
-                  action="<?= path('lecteur', 'signalerArticle') ?>"
+                  action="<?= path('article', 'signalerArticle') ?>"
                   class="hidden">
                 <input type="hidden" name="id_article" value="<?= $article['id_article'] ?>">
             </form>
@@ -62,7 +62,8 @@
                             </p>
                             <!-- Formulaire d'édition inline (caché par défaut) -->
                             <div id="edit-form-<?= $c['id_commentaire'] ?>" class="hidden mt-3">
-                                <form method="POST" action="<?= path('lecteur', 'modifierCommentaire') ?>">
+                                <form method="POST" action="<?= path('commentaire', 'modifier')
+ ?>">
                                     <input type="hidden" name="id_commentaire" value="<?= $c['id_commentaire'] ?>">
                                     <input type="hidden" name="id_article"     value="<?= $article['id_article'] ?>">
                                     <textarea name="contenu" rows="3"
@@ -95,7 +96,7 @@
                                 <!-- Supprimer -->
                                 <form id="form-supprimer-com-<?= $c['id_commentaire'] ?>"
                                       method="POST"
-                                      action="<?= path('lecteur', 'supprimerCommentaire') ?>"
+                                      action="<?= path('commentaire', 'supprimer') ?>"
                                       class="hidden">
                                     <input type="hidden" name="id_commentaire" value="<?= $c['id_commentaire'] ?>">
                                     <input type="hidden" name="id_article"     value="<?= $article['id_article'] ?>">
@@ -112,7 +113,7 @@
                                 <!-- Signaler (autres utilisateurs) -->
                                 <form id="form-signaler-com-<?= $c['id_commentaire'] ?>"
                                       method="POST"
-                                      action="<?= path('lecteur', 'signalerCommentaire') ?>"
+                                      action="<?= path('commentaire', 'signalerCommentaire')?>"
                                       class="hidden">
                                     <input type="hidden" name="id_commentaire" value="<?= $c['id_commentaire'] ?>">
                                     <input type="hidden" name="id_article"     value="<?= $article['id_article'] ?>">
@@ -138,7 +139,7 @@
     <?php if (isConnected()): ?>
     <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
         <h2 class="text-lg font-semibold text-gray-800 mb-4">Laisser un commentaire</h2>
-        <form method="POST" action="<?= path('lecteur', 'ajouterCommentaire') ?>" class="space-y-4">
+        <form method="POST" action="<?= path('commentaire', 'ajouter') ?>" class="space-y-4">
             <input type="hidden" name="id_article" value="<?= $article['id_article'] ?>">
             <div>
                 <textarea name="contenu" rows="4" placeholder="Votre commentaire..."
@@ -172,7 +173,7 @@
     <?php endif; ?>
 
     <div class="mt-4">
-        <a href="<?= path('lecteur', 'home') ?>" class="text-sm text-gray-500 hover:text-gray-700 transition">
+        <a href="<?= path('article', 'home') ?>" class="text-sm text-gray-500 hover:text-gray-700 transition">
             <i class="fa-solid fa-arrow-left mr-1"></i> Retour aux articles
         </a>
     </div>

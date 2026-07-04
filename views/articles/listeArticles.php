@@ -11,7 +11,7 @@
             foreach ($statuts as $val => $label):
                 $active = ($statut_filtre ?? "") === $val;
             ?>
-            <a href="<?= $val ? path('admin', 'listeArticles', ['statut' => $val]) : path('admin', 'listeArticles') ?>"
+            <a href="<?= $val ? path('article', 'listeAdmin', ['statut' => $val]) : path('article', 'listeAdmin') ?>"
                class="px-3 py-1.5 rounded-lg text-sm font-medium border transition
                <?= $active ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50' ?>">
                 <?= $label ?>
@@ -86,7 +86,7 @@
                             <?php endif; ?>
                             <!-- Rejeter -->
                             <?php if ($art['statut'] !== 'Rejete'): ?>
-                            <form method="POST" action="<?= path('admin', 'changerStatut') ?>">
+                            <form method="POST" action="<?= path('article', 'changerStatut') ?>">
                                 <input type="hidden" name="id_article" value="<?= $art['id_article'] ?>">
                                 <input type="hidden" name="statut" value="Rejete">
                                 <button class="px-3 py-1.5 bg-red-500 text-white text-xs rounded-lg hover:bg-red-600 transition">Rejeter</button>
@@ -95,7 +95,7 @@
                             <!-- Bannir si signalements >= 5 -->
                             <?php if ((int)$art['nb_signalements'] >= 5 && $art['statut'] !== 'Rejete'): ?>
                             <form id="form-banir-art-<?= $art['id_article'] ?>"
-                                  method="POST" action="<?= path('admin', 'banirArticle') ?>" class="hidden">
+                                  method="POST" action="<?= path('article', 'banir') ?>" class="hidden">
                                 <input type="hidden" name="id_article" value="<?= $art['id_article'] ?>">
                             </form>
                             <button type="button"
@@ -116,3 +116,4 @@
         </table>
     </div>
 </div>
+<?php require_once ROOT . "/views/partials/pagination.php"; ?>
