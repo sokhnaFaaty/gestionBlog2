@@ -9,55 +9,8 @@
 </head>
 
 <body class='bg-gray-50 flex h-screen overflow-hidden'>
-        <!-- ═══════════════════════════════════════════════════════
-         MODAL DE CONFIRMATION RÉUTILISABLE
-         Usage : <button onclick="confirmerAction(this)" 
-                         data-form="id-du-formulaire"
-                         data-message="Votre message de confirmation">
-    ════════════════════════════════════════════════════════════ -->
-    <div id="modal-confirm"
-         class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"
-         role="dialog" aria-modal="true">
- 
-        <!-- Fond sombre -->
-        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"
-             onclick="fermerModal()"></div>
- 
-        <!-- Boîte du modal -->
-        <div class="relative bg-white rounded-2xl shadow-xl w-full max-w-sm p-6 z-10">
- 
-            <!-- Icône -->
-            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-red-50 border border-red-100 mx-auto mb-4">
-                <i class="fa-solid fa-triangle-exclamation text-red-500 text-xl"></i>
-            </div>
- 
-            <!-- Titre -->
-            <h3 class="text-center text-lg font-bold text-gray-800 mb-2">Confirmation</h3>
- 
-            <!-- Message dynamique -->
-            <p id="modal-message" class="text-center text-sm text-gray-500 mb-6">
-                Êtes-vous sûr de vouloir effectuer cette action ?
-            </p>
- 
-            <!-- Boutons -->
-            <div class="flex gap-3">
-                <button onclick="fermerModal()"
-                        class="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
-                    Annuler
-                </button>
-                <button id="modal-btn-confirmer"
-                        class="flex-1 px-4 py-2.5 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition">
-                    Confirmer
-                </button>
-            </div>
-        </div>
-    </div>
 
-
-    <!-- Modal de confirmation réutilisable
-         Usage : <button type="button" onclick="confirmerAction(this)"
-                         data-form="id-du-formulaire"
-                         data-message=" message"> -->
+    <!-- Modal de confirmation -->
     <div id="modal-confirm"
          class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"
          role="dialog" aria-modal="true">
@@ -83,14 +36,26 @@
         </div>
     </div>
 
+    <!-- Overlay mobile (fond sombre quand sidebar ouverte) -->
+    <div id="sidebar-overlay"
+         class="fixed inset-0 bg-black/50 z-20 hidden lg:hidden"
+         onclick="fermerSidebar()"></div>
+
     <!-- Sidebar -->
-    <aside class='w-64 bg-[#1A237E]  text-white flex-shrink-0 flex flex-col h-full'>
+    <aside id="sidebar"
+           class='fixed lg:static inset-y-0 left-0 z-30
+                  w-64 bg-[#1A237E] text-white flex-shrink-0 flex flex-col h-full
+                  transform -translate-x-full lg:translate-x-0 transition-transform duration-300'>
 
         <!-- Logo -->
-        <div class='px-6 py-5 border-b border-indigo-700'>
+        <div class='px-6 py-5 border-b border-indigo-700 flex items-center justify-between'>
             <span class='text-xl font-bold tracking-wide text-white'>
                 <i class='fa-solid fa-book-open mr-2'></i>GES-BLOG
             </span>
+            <!-- Bouton fermer sidebar sur mobile -->
+            <button onclick="fermerSidebar()" class='lg:hidden text-indigo-300 hover:text-white'>
+                <i class='fa-solid fa-xmark text-xl'></i>
+            </button>
         </div>
 
         <!-- Infos utilisateur -->
@@ -125,7 +90,6 @@
             $currentController = $_REQUEST['controller'] ?? '';
             $currentAction     = $_REQUEST['action'] ?? '';
 
-            // Classe active vs inactive
             $base   = 'flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150';
             $active = $base . ' bg-indigo-700 text-white';
             $normal = $base . ' text-indigo-200 hover:bg-indigo-800 hover:text-white';
@@ -152,7 +116,7 @@
             <?php elseif ($role === 'admin'): ?>
                 <p class='px-4 pt-2 pb-1 text-xs text-indigo-400 uppercase font-semibold tracking-wider'>Blog</p>
                 <a href='<?= path("article", "home") ?>'
-                    class='<?= in_array($currentAction, ["home", "article"]) && $currentController === "auteur" ? $active : $normal ?>'>
+                    class='<?= in_array($currentAction, ["home", "voir"]) && $currentController === "article" ? $active : $normal ?>'>
                     <i class='fa-solid fa-eye w-4 text-center'></i> Voir les articles
                 </a>
 
@@ -164,19 +128,19 @@
 
                 <p class='px-4 pt-4 pb-1 text-xs text-indigo-400 uppercase font-semibold tracking-wider'>Gestion</p>
                 <a href='<?= path("article", "listeAdmin") ?>'
-                    class='<?= $currentAction === 'listeArticles' ? $active : $normal ?>'>
+                    class='<?= $currentAction === "listeAdmin" ? $active : $normal ?>'>
                     <i class='fa-solid fa-newspaper w-4 text-center'></i> Articles
                 </a>
                 <a href='<?= path("utilisateur", "listeAuteurs") ?>'
-                    class='<?= $currentAction === 'listeAuteurs' ? $active : $normal ?>'>
+                    class='<?= $currentAction === "listeAuteurs" ? $active : $normal ?>'>
                     <i class='fa-solid fa-users w-4 text-center'></i> Auteurs
                 </a>
                 <a href='<?= path("categorie", "liste") ?>'
-                    class='<?= $currentAction === 'listeCategories' ? $active : $normal ?>'>
+                    class='<?= $currentAction === "liste" && $currentController === "categorie" ? $active : $normal ?>'>
                     <i class='fa-solid fa-tags w-4 text-center'></i> Catégories
                 </a>
                 <a href='<?= path("utilisateur", "addAdmin") ?>'
-                    class='<?= $currentAction === 'addAdmin' ? $active : $normal ?>'>
+                    class='<?= $currentAction === "addAdmin" ? $active : $normal ?>'>
                     <i class='fa-solid fa-user-shield w-4 text-center'></i> Ajouter un admin
                 </a>
                 <a href='<?= path("utilisateur", "listeAdmins") ?>'
@@ -184,7 +148,7 @@
                     <i class='fa-solid fa-user-shield w-4 text-center'></i> Administrateurs
                 </a>
                 <a href='<?= path("commentaire", "signalements") ?>'
-                    class='<?= $currentAction === "signalementsCommentaires" ? $active : $normal ?>'>
+                    class='<?= $currentAction === "signalements" ? $active : $normal ?>'>
                     <i class='fa-solid fa-comment-slash w-4 text-center'></i> Signalements
                 </a>
                 <a href='<?= path("utilisateur", "listeNewsletters") ?>'
@@ -195,68 +159,80 @@
             <?php elseif ($role === 'lecteur'): ?>
                 <p class='px-4 pt-2 pb-1 text-xs text-indigo-400 uppercase font-semibold tracking-wider'>Blog</p>
                 <a href='<?= path("article", "home") ?>'
-                    class='<?= $currentAction === 'liste' ? $active : $normal ?>'>
+                    class='<?= $currentAction === "home" ? $active : $normal ?>'>
                     <i class='fa-solid fa-newspaper w-4 text-center'></i> Articles publiés
                 </a>
             <?php endif; ?>
         </nav>
 
-        <!-- Déconnexion (tout en bas) -->
+        <!-- Déconnexion -->
         <div class='px-3 py-4 border-t border-indigo-700'>
             <a href='<?= path("auth", "logout") ?>'
                 class='flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-indigo-200 hover:bg-red-600 hover:text-white transition-colors duration-150'>
                 <i class='fa-solid fa-right-from-bracket w-4 text-center'></i> Déconnexion
             </a>
         </div>
-
     </aside>
 
-    <!-- Zone droite : navbar + contenu -->
-    <div class='flex-1 flex flex-col overflow-hidden'>
+    <!-- Zone droite -->
+    <div class='flex-1 flex flex-col overflow-hidden min-w-0'>
 
-        <!-- Barre supérieure -->
-        <header class='bg-[#1A237E] px-6 py-3 flex items-center justify-between flex-shrink-0 rounded-[10px] mx-3 mt-1'>
-            <!-- Recherche -->
-            <div class='relative w-80' id='search-wrapper'>
-                <i class='fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm'></i>
-                <input type='text'
-                       id='search-global'
-                       placeholder='Rechercher global...'
-                       autocomplete='off'
-                       class='w-full pl-9 pr-4 py-2 text-sm bg-white border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 transition'>
-                <div id='search-results'
-                     class='hidden absolute top-full mt-1 left-0 w-full bg-white rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto text-sm border border-gray-100'>
+        <!-- Header -->
+        <header class='bg-[#1A237E] px-4 py-3 flex items-center justify-between flex-shrink-0 rounded-[10px] mx-3 mt-1'>
+            <div class='flex items-center gap-3'>
+                <!-- Bouton hamburger mobile -->
+                <button onclick="ouvrirSidebar()"
+                        class='lg:hidden text-white hover:text-indigo-200 transition'>
+                    <i class='fa-solid fa-bars text-xl'></i>
+                </button>
+
+                <!-- Recherche -->
+                <div class='relative hidden sm:block' id='search-wrapper'>
+                    <i class='fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm'></i>
+                    <input type='text'
+                           id='search-global'
+                           placeholder='Rechercher...'
+                           autocomplete='off'
+                           class='w-48 md:w-72 pl-9 pr-4 py-2 text-sm bg-white border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 transition'>
+                    <div id='search-results'
+                         class='hidden absolute top-full mt-1 left-0 w-full bg-white rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto text-sm border border-gray-100'>
+                    </div>
                 </div>
             </div>
 
             <!-- Droite : cloche + avatar -->
-            <div class='flex items-center gap-5'>
-                <!-- Cloche -->
-                <button class='relative text-white hover:text-indigo-200 transition'>
+            <div class='flex items-center gap-3'>
+                <button class='text-white hover:text-indigo-200 transition'>
                     <i class='fa-solid fa-bell text-lg'></i>
                 </button>
-
-                <!-- Avatar + nom -->
-                <div class='flex items-center gap-3'>
+                <div class='flex items-center gap-2'>
                     <div class='w-9 h-9 rounded-full bg-white text-[#1A237E] flex items-center justify-center text-sm font-bold uppercase'>
                         <?= mb_substr($_SESSION['user']['prenom'] ?? '', 0, 1) . mb_substr($_SESSION['user']['nom'] ?? '', 0, 1) ?>
                     </div>
-                    <span class='text-sm font-medium text-white'>
+                    <span class='hidden md:block text-sm font-medium text-white'>
                         <?= htmlspecialchars(($_SESSION['user']['prenom'] ?? '') . ' ' . ($_SESSION['user']['nom'] ?? '')) ?>
                     </span>
                 </div>
             </div>
         </header>
 
-        <!-- Contenu principal -->
-        <main class='flex-1 overflow-y-auto p-8'>
+        <!-- Contenu -->
+        <main class='flex-1 overflow-y-auto p-4 md:p-8'>
             <?php /** @var string $content */ echo $content; ?>
         </main>
-
     </div>
 
-
 <script>
+function ouvrirSidebar() {
+    document.getElementById('sidebar').classList.remove('-translate-x-full');
+    document.getElementById('sidebar-overlay').classList.remove('hidden');
+}
+
+function fermerSidebar() {
+    document.getElementById('sidebar').classList.add('-translate-x-full');
+    document.getElementById('sidebar-overlay').classList.add('hidden');
+}
+
 function confirmerAction(btn) {
     var formId  = btn.dataset.form;
     var message = btn.dataset.message || 'Êtes-vous sûr de vouloir effectuer cette action ?';
@@ -283,6 +259,8 @@ document.addEventListener('keydown', function (e) {
     var results = document.getElementById('search-results');
     var timer   = null;
 
+    if (!input) return;
+
     input.addEventListener('input', function () {
         clearTimeout(timer);
         var q = this.value.trim();
@@ -291,7 +269,8 @@ document.addEventListener('keydown', function (e) {
     });
 
     document.addEventListener('click', function (e) {
-        if (!document.getElementById('search-wrapper').contains(e.target)) {
+        var wrapper = document.getElementById('search-wrapper');
+        if (wrapper && !wrapper.contains(e.target)) {
             results.classList.add('hidden');
         }
     });
@@ -304,7 +283,6 @@ document.addEventListener('keydown', function (e) {
 
     function render(data) {
         var html = '';
-
         if (data.articles && data.articles.length) {
             html += '<div class="px-3 py-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider bg-gray-50">Articles</div>';
             data.articles.forEach(function (a) {
@@ -315,7 +293,6 @@ document.addEventListener('keydown', function (e) {
                       + '</a>';
             });
         }
-
         if (data.auteurs && data.auteurs.length) {
             html += '<div class="px-3 py-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider bg-gray-50 border-t border-gray-100">Auteurs</div>';
             data.auteurs.forEach(function (u) {
@@ -325,7 +302,6 @@ document.addEventListener('keydown', function (e) {
                       + '</a>';
             });
         }
-
         if (data.categories && data.categories.length) {
             html += '<div class="px-3 py-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider bg-gray-50 border-t border-gray-100">Catégories</div>';
             data.categories.forEach(function (c) {
@@ -335,11 +311,7 @@ document.addEventListener('keydown', function (e) {
                       + '</a>';
             });
         }
-
-        if (!html) {
-            html = '<div class="px-3 py-4 text-center text-gray-400">Aucun résultat</div>';
-        }
-
+        if (!html) html = '<div class="px-3 py-4 text-center text-gray-400">Aucun résultat</div>';
         results.innerHTML = html;
         results.classList.remove('hidden');
     }
@@ -354,5 +326,4 @@ document.addEventListener('keydown', function (e) {
 })();
 </script>
 </body>
-
 </html>
