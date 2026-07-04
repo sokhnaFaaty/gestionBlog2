@@ -57,3 +57,39 @@ function toggleBanAuteur(int $id): void {
     $sql = "UPDATE utilisateur SET banni = NOT banni WHERE id_utilisateur = :id";
     executeUpdate($sql, ["id" => $id]);
 }
+
+// ── PAGINATION 
+
+// Auteurs paginés
+function findAllAuteursPagines(int $page = 1, int $parPage = 10): array {
+    $offset = ($page - 1) * $parPage;
+    $sql = "SELECT u.*,
+            (SELECT COUNT(*) FROM article WHERE id_utilisateur = u.id_utilisateur) as nb_articles
+            FROM utilisateur u
+            WHERE u.role = 'auteur'
+            ORDER BY u.nom ASC
+            LIMIT :limit OFFSET :offset";
+    return executeSelect($sql, ["limit" => $parPage, "offset" => $offset]);
+}
+
+function countAllAuteurs(): int {
+    $sql    = "SELECT COUNT(*) as total FROM utilisateur WHERE role = 'auteur'";
+    $result = executeSelect($sql, [], true);
+    return (int)$result["total"];
+}
+
+// Admins paginés
+function findAllAdminsPagines(int $page = 1, int $parPage = 10): array {
+    $offset = ($page - 1) * $parPage;
+    $sql = "SELECT * FROM utilisateur 
+            WHERE role = 'admin' 
+            ORDER BY nom ASC
+            LIMIT :limit OFFSET :offset";
+    return executeSelect($sql, ["limit" => $parPage, "offset" => $offset]);
+}
+
+function countAllAdmins(): int {
+    $sql    = "SELECT COUNT(*) as total FROM utilisateur WHERE role = 'admin'";
+    $result = executeSelect($sql, [], true);
+    return (int)$result["total"];
+}

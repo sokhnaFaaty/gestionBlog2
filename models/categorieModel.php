@@ -44,3 +44,20 @@ function deleteCategorie(int $id): void {
     $sql = "DELETE FROM categorie WHERE id_categorie = :id";
     executeUpdate($sql, ["id" => $id]);
 }
+// ── PAGINATION ──────────────────────────────────────
+
+function findAllCategoriesPaginees(int $page = 1, int $parPage = 10): array {
+    $offset = ($page - 1) * $parPage;
+    $sql = "SELECT c.id_categorie, c.libelle,
+            (SELECT COUNT(*) FROM article_categorie ac WHERE ac.id_categorie = c.id_categorie) as nb_articles
+            FROM categorie c
+            ORDER BY c.libelle ASC
+            LIMIT :limit OFFSET :offset";
+    return executeSelect($sql, ["limit" => $parPage, "offset" => $offset]);
+}
+
+function countAllCategories(): int {
+    $sql    = "SELECT COUNT(*) as total FROM categorie";
+    $result = executeSelect($sql, [], true);
+    return (int)$result["total"];
+}

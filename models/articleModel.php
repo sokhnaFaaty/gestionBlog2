@@ -170,3 +170,78 @@ function searchGlobal(string $query): array {
     );
     return compact('articles', 'auteurs', 'categories');
 }
+
+//pagination
+// Mes articles paginés (auteur)
+function findAllArticlesPagines(int $page = 1, int $parPage = 6): array {
+    $id_utilisateur = $_SESSION['user']['id_utilisateur'];
+    $offset = ($page - 1) * $parPage;
+    $sql = "SELECT a.*, u.nom as utilisateur_nom, c.libelle as categorie_nom
+            FROM article a
+            INNER JOIN utilisateur u ON a.id_utilisateur = u.id_utilisateur
+            INNER JOIN article_categorie ac ON a.id_article = ac.id_article
+            INNER JOIN categorie c ON ac.id_categorie = c.id_categorie
+            WHERE a.id_utilisateur = :id_utilisateur
+            ORDER BY a.date_publication DESC
+            LIMIT :limit OFFSET :offset";
+    return executeSelect($sql, [
+        "id_utilisateur" => $id_utilisateur,
+        "limit"          => $parPage,
+        "offset"         => $offset,
+    ]);
+}
+function findArticlesPubliesPagines(int $page = 1, int $parPage = 6): array {
+    $offset = ($page - 1) * $parPage;
+    $sql = "SELECT a.*, u.nom as utilisateur_nom, c.libelle as categorie_nom,
+            (SELECT COUNT(*) FROM commentaire WHERE id_article = a.id_article) as nb_commentaires
+            FROM article a
+            INNER JOIN utilisateur u ON a.id_utilisateur = u.id_utilisateur
+            INNER JOIN article_categorie ac ON a.id_article = ac.id_article
+            INNER JOIN categorie c ON ac.id_categorie = c.id_categorie
+            WHERE a.statut = 'Publie' AND (u.banni IS NULL OR u.banni = false)
+            ORDER BY a.date_publication DESC
+            LIMIT :limit OFFSET :offset";
+    return executeSelect($sql, ["limit" => $parPage, "offset" => $offset]);
+}
+function countArticlesPublies(): int {
+    $sql = "SELECT COUNT(*) as total
+            FROM article a
+            INNER JOIN utilisateur u ON a.id_utilisateur = u.id_utilisateur
+            WHERE a.statut = 'Publie' AND (u.banni IS NULL OR u.banni = false)";
+    $result = executeSelect($sql, [], true);
+    return (int)$result["total"];
+}
+function countAllArticles(): int {
+    $id_utilisateur = $_SESSION['user']['id_utilisateur'];
+    $sql = "SELECT COUNT(*) as total FROM article WHERE id_utilisateur = :id_utilisateur";
+    $result = executeSelect($sql, ["id_utilisateur" => $id_utilisateur], true);
+    return (int)$result["total"];
+}
+
+// Articles admin paginés
+function findAllArticlesAdminPagines(?string $statut = null, int $page = 1, int $parPage = 10): array {
+    $where  = $statut ? "WHERE a.statut = :statut" : "";
+    $params = $statut ? ["statut" => $statut] : [];
+    $params["limit"]  = $parPage;
+    $params["offset"] = ($page - 1) * $parPage;
+    $sql = "SELECT a.*, u.nom as utilisateur_nom, u.banni,
+            c.libelle as categorie_nom,
+            (SELECT COUNT(*) FROM signalement WHERE id_article = a.id_article) as nb_signalements,
+            (SELECT COUNT(*) FROM commentaire WHERE id_article = a.id_article) as nb_commentaires
+            FROM article a
+            INNER JOIN utilisateur u ON a.id_utilisateur = u.id_utilisateur
+            INNER JOIN article_categorie ac ON a.id_article = ac.id_article
+            INNER JOIN categorie c ON ac.id_categorie = c.id_categorie
+            $where
+            ORDER BY a.date_publication DESC
+            LIMIT :limit OFFSET :offset";
+    return executeSelect($sql, $params);
+}
+
+function countAllArticlesAdmin(?string $statut = null): int {
+    $where  = $statut ? "WHERE statut = :statut" : "";
+    $params = $statut ? ["statut" => $statut] : [];
+    $sql    = "SELECT COUNT(*) as total FROM article $where";
+    $result = executeSelect($sql, $params, true);
+    return (int)$result["total"];
+}
