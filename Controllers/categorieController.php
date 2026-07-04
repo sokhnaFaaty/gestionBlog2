@@ -72,6 +72,35 @@ $supprimer = function () {
     }
     redirectTo("categorie", "liste");
 };
+//pagination
+$liste = function () {
+    if (!hasRole("admin")) redirectTo("article", "home");
+
+    $page       = (int)($_GET["page"] ?? 1);
+    $parPage    = 10;
+    $total      = countAllCategories();
+    $categories = findAllCategoriesPaginees($page, $parPage);
+    $errors     = [];
+
+    if (isset($_POST["btn_ajouter"])) {
+        $libelle = trim($_POST["libelle"] ?? "");
+        if ($libelle === "") {
+            $errors["libelle"] = "Le nom de la catégorie est obligatoire.";
+        } elseif (categorieLibelleExiste($libelle)) {
+            $errors["libelle"] = "Cette catégorie existe déjà.";
+        } else {
+            addCategorie($libelle);
+            redirectTo("categorie", "liste");
+        }
+    }
+
+    loadView("categories/listeCategories", [
+        "categories" => $categories,
+        "errors"     => $errors,
+        "page"       => $page,
+        "totalPages" => ceil($total / $parPage),
+    ], "side");
+};
 
 // ── ROUTING 
 

@@ -230,6 +230,48 @@ $signalerArticle = function () {
     redirectTo("article", "voir", ["id" => $id]);
 };
 
+//pagination
+$home = function () {
+    $page     = (int)($_GET["page"] ?? 1);
+    $total    = countArticlesPublies();
+    $parPage  = 6;
+    $articles = findArticlesPubliesPagines($page, $parPage);
+    loadView("articles/home", [
+        "articles"   => $articles,
+        "page"       => $page,
+        "totalPages" => ceil($total / $parPage),
+    ], "base");
+};
+$liste = function () {
+    if (!hasRole("auteur") && !hasRole("admin")) {
+        redirectTo("article", "home");
+    }
+    $page     = (int)($_GET["page"] ?? 1);
+    $total    = countAllArticles();
+    $parPage  = 6;
+    $articles = findAllArticlesPagines($page, $parPage);
+    loadView("articles/liste", [
+        "articles"       => $articles,
+        "total_articles" => $total,
+        "page"           => $page,
+        "totalPages"     => ceil($total / $parPage),
+    ], "side");
+};
+$listeAdmin = function () {
+    if (!hasRole("admin")) redirectTo("article", "home");
+    $statut   = $_GET["statut"] ?? null;
+    $page     = (int)($_GET["page"] ?? 1);
+    $parPage  = 10;
+    $total    = countAllArticlesAdmin($statut);
+    $articles = findAllArticlesAdminPagines($statut, $page, $parPage);
+    loadView("articles/listeArticles", [
+        "articles"      => $articles,
+        "statut_filtre" => $statut,
+        "page"          => $page,
+        "totalPages"    => ceil($total / $parPage),
+    ], "side");
+};
+
 // ── ROUTING 
 
 $actions = [

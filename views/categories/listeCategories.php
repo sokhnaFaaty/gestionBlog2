@@ -99,3 +99,4 @@
 
     </div>
 </div>
+<?php require_once ROOT . "/views/partials/pagination.php"; ?>

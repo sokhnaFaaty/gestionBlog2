@@ -69,3 +69,4 @@
         </div>
     <?php endif; ?>
 </div>
+<?php require_once ROOT . "/views/partials/pagination.php"; ?>

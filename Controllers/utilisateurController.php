@@ -85,8 +85,32 @@ $dashboard = function () {
     ];
     loadView("utilisateurs/dashboard", $stats, "side");
 };
+//paginatiom
 
-
+$listeAuteurs = function () {
+    if (!hasRole("admin")) redirectTo("article", "home");
+    $page     = (int)($_GET["page"] ?? 1);
+    $parPage  = 10;
+    $total    = countAllAuteurs();
+    $auteurs  = findAllAuteursPagines($page, $parPage);
+    loadView("utilisateurs/listeAuteurs", [
+        "auteurs"    => $auteurs,
+        "page"       => $page,
+        "totalPages" => ceil($total / $parPage),
+    ], "side");
+};
+$listeAdmins = function () {
+    if (!hasRole("admin")) redirectTo("article", "home");
+    $page     = (int)($_GET["page"] ?? 1);
+    $parPage  = 10;
+    $total    = countAllAdmins();
+    $admins   = findAllAdminsPagines($page, $parPage);
+    loadView("utilisateurs/listeAdmins", [
+        "admins"     => $admins,
+        "page"       => $page,
+        "totalPages" => ceil($total / $parPage),
+    ], "side");
+};
 // ── ROUTING 
 
 $actions = [
