@@ -234,7 +234,7 @@ $signalerArticle = function () {
 $home = function () {
     $page     = (int)($_GET["page"] ?? 1);
     $total    = countArticlesPublies();
-    $parPage  = 4;
+    $parPage  = 3;
     $articles = findArticlesPubliesPagines($page, $parPage);
     loadView("articles/home", [
         "articles"   => $articles,
@@ -248,7 +248,7 @@ $liste = function () {
     }
     $page     = (int)($_GET["page"] ?? 1);
     $total    = countAllArticles();
-    $parPage  = 4;
+    $parPage  = 3;
     $articles = findAllArticlesPagines($page, $parPage);
     loadView("articles/liste", [
         "articles"       => $articles,
