@@ -248,7 +248,7 @@ $liste = function () {
     }
     $page     = (int)($_GET["page"] ?? 1);
     $total    = countAllArticles();
-    $parPage  = 5;
+    $parPage  = 4;
     $articles = findAllArticlesPagines($page, $parPage);
     loadView("articles/liste", [
         "articles"       => $articles,
