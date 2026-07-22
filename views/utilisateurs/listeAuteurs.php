@@ -5,14 +5,15 @@
     </div>
 
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <table class="w-full text-left border-collapse">
+        <div class="overflow-x-auto">
+        <table class="w-full min-w-[640px] text-left border-collapse">
             <thead>
                 <tr class="bg-gray-50 border-b border-gray-100 text-gray-600 text-xs uppercase font-semibold">
-                    <th class="px-5 py-4">Nom</th>
-                    <th class="px-5 py-4">Email</th>
-                    <th class="px-5 py-4">Articles</th>
-                    <th class="px-5 py-4">Statut</th>
-                    <th class="px-5 py-4 text-right">Action</th>
+                    <th class="px-5 py-4 whitespace-nowrap">Nom</th>
+                    <th class="px-5 py-4 whitespace-nowrap">Email</th>
+                    <th class="px-5 py-4 whitespace-nowrap">Articles</th>
+                    <th class="px-5 py-4 whitespace-nowrap">Statut</th>
+                    <th class="px-5 py-4 text-right whitespace-nowrap">Action</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
@@ -55,6 +56,7 @@
             <?php endforeach; ?>
             </tbody>
         </table>
+        </div>
     </div>
 </div>
 <?php require_once ROOT . "/views/partials/pagination.php"; ?>

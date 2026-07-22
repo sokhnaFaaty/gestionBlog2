@@ -33,12 +33,13 @@
         <!-- Liste des catégories -->
         <div class="md:col-span-2">
             <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-                <table class="w-full text-left border-collapse text-sm">
+                <div class="overflow-x-auto">
+                <table class="w-full min-w-[420px] text-left border-collapse text-sm">
                     <thead>
                         <tr class="bg-gray-50 border-b border-gray-100 text-gray-600 text-xs uppercase font-semibold">
-                            <th class="px-5 py-4">Catégorie</th>
-                            <th class="px-5 py-4">Articles</th>
-                            <th class="px-5 py-4 text-right">Actions</th>
+                            <th class="px-5 py-4 whitespace-nowrap">Catégorie</th>
+                            <th class="px-5 py-4 whitespace-nowrap">Articles</th>
+                            <th class="px-5 py-4 text-right whitespace-nowrap">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 text-gray-700">
@@ -94,6 +95,7 @@
                     <?php endif; ?>
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
 
