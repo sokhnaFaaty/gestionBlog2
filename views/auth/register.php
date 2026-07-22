@@ -1,4 +1,4 @@
-<div class="bg-white rounded-2xl shadow-xl border border-gray-200 w-full max-w-md p-8">
+<div class="bg-white/85 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/40 w-full max-w-md p-8">
     <!-- Titre -->
     <div class="text-center mb-6 text-[#1A237E]">
       <div class="text-4xl mb-2"> <i class="fa-solid fa-pen-to-square"></i>
