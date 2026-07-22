@@ -1,0 +1,100 @@
+<div class="max-w-5xl mx-auto my-8 px-4">
+    <div class="mb-8">
+        <h2 class="text-2xl font-bold text-gray-800">Tableau de bord</h2>
+        <p class="text-sm text-gray-500 mt-1">
+            Bonjour <strong><?= htmlspecialchars($_SESSION['user']['nom']) ?></strong>,
+            voici un aperçu de la plateforme.
+        </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+            <p class="text-xs text-gray-500 uppercase font-semibold tracking-wide">Articles total</p>
+            <p class="text-3xl font-bold text-gray-800 mt-1"><?= $total_articles ?></p>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+            <p class="text-xs text-yellow-600 uppercase font-semibold tracking-wide">En attente</p>
+            <p class="text-3xl font-bold text-yellow-500 mt-1"><?= $articles_en_attente ?></p>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+            <p class="text-xs text-green-600 uppercase font-semibold tracking-wide">Publiés</p>
+            <p class="text-3xl font-bold text-green-500 mt-1"><?= $articles_publies ?></p>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+            <p class="text-xs text-red-500 uppercase font-semibold tracking-wide">Rejetés</p>
+            <p class="text-3xl font-bold text-red-400 mt-1"><?= $articles_rejetes ?></p>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+            <p class="text-xs text-gray-500 uppercase font-semibold tracking-wide">Auteurs</p>
+            <p class="text-3xl font-bold text-gray-800 mt-1"><?= $total_auteurs ?></p>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+            <p class="text-xs text-gray-500 uppercase font-semibold tracking-wide">Commentaires</p>
+            <p class="text-3xl font-bold text-gray-800 mt-1"><?= $total_commentaires ?></p>
+        </div>
+    </div>
+
+    <!-- Derniers articles -->
+    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-100">
+            <h3 class="font-semibold text-gray-800">5 derniers articles</h3>
+        </div>
+        <table class="w-full text-left text-sm">
+            <thead>
+                <tr class="bg-gray-50 text-xs uppercase text-gray-500 font-semibold border-b border-gray-100">
+                    <th class="px-6 py-3">Titre</th>
+                    <th class="px-6 py-3">Auteur</th>
+                    <th class="px-6 py-3">Date</th>
+                    <th class="px-6 py-3">Statut</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 text-gray-700">
+            <?php foreach ($derniers_articles as $a): ?>
+                <tr class="hover:bg-gray-50 transition">
+                    <td class="px-6 py-3 font-medium text-gray-900">
+                        <?= htmlspecialchars($a['titre']) ?>
+                    </td>
+                    <td class="px-6 py-3 text-gray-500">
+                        <?= htmlspecialchars($a['utilisateur_nom']) ?>
+                    </td>
+                    <td class="px-6 py-3 text-gray-500">
+                        <?= date('d/m/Y', strtotime($a['date_publication'])) ?>
+                    </td>
+                    <td class="px-6 py-3">
+                        <?php
+                        $cls = "bg-yellow-50 text-yellow-700 border-yellow-100";
+                        if ($a['statut'] === 'Publie')  $cls = "bg-green-50 text-green-700 border-green-100";
+                        if ($a['statut'] === 'Rejete')  $cls = "bg-red-50 text-red-700 border-red-100";
+                        ?>
+                        <span class="px-2.5 py-1 rounded-md text-xs font-semibold border <?= $cls ?>">
+                            <?= htmlspecialchars($a['statut']) ?>
+                        </span>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Liens rapides (admin seulement) -->
+    <?php if (hasRole('admin')): ?>
+    <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <a href="<?= path('admin', 'listeArticles') ?>&statut=En+attente"
+           class="block bg-yellow-50 border border-yellow-200 rounded-xl p-5 hover:bg-yellow-100 transition">
+            <p class="font-semibold text-yellow-800">Articles en attente</p>
+            <p class="text-sm text-yellow-600 mt-1">Valider ou rejeter</p>
+        </a>
+        <a href="<?= path('admin', 'listeArticles') ?>"
+           class="block bg-indigo-50 border border-indigo-200 rounded-xl p-5 hover:bg-indigo-100 transition">
+            <p class="font-semibold text-indigo-800">Tous les articles</p>
+            <p class="text-sm text-indigo-600 mt-1">Gérer les signalements</p>
+        </a>
+        <a href="<?= path('admin', 'listeAuteurs') ?>"
+           class="block bg-gray-50 border border-gray-200 rounded-xl p-5 hover:bg-gray-100 transition">
+            <p class="font-semibold text-gray-800">Auteurs</p>
+            <p class="text-sm text-gray-500 mt-1">Voir les profils</p>
+        </a>
+    </div>
+    <?php endif; ?>
+</div>
