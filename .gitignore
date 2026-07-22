@@ -1,4 +1,5 @@
 env.dev.php
 env.prod.php
+env.php
 db.sql
 .vscode/
