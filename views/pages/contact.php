@@ -56,7 +56,7 @@
             <?php if (!empty($success)): ?>
                 <div class="flex items-start gap-3 bg-green-50 border border-green-200 rounded-xl px-4 py-3 mb-6">
                     <i class="fa-solid fa-circle-check text-green-500 mt-0.5"></i>
-                    <p class="text-sm text-green-700">Votre message a bien été envoyé. Merci !</p>
+                    <p class="text-sm text-green-700"><?= htmlspecialchars($success) ?></p>
                 </div>
             <?php endif; ?>
 

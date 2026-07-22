@@ -81,6 +81,15 @@ $register = function () {
         
         $errors = validations($_POST, $rules, 'emailExists');
 
+        // Vérification de la confirmation du mot de passe
+        if (empty($errors["password"])) {
+            if (trim($_POST["password_confirmation"] ?? "") === "") {
+                $errors["password_confirmation"] = "Veuillez confirmer le mot de passe.";
+            } elseif ($_POST["password"] !== $_POST["password_confirmation"]) {
+                $errors["password_confirmation"] = "Les mots de passe ne correspondent pas.";
+            }
+        }
+
         if (validate($errors)) {
             $data = [
                 "nom"    => $_POST["nom"],

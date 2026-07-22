@@ -16,8 +16,7 @@ $apropos = function () {
 // ── PAGE CONTACT (publique)
 
 $contact = function () {
-    $errors  = [];
-    $success = false;
+    $errors = [];
 
     if (isset($_POST["btn_contact"])) {
         $rules = [
@@ -35,10 +34,15 @@ $contact = function () {
                 "sujet"   => trim($_POST["sujet"]),
                 "message" => trim($_POST["message"]),
             ]);
-            $success = true;
-            $_POST   = [];
+            // PRG : message flash + redirection pour éviter le renvoi au rechargement
+            $_SESSION["flash_success"] = "Votre message a bien été envoyé. Merci !";
+            redirectTo("page", "contact");
         }
     }
+
+    // Récupère puis efface le message flash (affiché une seule fois)
+    $success = $_SESSION["flash_success"] ?? null;
+    unset($_SESSION["flash_success"]);
 
     loadView("pages/contact", [
         "errors"  => $errors,
