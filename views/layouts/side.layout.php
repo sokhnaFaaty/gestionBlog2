@@ -3,6 +3,7 @@
 
 <head>
     <meta charset='UTF-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion Blog</title>
     <script src='https://cdn.tailwindcss.com'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -139,12 +140,8 @@
                     class='<?= $currentAction === "liste" && $currentController === "categorie" ? $active : $normal ?>'>
                     <i class='fa-solid fa-tags w-4 text-center'></i> Catégories
                 </a>
-                <a href='<?= path("utilisateur", "addAdmin") ?>'
-                    class='<?= $currentAction === "addAdmin" ? $active : $normal ?>'>
-                    <i class='fa-solid fa-user-shield w-4 text-center'></i> Ajouter un admin
-                </a>
                 <a href='<?= path("utilisateur", "listeAdmins") ?>'
-                    class='<?= $currentAction === "listeAdmins" ? $active : $normal ?>'>
+                    class='<?= in_array($currentAction, ["listeAdmins", "addAdmin"]) ? $active : $normal ?>'>
                     <i class='fa-solid fa-user-shield w-4 text-center'></i> Administrateurs
                 </a>
                 <a href='<?= path("commentaire", "signalements") ?>'

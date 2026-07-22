@@ -21,15 +21,16 @@
     </div>
 
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <table class="w-full text-left border-collapse">
+        <div class="overflow-x-auto">
+        <table class="w-full min-w-[780px] text-left border-collapse">
             <thead>
                 <tr class="bg-gray-50 border-b border-gray-100 text-gray-600 text-xs uppercase font-semibold">
-                    <th class="px-5 py-4">Titre</th>
-                    <th class="px-5 py-4">Auteur</th>
-                    <th class="px-5 py-4">Catégorie</th>
-                    <th class="px-5 py-4">Signalements</th>
-                    <th class="px-5 py-4">Statut</th>
-                    <th class="px-5 py-4 text-right">Actions</th>
+                    <th class="px-5 py-4 whitespace-nowrap">Titre</th>
+                    <th class="px-5 py-4 whitespace-nowrap">Auteur</th>
+                    <th class="px-5 py-4 whitespace-nowrap">Catégorie</th>
+                    <th class="px-5 py-4 whitespace-nowrap">Signalements</th>
+                    <th class="px-5 py-4 whitespace-nowrap">Statut</th>
+                    <th class="px-5 py-4 text-right whitespace-nowrap">Actions</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
@@ -114,6 +115,7 @@
             <?php endif; ?>
             </tbody>
         </table>
+        </div>
     </div>
 </div>
 <?php require_once ROOT . "/views/partials/pagination.php"; ?>

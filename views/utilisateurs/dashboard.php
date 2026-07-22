@@ -10,7 +10,7 @@
     <!-- Stats -->
      <div class=" my-6 rounded-[10px] bg-gray-100 p-6">
 
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-5">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-5">
         <div class="bg-[#EEF0FF] rounded-[5px] border-r-4 border-[#1A237E] shadow-sm p-5">
             <p class="text-xs text-[#1A237E] uppercase font-semibold tracking-wide">Articles total</p>
             <p class="text-3xl font-bold text-[#1A237E] mt-1"><?= $total_articles ?></p>
@@ -43,13 +43,14 @@
         <div class="px-6 py-4">
             <h3 class="font-semibold text-gray-800">5 derniers articles</h3>
         </div>
-        <table class="w-full text-left text-sm">
+        <div class="overflow-x-auto">
+        <table class="w-full min-w-[560px] text-left text-sm">
             <thead>
                 <tr class="bg-[#EFEFEF] text-xs uppercase text-black font-semibold">
-                    <th class="px-6 py-3">Titre</th>
-                    <th class="px-6 py-3">Auteur</th>
-                    <th class="px-6 py-3">Date</th>
-                    <th class="px-6 py-3">Statut</th>
+                    <th class="px-6 py-3 whitespace-nowrap">Titre</th>
+                    <th class="px-6 py-3 whitespace-nowrap">Auteur</th>
+                    <th class="px-6 py-3 whitespace-nowrap">Date</th>
+                    <th class="px-6 py-3 whitespace-nowrap">Statut</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100 text-gray-700">
@@ -61,10 +62,10 @@
                     <td class="px-6 py-3 text-gray-500">
                         <?= htmlspecialchars($a['utilisateur_nom']) ?>
                     </td>
-                    <td class="px-6 py-3 text-gray-500">
+                    <td class="px-6 py-3 text-gray-500 whitespace-nowrap">
                         <?= date('d/m/Y', strtotime($a['date_publication'])) ?>
                     </td>
-                    <td class="px-6 py-3">
+                    <td class="px-6 py-3 whitespace-nowrap">
                         <?php
                         $cls = "bg-yellow-50 text-yellow-700 border-yellow-100";
                         if ($a['statut'] === 'Publie')  $cls = "bg-green-50 text-green-700 border-green-100";
@@ -78,6 +79,7 @@
             <?php endforeach; ?>
             </tbody>
         </table>
+        </div>
     </div>
 
     <!-- Liens rapides (admin seulement) -->
