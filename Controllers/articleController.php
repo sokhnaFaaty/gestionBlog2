@@ -32,7 +32,7 @@ $home = function () {
 
 // Voir un article
 $voirArticle = function () {
-    require_once ROOT . "/models/CommentaireModel.php";
+    require_once ROOT . "/models/commentaireModel.php";
     $id = (int)($_GET["id"] ?? 0);
     if (!$id) redirectTo("article", "home");
 
