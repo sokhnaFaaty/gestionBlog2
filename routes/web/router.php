@@ -5,7 +5,8 @@ $controllers = [
     "categorie"    => "categorie",
     "utilisateur"  => "utilisateur",
     "auth"         => "auth",
-    "newsletter"   => "newsletter"
+    "newsletter"   => "newsletter",
+    "page"         => "page"
 ];
 
 $controller = $_REQUEST["controller"] ?? "article";

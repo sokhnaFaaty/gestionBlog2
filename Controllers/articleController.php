@@ -32,7 +32,7 @@ $home = function () {
 
 // Voir un article
 $voirArticle = function () {
-    require_once ROOT . "/models/CommentaireModel.php";
+    require_once ROOT . "/models/commentaireModel.php";
     $id = (int)($_GET["id"] ?? 0);
     if (!$id) redirectTo("article", "home");
 
@@ -234,7 +234,7 @@ $signalerArticle = function () {
 $home = function () {
     $page     = (int)($_GET["page"] ?? 1);
     $total    = countArticlesPublies();
-    $parPage  = 6;
+    $parPage  = 3;
     $articles = findArticlesPubliesPagines($page, $parPage);
     loadView("articles/home", [
         "articles"   => $articles,
@@ -248,7 +248,7 @@ $liste = function () {
     }
     $page     = (int)($_GET["page"] ?? 1);
     $total    = countAllArticles();
-    $parPage  = 6;
+    $parPage  = 3;
     $articles = findAllArticlesPagines($page, $parPage);
     loadView("articles/liste", [
         "articles"       => $articles,

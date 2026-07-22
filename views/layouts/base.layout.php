@@ -53,9 +53,17 @@
               Dashboard
             </a>
             <?php endif; ?>
-            <a href="<?= path('article', 'liste') ?>"
-               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'auteur' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
+            <a href="<?= (hasRole('auteur') || hasRole('admin')) ? path('article', 'liste') : path('article', 'home') ?>"
+               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'article' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
               Articles
+            </a>
+            <a href="<?= path('page', 'apropos') ?>"
+               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['action'] ?? '') == 'apropos' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
+              À propos
+            </a>
+            <a href="<?= path('page', 'contact') ?>"
+               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['action'] ?? '') == 'contact' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
+              Contact
             </a>
             <?php if (hasRole('admin')): ?>
             <a href="<?= path('utilisateur', 'dashboard') ?>"
@@ -66,15 +74,24 @@
           </div>
         </div>
 
-        <!-- Utilisateur connecté + déconnexion -->
-        <div class="flex items-center space-x-4">
+        <!-- Utilisateur connecté / visiteur -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
           <?php if (isConnected()): ?>
-            <p class="text-sm text-gray-600">
+            <p class="hidden sm:block text-sm text-gray-600">
               Bonjour, <strong><?= htmlspecialchars($_SESSION['user']['prenom'] ?? $_SESSION['user']['nom'] ?? 'Utilisateur') ?></strong>
             </p>
             <a href="<?= path('auth', 'logout') ?>"
                class="px-3 py-2 rounded-md text-sm font-medium bg-red-500 text-white hover:bg-red-600 transition">
               Déconnexion
+            </a>
+          <?php else: ?>
+            <a href="<?= path('auth', 'login') ?>"
+               class="px-3 sm:px-4 py-2 rounded-md text-sm font-medium text-[#1A237E] hover:bg-indigo-50 transition">
+              Se connecter
+            </a>
+            <a href="<?= path('auth', 'register') ?>"
+               class="px-3 sm:px-4 py-2 rounded-md text-sm font-medium bg-[#1A237E] text-white hover:bg-[#141A5F] transition">
+              S'inscrire
             </a>
           <?php endif; ?>
         </div>
@@ -129,6 +146,16 @@
             <li>
               <a href="<?= path('article', 'home') ?>" class="text-indigo-200 hover:text-white text-sm transition flex items-center gap-2">
                 <i class="fa-solid fa-newspaper w-4"></i>Articles
+              </a>
+            </li>
+            <li>
+              <a href="<?= path('page', 'apropos') ?>" class="text-indigo-200 hover:text-white text-sm transition flex items-center gap-2">
+                <i class="fa-solid fa-circle-info w-4"></i>À propos
+              </a>
+            </li>
+            <li>
+              <a href="<?= path('page', 'contact') ?>" class="text-indigo-200 hover:text-white text-sm transition flex items-center gap-2">
+                <i class="fa-solid fa-envelope w-4"></i>Contact
               </a>
             </li>
             <?php if (!isConnected()): ?>

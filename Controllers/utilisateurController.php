@@ -70,7 +70,7 @@ $listeNewsletters = function () {
 
 $dashboard = function () {
     if (!hasRole("admin")) redirectTo("article", "home");
-    require_once ROOT . "/models/ArticleModel.php";
+    require_once ROOT . "/models/articleModel.php";
 
     $stats = [
         "total_articles"      => countTable("article"),
