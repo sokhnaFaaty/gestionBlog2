@@ -6,7 +6,14 @@ $controllers = [
     "utilisateur"  => "utilisateur",
     "auth"         => "auth",
     "newsletter"   => "newsletter",
-    "page"         => "page"
+    "page"         => "page",
+    "articlejs"    => "articleJs",
+    "authjs"    => "authJs",
+    "utilisateurjs"    => "utilisateurJs",
+    "pagejs"    => "pageJs",
+    "categoriejs"    => "categorieJs",
+    "commentairejs"    => "commentaireJs",
+    "newsletterjs"    => "newsletterJs",
 ];
 
 $controller = $_REQUEST["controller"] ?? "article";
