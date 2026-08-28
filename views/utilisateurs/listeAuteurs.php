@@ -4,8 +4,8 @@
         <p class="text-sm text-gray-500 mt-1">Consultez les profils et bannissez les auteurs en infraction.</p>
     </div>
 
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <table class="w-full text-left border-collapse">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-x-auto">
+        <table class="w-full min-w-full text-left border-collapse">
             <thead>
                 <tr class="bg-gray-50 border-b border-gray-100 text-gray-600 text-xs uppercase font-semibold">
                     <th class="px-5 py-4">Nom</th>

@@ -23,14 +23,15 @@
     <?php else: ?>
         <div class="space-y-4">
         <?php foreach ($articles as $article): ?>
-            <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-6 hover:shadow-md transition">
+            <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-6 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
                 <div class="flex flex-col sm:flex-row items-start gap-6">
 
                     <?php if (!empty($article['image'])): ?>
                         <div class="w-full sm:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
-                            <img src="/uploads/<?= htmlspecialchars($article['image']) ?>"
+                            <img src="<?= WEBROOT ?>uploads/<?= htmlspecialchars($article['image']) ?>"
                                  alt="<?= htmlspecialchars($article['titre']) ?>"
-                                 class="w-full h-full object-cover">
+                                 loading="lazy"
+                                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
                         </div>
                     <?php else: ?>
                         <div class="w-full sm:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center border border-gray-200">

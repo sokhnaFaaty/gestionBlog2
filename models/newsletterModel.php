@@ -3,6 +3,13 @@ require_once(ROOT . "/db/database.php");
 function inscrireNewsletter(string $email){
     $sql = "INSERT INTO newsletter (email) VALUES (:email)";
         executeUpdate($sql, [':email' => $email]);
+
+    require_once(ROOT . "/models/notificationModel.php");
+    notifierAdmins(
+        "newsletter",
+        "Nouvel abonné à la newsletter : " . $email,
+        path("utilisateur", "listeNewsletter")
+    );
     return true; 
 
 

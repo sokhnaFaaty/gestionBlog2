@@ -13,7 +13,7 @@
     <!-- Coordonnées -->
     <div class="lg:col-span-2 space-y-4">
         <div class="w-full h-44 rounded-xl overflow-hidden shadow-sm border border-gray-200">
-            <img src="/uploads/contact-illustration.jpg" alt="Contactez GES-BLOG" class="w-full h-full object-cover">
+            <img src="<?= WEBROOT ?>uploads/contact-illustration.jpg" alt="Contactez GES-BLOG" class="w-full h-full object-cover">
         </div>
         <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5 flex items-start gap-4">
             <div class="w-11 h-11 rounded-lg bg-indigo-50 text-[#1A237E] flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-envelope"></i></div>

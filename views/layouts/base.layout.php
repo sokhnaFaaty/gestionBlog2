@@ -4,8 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestion Blog</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📘</text></svg>">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .page-fade { animation: fadeUp .5s ease both; }
+    @media (prefers-reduced-motion: reduce) { .page-fade { animation: none; } }
+  </style>
 </head>
 <body class="bg-gray-50 font-sans antialiased">
 
@@ -77,7 +83,7 @@
         <!-- Utilisateur connecté / visiteur -->
         <div class="flex items-center space-x-2 sm:space-x-3">
           <?php if (isConnected()): ?>
-            <p class="hidden sm:block text-sm text-gray-600">
+            <p class="hidden md:block text-sm text-gray-600">
               Bonjour, <strong><?= htmlspecialchars($_SESSION['user']['prenom'] ?? $_SESSION['user']['nom'] ?? 'Utilisateur') ?></strong>
             </p>
             <a href="<?= path('auth', 'logout') ?>"
@@ -94,14 +100,34 @@
               S'inscrire
             </a>
           <?php endif; ?>
+
+          <!-- Burger mobile -->
+          <button id="btn-menu-mobile" onclick="toggleMenuMobile()"
+                  class="sm:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 transition"
+                  aria-label="Menu">
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
         </div>
 
+      </div>
+
+      <!-- Menu mobile -->
+      <div id="menu-mobile" class="hidden sm:hidden border-t border-gray-100 px-4 pb-4 pt-3 space-y-1">
+        <?php if (!hasRole('lecteur')): ?>
+        <a href="<?= path('utilisateur', 'dashboard') ?>" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100 transition">Dashboard</a>
+        <?php endif; ?>
+        <a href="<?= (hasRole('auteur') || hasRole('admin')) ? path('article', 'liste') : path('article', 'home') ?>" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100 transition">Articles</a>
+        <a href="<?= path('page', 'apropos') ?>" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100 transition">À propos</a>
+        <a href="<?= path('page', 'contact') ?>" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100 transition">Contact</a>
+        <?php if (hasRole('admin')): ?>
+        <a href="<?= path('utilisateur', 'dashboard') ?>" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100 transition">Administration</a>
+        <?php endif; ?>
       </div>
     </div>
   </nav>
 
   <!-- Contenu principal -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 page-fade">
     <?= $content ?>
   </main>
 
@@ -210,6 +236,11 @@ function confirmerAction(btn) {
 function fermerModal() {
     document.getElementById('modal-confirm').classList.add('hidden');
     document.getElementById('modal-btn-confirmer').onclick = null;
+}
+
+function toggleMenuMobile() {
+    var menu = document.getElementById('menu-mobile');
+    menu.classList.toggle('hidden');
 }
 
 document.addEventListener('keydown', function (e) {

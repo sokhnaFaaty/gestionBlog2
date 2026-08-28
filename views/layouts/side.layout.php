@@ -3,9 +3,15 @@
 
 <head>
     <meta charset='UTF-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gestion Blog</title>
     <script src='https://cdn.tailwindcss.com'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .page-fade { animation: fadeUp .5s ease both; }
+        @media (prefers-reduced-motion: reduce) { .page-fade { animation: none; } }
+    </style>
 </head>
 
 <body class='bg-gray-50 flex h-screen overflow-hidden'>
@@ -202,9 +208,35 @@
 
             <!-- Droite : cloche + avatar -->
             <div class='flex items-center gap-3'>
-                <button class='text-white hover:text-indigo-200 transition'>
-                    <i class='fa-solid fa-bell text-lg'></i>
-                </button>
+                <!-- Cloche de notifications -->
+                <div class='relative' id='notif-wrapper'>
+                    <button id='notif-btn'
+                            onclick='toggleNotifs(event)'
+                            aria-label='Notifications'
+                            class='relative text-white hover:text-indigo-200 transition p-1 rounded-lg'>
+                        <i class='fa-solid fa-bell text-lg'></i>
+                        <span id='notif-badge'
+                              class='hidden absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center shadow'></span>
+                    </button>
+
+                    <!-- Dropdown des notifications -->
+                    <div id='notif-panel'
+                         class='hidden absolute right-0 mt-2 w-[min(92vw,380px)] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-50'>
+                        <!-- En-tête -->
+                        <div class='flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-gray-50'>
+                            <p class='text-sm font-bold text-gray-800'>Notifications</p>
+                            <button onclick='marquerToutLu()'
+                                    class='text-xs font-medium text-indigo-600 hover:text-indigo-800 transition'>
+                                <i class='fa-solid fa-check-double mr-1'></i>Tout lire
+                            </button>
+                        </div>
+                        <!-- Onglets par espace -->
+                        <div id='notif-tabs' class='flex gap-1 px-3 py-2 border-b border-gray-100 overflow-x-auto'></div>
+                        <!-- Liste -->
+                        <div id='notif-list' class='max-h-[340px] overflow-y-auto'></div>
+                    </div>
+                </div>
+
                 <div class='flex items-center gap-2'>
                     <div class='w-9 h-9 rounded-full bg-white text-[#1A237E] flex items-center justify-center text-sm font-bold uppercase'>
                         <?= mb_substr($_SESSION['user']['prenom'] ?? '', 0, 1) . mb_substr($_SESSION['user']['nom'] ?? '', 0, 1) ?>
@@ -217,7 +249,7 @@
         </header>
 
         <!-- Contenu -->
-        <main class='flex-1 overflow-y-auto p-4 md:p-8'>
+        <main class='flex-1 overflow-y-auto p-4 md:p-8 page-fade'>
             <?php /** @var string $content */ echo $content; ?>
         </main>
     </div>
@@ -323,6 +355,174 @@ document.addEventListener('keydown', function (e) {
             .replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;');
     }
+})();
+</script>
+
+<script>
+(function () {
+    var WEBROOT = '<?= WEBROOT ?>';
+
+    var wrapper = document.getElementById('notif-wrapper');
+    var panel   = document.getElementById('notif-panel');
+    var badge   = document.getElementById('notif-badge');
+    var tabsEl  = document.getElementById('notif-tabs');
+    var listEl  = document.getElementById('notif-list');
+
+    if (!wrapper) return;
+
+    var ESPACES = [
+        { key: '',          label: 'Tous',        icon: 'fa-bell' },
+        { key: 'article',   label: 'Articles',    icon: 'fa-newspaper' },
+        { key: 'commentaire', label: 'Commentaires', icon: 'fa-comments' },
+        { key: 'signalement', label: 'Signalements', icon: 'fa-flag' },
+        { key: 'newsletter', label: 'Newsletter',  icon: 'fa-envelope' },
+        { key: 'contact',    label: 'Contact',     icon: 'fa-envelope-open-text' },
+        { key: 'utilisateur', label: 'Utilisateurs', icon: 'fa-users' }
+    ];
+
+    var espaceActif = '';
+    var notifs = [];
+
+    function toggleNotifs(ev) {
+        ev.stopPropagation();
+        var visible = !panel.classList.contains('hidden');
+        if (!visible) chargerNotifs(espaceActif);
+        panel.classList.toggle('hidden');
+    }
+
+    function fermerNotifs() {
+        panel.classList.add('hidden');
+    }
+
+    function afficherBadge(n) {
+        if (n > 0) {
+            badge.textContent = n > 99 ? '99+' : n;
+            badge.classList.remove('hidden');
+        } else {
+            badge.classList.add('hidden');
+        }
+    }
+
+    function chargerNotifs(espace) {
+        fetch(WEBROOT + 'notificationjs/liste')
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                if (!data || !data.success) return;
+                notifs = data.notifs || [];
+                afficherBadge(data.nonLues);
+                rendererTabs();
+                rendererListe(espace);
+            })
+            .catch(function () {});
+    }
+
+    function rendererTabs() {
+        var html = '';
+        ESPACES.forEach(function (sp) {
+            var compteur = notifs.filter(function (n) {
+                return n.espace === sp.key && !n.lu;
+            }).length;
+            if (sp.key === espaceActif) {
+                html += '<button onclick="setEspace(\'' + sp.key + '\')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white whitespace-nowrap transition">' + sp.label;
+            } else {
+                html += '<button onclick="setEspace(\'' + sp.key + '\')" class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-gray-100 whitespace-nowrap transition">' + sp.label;
+            }
+            if (compteur > 0) html += ' <span class="ml-0.5 text-[10px]">(' + compteur + ')</span>';
+            html += '</button>';
+        });
+        tabsEl.innerHTML = html;
+    }
+
+    function rendererListe(espace) {
+        var filtrées = espace ? notifs.filter(function (n) { return n.espace === espace; }) : notifs;
+
+        if (!filtrées.length) {
+            listEl.innerHTML = '<div class="px-4 py-10 text-center text-gray-400 text-sm"><i class="fa-solid fa-bell-slash text-2xl mb-2 block opacity-40"></i>Aucune notification</div>';
+            return;
+        }
+        var html = '';
+        var lectureClique = false;
+        filtrées.forEach(function (n) {
+            var icone = iconeEspace(n.espace);
+            var classe = n.lu ? 'opacity-60' : '';
+            html += '<a href="' + (n.lien ? n.lien : '#') + '" onclick="marquerLuUne(\'' + n.espace + '\', event)" class="flex items-start gap-3 px-4 py-3 hover:bg-indigo-50 transition border-b border-gray-50 ' + classe + '">'
+                  + '<span class="w-8 h-8 rounded-full bg-indigo-50 text-indigo-500 flex items-center justify-center shrink-0"><i class="fa-solid ' + icone + ' text-xs"></i></span>'
+                  + '<span class="flex-1 min-w-0">'
+                  +   '<span class="block text-sm text-gray-700 leading-snug">' + echapper(n.message) + '</span>'
+                  +   '<span class="block text-[11px] text-gray-400 mt-0.5">' + formatDate(n.date_creation) + '</span>'
+                  + '</span>'
+                  + (n.lu ? '' : '<span class="w-2 h-2 rounded-full bg-indigo-500 shrink-0 mt-1.5"></span>')
+                  + '</a>';
+        });
+        listEl.innerHTML = html;
+    }
+
+    function iconeEspace(espace) {
+        var found = ESPACES.find(function (s) { return s.key === espace; });
+        return found ? found.icon : 'fa-bell';
+    }
+
+    function echapper(str) {
+        var div = document.createElement('div');
+        div.textContent = str || '';
+        return div.innerHTML;
+    }
+
+    function formatDate(dateStr) {
+        if (!dateStr) return '';
+        var d = new Date(dateStr);
+        if (isNaN(d)) return '';
+        return d.toLocaleDateString('fr-FR') + ' ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    window.toggleNotifs   = toggleNotifs;
+    window.fermerNotifs   = fermerNotifs;
+
+    window.setEspace = function (key) {
+        espaceActif = key;
+        rendererTabs();
+        rendererListe(key);
+    };
+
+    window.marquerToutLu = function () {
+        fetch(WEBROOT + 'notificationjs/marquerLues', { method: 'POST' })
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                if (data && data.success) {
+                    notifs.forEach(function (n) { n.lu = true; });
+                    afficherBadge(0);
+                    rendererTabs();
+                    rendererListe(espaceActif);
+                }
+            });
+    };
+
+    window.marquerLuUne = function (espace, ev) {
+        fetch(WEBROOT + 'notificationjs/marquerLues?espace=' + espace, { method: 'POST' })
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                if (data && data.success) {
+                    notifs.forEach(function (n) { if (n.espace === espace) n.lu = true; });
+                    afficherBadge(data.nonLues);
+                }
+            });
+    };
+
+    document.addEventListener('click', function (e) {
+        if (wrapper && !wrapper.contains(e.target)) fermerNotifs();
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') fermerNotifs();
+    });
+
+    // Chargement initial du badge (sans ouvrir)
+    fetch(WEBROOT + 'notificationjs/liste')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+            if (data && data.success) afficherBadge(data.nonLues);
+        })
+        .catch(function () {});
 })();
 </script>
 </body>

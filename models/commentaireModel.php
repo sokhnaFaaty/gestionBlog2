@@ -37,6 +37,22 @@ function addCommentaire(int $id_article, int $id_utilisateur, string $contenu): 
         "id_utilisateur" => $id_utilisateur,
         "contenu"        => $contenu,
     ]);
+
+    // Notifie l'auteur de l'article quand quelqu'un commente (sauf s'il commente lui-même)
+    require_once(ROOT . "/models/notificationModel.php");
+    $article = executeSelect(
+        "SELECT titre, id_utilisateur FROM article WHERE id_article = :id",
+        ["id" => $id_article],
+        true
+    );
+    if ($article && (int)$article["id_utilisateur"] !== $id_utilisateur) {
+        ajouterNotification(
+            (int)$article["id_utilisateur"],
+            "commentaire",
+            "Nouveau commentaire sur « " . $article["titre"] . " »",
+            path("article", "voir", ["id" => $id_article])
+        );
+    }
 }
 
 function modifierCommentaire(int $id_commentaire, int $id_utilisateur, string $contenu): void {
@@ -82,5 +98,19 @@ function signalerCommentaire(int $id_commentaire, int $id_utilisateur): void {
             "id_commentaire" => $id_commentaire,
             "id_utilisateur" => $id_utilisateur,
         ]);
+
+        require_once(ROOT . "/models/notificationModel.php");
+        $commentaire = executeSelect(
+            "SELECT c.id_article, a.titre FROM commentaire c
+             INNER JOIN article a ON a.id_article = c.id_article
+             WHERE c.id_commentaire = :id",
+            ["id" => $id_commentaire],
+            true
+        );
+        notifierAdmins(
+            "signalement",
+            "Un commentaire sur l'article « " . ($commentaire["titre"] ?? "?") . " » a été signalé.",
+            path("commentaire", "signalements")
+        );
     }
 }

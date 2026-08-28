@@ -11,6 +11,13 @@ function addContact(array $data): bool {
         ':sujet'   => $data['sujet'],
         ':message' => $data['message'],
     ]);
+
+    require_once(ROOT . "/models/notificationModel.php");
+    notifierAdmins(
+        "contact",
+        "Nouveau message de contact : « " . ($data['sujet'] ?? 'Sans sujet') . " »",
+        null
+    );
     return true;
 }
 

@@ -19,7 +19,7 @@
       <input type="hidden" name="action" value="register">
 
       <!-- Prénom et Nom côte à côte -->
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <!-- Prénom -->
         <div>
           <label for="prenom" class="block text-xs font-medium text-gray-700 mb-1">Prénom</label>

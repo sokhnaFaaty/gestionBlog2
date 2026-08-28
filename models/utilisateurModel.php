@@ -54,8 +54,25 @@ function deleteAdmin(int $id): void {
 }
 
 function toggleBanAuteur(int $id): void {
+    $auteur = executeSelect(
+        "SELECT nom, prenom, banni FROM utilisateur WHERE id_utilisateur = :id",
+        ["id" => $id],
+        true
+    );
+
     $sql = "UPDATE utilisateur SET banni = NOT banni WHERE id_utilisateur = :id";
     executeUpdate($sql, ["id" => $id]);
+
+    if ($auteur) {
+        require_once(ROOT . "/models/notificationModel.php");
+        $nom    = trim(($auteur["prenom"] ?? "") . " " . ($auteur["nom"] ?? ""));
+        $banni  = !$auteur["banni"]; // désormais banni si ce n'était pas le cas
+        notifierAdmins(
+            "utilisateur",
+            ($banni ? "Auteur banni" : "Auteur réhabilité") . " : " . $nom,
+            path("utilisateur", "listeAuteurs")
+        );
+    }
 }
 
 // ── PAGINATION 

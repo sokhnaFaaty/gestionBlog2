@@ -1,14 +1,14 @@
-<div class="mx-auto  mb-6 px-6">
+<div class="mx-auto mb-6 px-4 sm:px-6">
     <div class="mb-5">
         <h2 class="text-2xl font-bold text-gray-800">Tableau de bord</h2>
-        <p class="text-sm text-gray-500 ">
+        <p class="text-sm text-gray-500">
             Bonjour <strong><?= htmlspecialchars($_SESSION['user']['nom']) ?></strong>,
             voici un aperçu de la plateforme.
         </p>
     </div>
 
     <!-- Stats -->
-     <div class=" my-6 rounded-[10px] bg-gray-100 p-6">
+     <div class="my-6 rounded-[10px] bg-gray-100 p-4 sm:p-6">
 
     <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-5">
         <div class="bg-[#EEF0FF] rounded-[5px] border-r-4 border-[#1A237E] shadow-sm p-5">
@@ -39,11 +39,12 @@
 
      </div>
     <!-- Derniers articles -->
-    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden mt-4">
+    <div class="bg-white rounded-xl border border-gray-100 shadow-sm mt-4">
         <div class="px-6 py-4">
             <h3 class="font-semibold text-gray-800">5 derniers articles</h3>
         </div>
-        <table class="w-full text-left text-sm">
+        <div class="overflow-x-auto">
+        <table class="w-full min-w-max text-left text-sm">
             <thead>
                 <tr class="bg-[#EFEFEF] text-xs uppercase text-black font-semibold">
                     <th class="px-6 py-3">Titre</th>
@@ -78,6 +79,7 @@
             <?php endforeach; ?>
             </tbody>
         </table>
+        </div>
     </div>
 
     <!-- Liens rapides (admin seulement) -->
