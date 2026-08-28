@@ -32,9 +32,8 @@
 
         <!-- Liste des catégories -->
         <div class="md:col-span-2">
-            <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-                <div class="overflow-x-auto">
-                <table class="w-full min-w-[420px] text-left border-collapse text-sm">
+            <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-x-auto">
+                <table class="w-full min-w-full text-left border-collapse text-sm">
                     <thead>
                         <tr class="bg-gray-50 border-b border-gray-100 text-gray-600 text-xs uppercase font-semibold">
                             <th class="px-5 py-4 whitespace-nowrap">Catégorie</th>

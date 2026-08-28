@@ -99,6 +99,13 @@ function addArticle(array $article, int $id_categorie): void {
         'id_article'   => $id_article,
         'id_categorie' => $id_categorie,
     ]);
+
+    require_once(ROOT . "/models/notificationModel.php");
+    notifierAdmins(
+        "article",
+        "Nouvel article en attente : « " . $article["titre"] . " »",
+        path("article", "listeAdmin")
+    );
 }
 
 function updateArticle(array $data, int $id_categorie): void {
@@ -122,8 +129,28 @@ function updateArticle(array $data, int $id_categorie): void {
 }
 
 function updateStatutArticle(int $id, string $statut): void {
+    $avant = executeSelect(
+        "SELECT titre, id_utilisateur FROM article WHERE id_article = :id",
+        ["id" => $id],
+        true
+    );
+
     $sql = "UPDATE article SET statut = :statut WHERE id_article = :id";
     executeUpdate($sql, ["statut" => $statut, "id" => $id]);
+
+    // Notifie l'auteur quand son article change de statut
+    if ($avant) {
+        require_once(ROOT . "/models/notificationModel.php");
+        $titre  = $avant["titre"];
+        $auteur = (int)$avant["id_utilisateur"];
+        $lien   = path("article", "voir", ["id" => $id]);
+
+        if ($statut === "Publie") {
+            ajouterNotification($auteur, "article", "Votre article « " . $titre . " » a été publié.", $lien);
+        } elseif ($statut === "Rejete") {
+            ajouterNotification($auteur, "article", "Votre article « " . $titre . " » a été rejeté.", $lien);
+        }
+    }
 }
 
 function deleteArticle(int $id): void {
@@ -148,6 +175,18 @@ function signalerArticle(int $id_article, int $id_utilisateur): void {
             "id_article"     => $id_article,
             "id_utilisateur" => $id_utilisateur,
         ]);
+
+        require_once(ROOT . "/models/notificationModel.php");
+        $article = executeSelect(
+            "SELECT titre FROM article WHERE id_article = :id",
+            ["id" => $id_article],
+            true
+        );
+        notifierAdmins(
+            "signalement",
+            "L'article « " . ($article["titre"] ?? "sans titre") . " » a été signalé.",
+            path("article", "listeAdmin")
+        );
     }
 }
 

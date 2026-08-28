@@ -10,8 +10,15 @@ auth();
 
 $listeAuteurs = function () {
     if (!hasRole("admin")) redirectTo("article", "home");
-    $auteurs = findAllAuteurs();
-    loadView("utilisateurs/listeAuteurs", ["auteurs" => $auteurs], "side");
+    $page     = (int)($_GET["page"] ?? 1);
+    $parPage  = 10;
+    $total    = countAllAuteurs();
+    $auteurs  = findAllAuteursPagines($page, $parPage);
+    loadView("utilisateurs/listeAuteurs", [
+        "auteurs"    => $auteurs,
+        "page"       => $page,
+        "totalPages" => ceil($total / $parPage),
+    ], "side");
 };
 
 $banirAuteur = function () {
@@ -23,8 +30,15 @@ $banirAuteur = function () {
 
 $listeAdmins = function () {
     if (!hasRole("admin")) redirectTo("article", "home");
-    $admins = findAllAdmins();
-    loadView("utilisateurs/listeAdmins", ["admins" => $admins], "side");
+    $page     = (int)($_GET["page"] ?? 1);
+    $parPage  = 10;
+    $total    = countAllAdmins();
+    $admins   = findAllAdminsPagines($page, $parPage);
+    loadView("utilisateurs/listeAdmins", [
+        "admins"     => $admins,
+        "page"       => $page,
+        "totalPages" => ceil($total / $parPage),
+    ], "side");
 };
 
 $addAdmin = function () {
@@ -85,33 +99,7 @@ $dashboard = function () {
     ];
     loadView("utilisateurs/dashboard", $stats, "side");
 };
-//paginatiom
-
-$listeAuteurs = function () {
-    if (!hasRole("admin")) redirectTo("article", "home");
-    $page     = (int)($_GET["page"] ?? 1);
-    $parPage  = 10;
-    $total    = countAllAuteurs();
-    $auteurs  = findAllAuteursPagines($page, $parPage);
-    loadView("utilisateurs/listeAuteurs", [
-        "auteurs"    => $auteurs,
-        "page"       => $page,
-        "totalPages" => ceil($total / $parPage),
-    ], "side");
-};
-$listeAdmins = function () {
-    if (!hasRole("admin")) redirectTo("article", "home");
-    $page     = (int)($_GET["page"] ?? 1);
-    $parPage  = 10;
-    $total    = countAllAdmins();
-    $admins   = findAllAdminsPagines($page, $parPage);
-    loadView("utilisateurs/listeAdmins", [
-        "admins"     => $admins,
-        "page"       => $page,
-        "totalPages" => ceil($total / $parPage),
-    ], "side");
-};
-// ── ROUTING 
+// ── ROUTING
 
 $actions = [
     "index"          => $dashboard,

@@ -61,3 +61,10 @@ function countAllCategories(): int {
     $result = executeSelect($sql, [], true);
     return (int)$result["total"];
 }
+
+// Nombre d'articles rattachés à une catégorie (avant suppression)
+function countArticlesByCategorie(int $id): int {
+    $sql    = "SELECT COUNT(*) as total FROM article_categorie WHERE id_categorie = :id";
+    $result = executeSelect($sql, ["id" => $id], true);
+    return (int)$result["total"];
+}

@@ -22,7 +22,7 @@
         </p>
     </div>
     <div class="w-full h-64 sm:h-80 rounded-2xl overflow-hidden shadow-md border border-gray-200">
-        <img src="/uploads/1781403275_6a2e0e8b9ccf5.jpeg" alt="GES-BLOG" class="w-full h-full object-cover">
+        <img src="<?= WEBROOT ?>uploads/1781403275_6a2e0e8b9ccf5.jpeg" alt="GES-BLOG" class="w-full h-full object-cover">
     </div>
 </div>
 
