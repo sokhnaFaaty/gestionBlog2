@@ -145,12 +145,8 @@
                     class='<?= $currentAction === "liste" && $currentController === "categorie" ? $active : $normal ?>'>
                     <i class='fa-solid fa-tags w-4 text-center'></i> Catégories
                 </a>
-                <a href='<?= path("utilisateur", "addAdmin") ?>'
-                    class='<?= $currentAction === "addAdmin" ? $active : $normal ?>'>
-                    <i class='fa-solid fa-user-shield w-4 text-center'></i> Ajouter un admin
-                </a>
                 <a href='<?= path("utilisateur", "listeAdmins") ?>'
-                    class='<?= $currentAction === "listeAdmins" ? $active : $normal ?>'>
+                    class='<?= in_array($currentAction, ["listeAdmins", "addAdmin"]) ? $active : $normal ?>'>
                     <i class='fa-solid fa-user-shield w-4 text-center'></i> Administrateurs
                 </a>
                 <a href='<?= path("commentaire", "signalements") ?>'

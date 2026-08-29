@@ -20,7 +20,7 @@
               class="space-y-5">
 
             <!-- Prénom + Nom -->
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label for="prenom" class="block text-sm font-semibold text-gray-700 mb-2">Prénom</label>
                     <input type="text" name="prenom" id="prenom"
