@@ -17,19 +17,19 @@
  
         <!-- Logo + liens -->
         <div class="flex items-center space-x-8">
-          <a href="<?= path('dashboard', 'index') ?>" class="text-xl font-bold text-[#1A237E] "><i class="fas fa-book"></i> GES-BLOG</a>
+          <a href="<?= path('utilisateur', 'dashboard') ?>" class="text-xl font-bold text-[#1A237E] "><i class="fas fa-book"></i> GES-BLOG</a>
           <div class="hidden sm:flex space-x-2">
-            <a href="<?= path('dashboard', 'index') ?>"
-               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'dashboard' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
+            <a href="<?= path('utilisateur', 'dashboard') ?>"
+               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'utilisateur' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
               Dashboard
             </a>
-            <a href="<?= path('auteur', 'liste') ?>"
-               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'auteur' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
+            <a href="<?= path('article', 'liste') ?>"
+               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'article' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
               Articles
             </a>
             <?php if (hasRole('admin')): ?>
-            <a href="<?= path('admin', 'index') ?>"
-               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'admin' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
+            <a href="<?= path('article', 'listeAdmin') ?>"
+               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'article' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
               Administration
             </a>
             <?php endif; ?>

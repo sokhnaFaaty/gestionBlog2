@@ -138,7 +138,7 @@
 
         <!-- Logo + description -->
         <div>
-          <a href="<?= path('lecteur', 'home') ?>" class="text-xl font-bold text-white flex items-center gap-2">
+          <a href="<?= path('article', 'home') ?>" class="text-xl font-bold text-white flex items-center gap-2">
             <i class="fa-solid fa-book-open"></i> GES-BLOG
           </a>
           <p class="mt-3 text-indigo-200 text-sm leading-relaxed">

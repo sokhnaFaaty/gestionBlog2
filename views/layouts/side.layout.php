@@ -185,15 +185,15 @@
 
         <!-- Header -->
         <header class='bg-[#1A237E] px-4 py-3 flex items-center justify-between flex-shrink-0 rounded-[10px] mx-3 mt-1'>
-            <div class='flex items-center gap-3'>
+            <div class='flex items-center gap-3 min-w-0'>
                 <!-- Bouton hamburger mobile -->
                 <button onclick="ouvrirSidebar()"
-                        class='lg:hidden text-white hover:text-indigo-200 transition'>
+                        class='lg:hidden text-white hover:text-indigo-200 transition flex-shrink-0'>
                     <i class='fa-solid fa-bars text-xl'></i>
                 </button>
 
                 <!-- Recherche -->
-                <div class='relative hidden sm:block' id='search-wrapper'>
+                <div class='relative hidden sm:block flex-shrink min-w-0' id='search-wrapper'>
                     <i class='fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm'></i>
                     <input type='text'
                            id='search-global'
@@ -207,16 +207,16 @@
             </div>
 
             <!-- Droite : cloche + avatar -->
-            <div class='flex items-center gap-3'>
+            <div class='flex items-center gap-2 sm:gap-3 min-w-0'>
                 <!-- Cloche de notifications -->
-                <div class='relative' id='notif-wrapper'>
+                <div class='relative flex-shrink-0' id='notif-wrapper'>
                     <button id='notif-btn'
                             onclick='toggleNotifs(event)'
                             aria-label='Notifications'
-                            class='relative text-white hover:text-indigo-200 transition p-1 rounded-lg'>
-                        <i class='fa-solid fa-bell text-lg'></i>
+                            class='relative text-white hover:text-indigo-200 transition p-1.5 sm:p-1 rounded-lg'>
+                        <i class='fa-solid fa-bell text-base sm:text-lg'></i>
                         <span id='notif-badge'
-                              class='hidden absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center shadow'></span>
+                              class='hidden absolute -top-1 -right-1 min-w-[16px] sm:min-w-[18px] h-[16px] sm:h-[18px] px-1 rounded-full bg-red-500 text-white text-[9px] sm:text-[10px] font-bold flex items-center justify-center shadow'></span>
                     </button>
 
                     <!-- Dropdown des notifications -->
@@ -237,8 +237,8 @@
                     </div>
                 </div>
 
-                <div class='flex items-center gap-2'>
-                    <div class='w-9 h-9 rounded-full bg-white text-[#1A237E] flex items-center justify-center text-sm font-bold uppercase'>
+                <div class='flex items-center gap-2 flex-shrink-0'>
+                    <div class='w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-[#1A237E] flex items-center justify-center text-xs sm:text-sm font-bold uppercase'>
                         <?= mb_substr($_SESSION['user']['prenom'] ?? '', 0, 1) . mb_substr($_SESSION['user']['nom'] ?? '', 0, 1) ?>
                     </div>
                     <span class='hidden md:block text-sm font-medium text-white'>
