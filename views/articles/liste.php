@@ -71,7 +71,8 @@
             <tr class="hover:bg-gray-50 transition">
                 <td class="px-6 py-4 font-semibold text-gray-900">${echapper(article.titre)}</td>
                 <td class="px-6 py-4">
-                    <img src="/uploads/${echapper(article.image)}" alt="${echapper(article.titre)}"
+                    <img src="<?= WEBROOT ?>uploads/${echapper(article.image)}" alt="${echapper(article.titre)}"
+                         onerror="this.onerror=null;this.src='<?= WEBROOT ?>uploads/image-indisponible.svg'"
                          class="w-12 h-12 object-cover rounded-lg border border-gray-200">
                 </td>
                 <td class="px-6 py-4">

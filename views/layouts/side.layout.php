@@ -95,32 +95,6 @@
             </button>
         </div>
 
-        <!-- Infos utilisateur -->
-        <div class='px-6 py-4 border-b border-indigo-700'>
-            <p class='text-xs text-indigo-300 uppercase font-semibold tracking-wide mb-1'>Connecté en tant que</p>
-            <p class='text-sm font-semibold text-white truncate'>
-                <?= htmlspecialchars($_SESSION['user']['prenom'] ?? '') ?>
-                <?= htmlspecialchars($_SESSION['user']['nom'] ?? '') ?>
-            </p>
-            <?php
-            switch ($_SESSION['user']['role']) {
-                case 'admin':
-                    $roleLabel = '<i class="fa-solid fa-shield-halved mr-1"></i> Administrateur';
-                    break;
-                case 'auteur':
-                    $roleLabel = '<i class="fa-solid fa-pen-nib mr-1"></i> Auteur';
-                    break;
-                case 'lecteur':
-                    $roleLabel = '<i class="fa-solid fa-eye mr-1"></i> Lecteur';
-                    break;
-                default:
-                    $roleLabel = $_SESSION['user']['role'];
-                    break;
-            }
-            ?>
-            <p class='text-xs text-indigo-300 mt-0.5'><?= $roleLabel ?></p>
-        </div>
-
         <!-- Navigation -->
         <nav class='flex-1 px-3 py-4 space-y-1 overflow-y-auto'>
             <?php

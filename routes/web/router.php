@@ -22,8 +22,7 @@ $controller = $_REQUEST["controller"] ?? "article";
 if (array_key_exists($controller, $controllers)) {
     $path = ROOT . "Controllers/" . $controllers[$controller] . "Controller.php";
 } else {
-    echo "Controller introuvable";
-    exit();
+    notFound("Contrôleur introuvable");
 }
 
 require_once($path);

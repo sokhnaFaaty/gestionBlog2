@@ -40,6 +40,14 @@
 </head>
 <body class="font-sans antialiased min-h-screen flex items-center justify-center p-3 sm:p-4 relative overflow-hidden bg-[#1A237E]">
 
+  <!-- Bouton retour à l'accueil (commun aux pages connexion / inscription) -->
+  <a href="<?= path('article', 'home') ?>"
+     class="absolute top-4 left-4 z-20 inline-flex items-center gap-2 px-4 py-2.5 bg-white/85 backdrop-blur-xl rounded-full border border-white/40 text-[#1A237E] text-sm font-semibold shadow-lg hover:bg-white transition"
+     aria-label="Retour à l'accueil">
+    <i class="fa-solid fa-house"></i>
+    <span class="hidden sm:inline">Accueil</span>
+  </a>
+
   <!-- Image de fond plein écran (légère, optionnelle sur mobile pour la perf) -->
   <div class="absolute inset-0 bg-cover bg-center"
        role="img" aria-label="Image de fond de la page de connexion"

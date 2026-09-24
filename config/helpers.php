@@ -130,3 +130,11 @@ function verifierCsrf(string $token): bool {
 function csrfField(): string {
     return '<input type="hidden" name="csrf_token" value="' . htmlspecialchars(csrfToken()) . '">';
 }
+
+// ── Page 404 ──
+
+function notFound(string $message = "Page introuvable"): never {
+    http_response_code(404);
+    loadView("pages/404", ["message_404" => $message], "base");
+    exit();
+}

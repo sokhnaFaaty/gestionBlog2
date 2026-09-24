@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#1A237E"/>
+  <g transform="rotate(-4 320 190)">
+    <rect x="245" y="90" width="150" height="180" rx="12" fill="#3949AB"/>
+    <rect x="245" y="90" width="150" height="180" rx="12" fill="none" stroke="#5C6BC0" stroke-width="6"/>
+    <circle cx="295" cy="150" r="14" fill="#9FA8DA"/>
+    <path d="M272 245 L330 195 L360 225 L390 195 L418 240 Z" fill="#9FA8DA"/>
+  </g>
+  <text x="320" y="335" text-anchor="middle" fill="#C5CAE9" font-family="Segoe UI, Arial, sans-serif" font-size="34">Image indisponible</text>
+</svg>

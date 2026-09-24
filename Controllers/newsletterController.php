@@ -19,5 +19,5 @@ $action = $_REQUEST['action'] ?? '';
 if (array_key_exists($action, $actions)) {
     $actions[$action]();
 } else {
-    redirectTo("article", "home");
+    notFound();
 }
