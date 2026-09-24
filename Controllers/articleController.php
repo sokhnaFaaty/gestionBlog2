@@ -71,18 +71,24 @@ $add = function () {
 
         $imageName = null;
         if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
-            $fileExtension     = strtolower(pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION));
-            $allowedExtensions = ["jpg", "jpeg", "png", "webp", "gif"];
-
-            if (in_array($fileExtension, $allowedExtensions)) {
-                $imageName     = time() . "_" . uniqid() . "." . $fileExtension;
-                $uploadFileDir = ROOT . "/public/uploads/";
-                if (!is_dir($uploadFileDir)) mkdir($uploadFileDir, 0755, true);
-                if (!move_uploaded_file($_FILES["image"]["tmp_name"], $uploadFileDir . $imageName)) {
-                    $errors["image"] = "Erreur lors du déplacement de l'image.";
-                }
+            if ($_FILES["image"]["size"] > 2 * 1024 * 1024) {
+                $errors["image"] = "Image trop lourde (2 Mo maximum).";
             } else {
-                $errors["image"] = "Format invalide (JPG, JPEG, PNG, WEBP, GIF uniquement).";
+                $fileExtension     = strtolower(pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION));
+                $allowedExtensions = ["jpg", "jpeg", "png", "webp", "gif"];
+                $mimeReel = (new finfo(FILEINFO_MIME_TYPE))->file($_FILES["image"]["tmp_name"]);
+                $allowedMimes      = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+
+                if (!in_array($fileExtension, $allowedExtensions) || !in_array($mimeReel, $allowedMimes)) {
+                    $errors["image"] = "Format invalide (JPG, JPEG, PNG, WEBP, GIF uniquement).";
+                } else {
+                    $imageName     = time() . "_" . uniqid() . "." . $fileExtension;
+                    $uploadFileDir = ROOT . "/public/uploads/";
+                    if (!is_dir($uploadFileDir)) mkdir($uploadFileDir, 0755, true);
+                    if (!move_uploaded_file($_FILES["image"]["tmp_name"], $uploadFileDir . $imageName)) {
+                        $errors["image"] = "Erreur lors du déplacement de l'image.";
+                    }
+                }
             }
         } else {
             $errors["image"] = "Une photo de couverture est obligatoire.";
@@ -133,19 +139,26 @@ $edit = function () {
 
         $imageName = $article["image"];
         if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
-            $fileExtension     = strtolower(pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION));
-            $allowedExtensions = ["jpg", "jpeg", "png", "webp", "gif"];
-            if (in_array($fileExtension, $allowedExtensions)) {
-                $newName       = time() . "_" . uniqid() . "." . $fileExtension;
-                $uploadFileDir = ROOT . "/public/uploads/";
-                if (!is_dir($uploadFileDir)) mkdir($uploadFileDir, 0755, true);
-                if (move_uploaded_file($_FILES["image"]["tmp_name"], $uploadFileDir . $newName)) {
-                    $imageName = $newName;
-                } else {
-                    $errors["image"] = "Erreur lors du déplacement de l'image.";
-                }
+            if ($_FILES["image"]["size"] > 2 * 1024 * 1024) {
+                $errors["image"] = "Image trop lourde (2 Mo maximum).";
             } else {
-                $errors["image"] = "Format invalide (JPG, JPEG, PNG, WEBP, GIF uniquement).";
+                $fileExtension     = strtolower(pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION));
+                $allowedExtensions = ["jpg", "jpeg", "png", "webp", "gif"];
+                $mimeReel = (new finfo(FILEINFO_MIME_TYPE))->file($_FILES["image"]["tmp_name"]);
+                $allowedMimes      = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+
+                if (!in_array($fileExtension, $allowedExtensions) || !in_array($mimeReel, $allowedMimes)) {
+                    $errors["image"] = "Format invalide (JPG, JPEG, PNG, WEBP, GIF uniquement).";
+                } else {
+                    $newName       = time() . "_" . uniqid() . "." . $fileExtension;
+                    $uploadFileDir = ROOT . "/public/uploads/";
+                    if (!is_dir($uploadFileDir)) mkdir($uploadFileDir, 0755, true);
+                    if (move_uploaded_file($_FILES["image"]["tmp_name"], $uploadFileDir . $newName)) {
+                        $imageName = $newName;
+                    } else {
+                        $errors["image"] = "Erreur lors du déplacement de l'image.";
+                    }
+                }
             }
         }
 

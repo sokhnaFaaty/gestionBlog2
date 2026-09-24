@@ -20,7 +20,7 @@ $ajouter = function () {
 
     if (validate($errors)) {
         addCommentaire($id, $_SESSION["user"]["id_utilisateur"], $_POST["contenu"]);
-        redirectTo("article", "article", ["id" => $id]);
+        redirectTo("article", "voir", ["id" => $id]);
     }
 
     $article      = findArticleById($id);
@@ -42,21 +42,21 @@ $modifier = function () {
     if ($contenu) {
         modifierCommentaire($id_commentaire, $_SESSION["user"]["id_utilisateur"], $contenu);
     }
-    redirectTo("article", "article", ["id" => $id_article]);
+    redirectTo("article", "voir", ["id" => $id_article]);
 };
 
 $supprimer = function () {
     $id_commentaire = (int)($_POST["id_commentaire"] ?? 0);
     $id_article     = (int)($_POST["id_article"] ?? 0);
     supprimerCommentaire($id_commentaire, $_SESSION["user"]["id_utilisateur"]);
-    redirectTo("article", "article", ["id" => $id_article]);
+    redirectTo("article", "voir", ["id" => $id_article]);
 };
 
 $signalerCommentaire = function () {
     $id_commentaire = (int)($_POST["id_commentaire"] ?? 0);
     $id_article     = (int)($_POST["id_article"] ?? 0);
     signalerCommentaire($id_commentaire, $_SESSION["user"]["id_utilisateur"]);
-    redirectTo("article", "article", ["id" => $id_article]);
+    redirectTo("article", "voir", ["id" => $id_article]);
 };
 
 // ── ACTIONS ADMIN 

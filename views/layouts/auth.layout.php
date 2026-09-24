@@ -4,6 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Connexion — Gestion Blogs</title>
+  <meta name="csrf-token" content="<?= htmlspecialchars(csrfToken()) ?>">
+  <script>
+  (function () {
+    var TOKEN = document.querySelector('meta[name="csrf-token"]').content;
+    window.__csrfToken = TOKEN;
+
+    window.injectCsrf = function (form) {
+      if (!form || form.querySelector('input[name="csrf_token"]')) return;
+      var inp = document.createElement('input');
+      inp.type = 'hidden';
+      inp.name = 'csrf_token';
+      inp.value = TOKEN;
+      form.appendChild(inp);
+    };
+
+    document.addEventListener('submit', function (e) {
+      var f = e.target;
+      if (f && f.tagName === 'FORM') window.injectCsrf(f);
+    }, true);
+
+    if (typeof window.fetch === 'function') {
+      var fetchOrig = window.fetch;
+      window.fetch = function (url, opts) {
+        opts = opts || {};
+        opts.headers = opts.headers || {};
+        opts.headers['X-CSRF-Token'] = TOKEN;
+        return fetchOrig.call(this, url, opts);
+      };
+    }
+  })();
+  </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>

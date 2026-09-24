@@ -25,8 +25,30 @@ function registerUser(array $data): bool {
         "nom"    => $data["nom"],
         "prenom" => $data["prenom"],
         "email"  => $data["email"],
-        "mdp"    => $data["mdp"],
+        "mdp"    => password_hash($data["mdp"], PASSWORD_DEFAULT),
         "role"   => $data["role"],
     ]);
     return true;
+}
+
+// ── MOTS DE PASSE ──
+
+// Compare en acceptant les anciens mots de passe stockés en clair
+// pour permettre une migration sans casser les comptes existants.
+function motDePasseValide(string $saisi, string $stocke): bool {
+    if (str_starts_with($stocke, '$2')) {
+        return password_verify($saisi, $stocke);
+    }
+    return hash_equals($stocke, $saisi);
+}
+
+// Retourne un nouveau hash à enregistrer si la migration est nécessaire, sinon null.
+function rehashMotDePasseSiNecessaire(string $saisi, string $stocke): ?string {
+    if (str_starts_with($stocke, '$2')) {
+        return password_needs_rehash($stocke, PASSWORD_DEFAULT)
+            ? password_hash($saisi, PASSWORD_DEFAULT)
+            : null;
+    }
+    // Ancien mot de passe en clair : on le hache.
+    return $stocke === $saisi ? password_hash($saisi, PASSWORD_DEFAULT) : null;
 }

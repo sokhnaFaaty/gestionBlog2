@@ -4,6 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestion Blog</title>
+  <meta name="csrf-token" content="<?= htmlspecialchars(csrfToken()) ?>">
+  <script>
+  (function () {
+    var TOKEN = document.querySelector('meta[name="csrf-token"]').content;
+    window.__csrfToken = TOKEN;
+
+    window.injectCsrf = function (form) {
+      if (!form || form.querySelector('input[name="csrf_token"]')) return;
+      var inp = document.createElement('input');
+      inp.type = 'hidden';
+      inp.name = 'csrf_token';
+      inp.value = TOKEN;
+      form.appendChild(inp);
+    };
+
+    document.addEventListener('submit', function (e) {
+      var f = e.target;
+      if (f && f.tagName === 'FORM') window.injectCsrf(f);
+    }, true);
+
+    if (typeof window.fetch === 'function') {
+      var fetchOrig = window.fetch;
+      window.fetch = function (url, opts) {
+        opts = opts || {};
+        opts.headers = opts.headers || {};
+        opts.headers['X-CSRF-Token'] = TOKEN;
+        return fetchOrig.call(this, url, opts);
+      };
+    }
+  })();
+  </script>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📘</text></svg>">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -138,7 +169,7 @@
 
         <!-- Logo + description -->
         <div>
-          <a href="<?= path('lecteur', 'home') ?>" class="text-xl font-bold text-white flex items-center gap-2">
+          <a href="<?= path('article', 'home') ?>" class="text-xl font-bold text-white flex items-center gap-2">
             <i class="fa-solid fa-book-open"></i> GES-BLOG
           </a>
           <p class="mt-3 text-indigo-200 text-sm leading-relaxed">
@@ -228,7 +259,9 @@ function confirmerAction(btn) {
     var message = btn.dataset.message || 'Êtes-vous sûr de vouloir effectuer cette action ?';
     document.getElementById('modal-message').textContent = message;
     document.getElementById('modal-btn-confirmer').onclick = function () {
-        document.getElementById(formId).submit();
+        var form = document.getElementById(formId);
+        injectCsrf(form);
+        form.submit();
     };
     document.getElementById('modal-confirm').classList.remove('hidden');
 }

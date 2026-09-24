@@ -44,7 +44,7 @@ function addAdmin(array $data): void {
         "nom"    => $data["nom"],
         "prenom" => $data["prenom"],
         "email"  => $data["email"],
-        "mdp"    => $data["password"],
+        "mdp"    => password_hash($data["password"], PASSWORD_DEFAULT),
     ]);
 }
 
