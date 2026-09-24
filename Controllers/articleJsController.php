@@ -28,8 +28,15 @@ $uploadImage = function (?string &$erreur): ?string {
 
     $extension  = strtolower(pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION));
     $autorisees = ["jpg", "jpeg", "png", "webp", "gif"];
+    $mimeReel   = (new finfo(FILEINFO_MIME_TYPE))->file($_FILES["image"]["tmp_name"]);
+    $mimes      = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 
-    if (!in_array($extension, $autorisees)) {
+    if ($_FILES["image"]["size"] > 2 * 1024 * 1024) {
+        $erreur = "Image trop lourde (2 Mo maximum).";
+        return null;
+    }
+
+    if (!in_array($extension, $autorisees) || !in_array($mimeReel, $mimes)) {
         $erreur = "Format invalide (JPG, JPEG, PNG, WEBP, GIF uniquement).";
         return null;
     }

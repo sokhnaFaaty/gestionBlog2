@@ -10,7 +10,8 @@ function openConnexion() {
         $con->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         return $con;
     } catch (PDOException $e) {
-        echo('Erreur : ' . $e->getMessage());
+        error_log('Erreur de connexion BDD : ' . $e->getMessage());
+        die('Erreur de connexion à la base de données.');
     }
 }
 

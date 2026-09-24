@@ -66,13 +66,13 @@ function findArticleById_utilisateur(int $id): array|false {
     return executeSelect($sql, ["id" => $id], true);
 }
 
-// 5 derniers articles (dashboard admin)
+// 3 derniers articles (dashboard admin)
 function findDerniersArticles(): array {
     $sql = "SELECT a.titre, a.statut, a.date_publication, u.nom AS utilisateur_nom
             FROM article a
             INNER JOIN utilisateur u ON u.id_utilisateur = a.id_utilisateur
             ORDER BY a.date_publication DESC
-            LIMIT 5";
+            LIMIT 3";
     return executeSelect($sql, []);
 }
 

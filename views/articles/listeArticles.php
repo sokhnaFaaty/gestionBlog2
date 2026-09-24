@@ -78,7 +78,7 @@
                         <div class="flex gap-2 justify-end flex-wrap">
                             <!-- Publier -->
                             <?php if ($art['statut'] !== 'Publie'): ?>
-                            <form method="POST" action="<?= path('admin', 'changerStatut') ?>">
+                            <form method="POST" action="<?= path('article', 'changerStatut') ?>">
                                 <input type="hidden" name="id_article" value="<?= $art['id_article'] ?>">
                                 <input type="hidden" name="statut" value="Publie">
                                 <button class="px-3 py-1.5 bg-green-600 text-white text-xs rounded-lg hover:bg-green-700 transition">Publier</button>
@@ -105,7 +105,6 @@
                                     class="px-3 py-1.5 bg-orange-600 text-white text-xs rounded-lg hover:bg-orange-700 transition">
                                     Bannir
                             </button>
-                            </form>
                             <?php endif; ?>
                         </div>
                     </td>

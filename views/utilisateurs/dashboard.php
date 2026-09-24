@@ -41,7 +41,7 @@
     <!-- Derniers articles -->
     <div class="bg-white rounded-xl border border-gray-100 shadow-sm mt-4">
         <div class="px-6 py-4">
-            <h3 class="font-semibold text-gray-800">5 derniers articles</h3>
+            <h3 class="font-semibold text-gray-800">3 derniers articles</h3>
         </div>
         <div class="overflow-x-auto">
         <table class="w-full min-w-max text-left text-sm">

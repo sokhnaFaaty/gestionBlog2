@@ -30,10 +30,22 @@ $login = function () {
         if (validate($errors)) {
             $user = login($_POST["email"]);
 
-            if ($user && $_POST["password"] == $user["mdp"]) {
+            if ($user && motDePasseValide($_POST["password"], $user["mdp"])) {
                 if (!empty($user["banni"])) {
                     $errors["banned"] = "Votre compte a été suspendu par un administrateur.";
                 } else {
+                    // Anti-fixation de session : nouvel identifiant à chaque connexion.
+                    session_regenerate_id(true);
+
+                    // Migration : hache le mot de passe des anciens comptes encore en clair.
+                    $nouveauHash = rehashMotDePasseSiNecessaire($_POST["password"], $user["mdp"]);
+                    if ($nouveauHash !== null) {
+                        executeUpdate(
+                            "UPDATE utilisateur SET mdp = :mdp WHERE id_utilisateur = :id",
+                            ["mdp" => $nouveauHash, "id" => (int)$user["id_utilisateur"]]
+                        );
+                    }
+
                     $_SESSION["user"] = $user;
 
                     // Redirection selon le rôle (Seul l'admin va sur l'espace admin)
