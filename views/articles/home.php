@@ -30,6 +30,7 @@
                         <div class="w-full sm:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
                             <img src="<?= WEBROOT ?>uploads/<?= htmlspecialchars($article['image']) ?>"
                                  alt="<?= htmlspecialchars($article['titre']) ?>"
+                                 onerror="this.onerror=null;this.src='<?= WEBROOT ?>uploads/image-indisponible.svg'"
                                  loading="lazy"
                                  class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
                         </div>

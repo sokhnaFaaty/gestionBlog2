@@ -272,5 +272,5 @@ $actions = [
 if (array_key_exists($action, $actions)) {
     $actions[$action]();
 } else {
-    echo "Action introuvable";
+    notFound();
 }

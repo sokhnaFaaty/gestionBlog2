@@ -132,6 +132,5 @@ $action = $_REQUEST["action"] ?? "login";
 if (array_key_exists($action, $actions)) {
     $actions[$action]();
 } else {
-    echo "page introuvable c client";
-    exit();
+    notFound();
 }
