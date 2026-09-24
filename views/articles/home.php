@@ -1,6 +1,6 @@
 ﻿<?php if (!isConnected()): ?>
 <div class="bg-[#1A237E] text-white py-12 px-4 rounded-2xl mb-10 text-center shadow-lg">
-    <h1 class="text-3xl font-bold mb-3">Bienvenue sur GES-BLOG</h1>
+    <h1 class="text-3xl font-bold mb-3">Bienvenue sur Plume &amp; Clic</h1>
     <p class="text-indigo-100 mb-6 text-sm">Lisez nos articles et rejoignez la communauté pour commenter et interagir.</p>
     <div class="flex justify-center gap-4">
         <a href="<?= path('auth', 'register') ?>"

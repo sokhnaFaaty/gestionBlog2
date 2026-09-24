@@ -1,7 +1,7 @@
 <!-- Hero -->
 <div class="bg-[#1A237E] text-white py-14 px-6 rounded-2xl mb-12 text-center shadow-lg">
     <span class="inline-block px-3 py-1 rounded-full text-xs bg-white/10 border border-white/20 mb-4">Notre histoire</span>
-    <h1 class="text-3xl sm:text-4xl font-bold mb-4">À propos de GES-BLOG</h1>
+    <h1 class="text-3xl sm:text-4xl font-bold mb-4">À propos de Plume &amp; Clic</h1>
     <p class="text-indigo-100 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
         La plateforme où nos auteurs partagent des articles de qualité et où la communauté échange, commente et grandit ensemble.
     </p>
@@ -13,7 +13,7 @@
         <span class="inline-block px-2.5 py-0.5 rounded-full text-xs bg-blue-50 text-blue-700 border border-blue-100 mb-3">Notre mission</span>
         <h2 class="text-2xl font-bold text-gray-800 mb-4">Donner la parole aux auteurs, offrir la qualité aux lecteurs</h2>
         <p class="text-gray-600 text-sm leading-relaxed mb-4">
-            GES-BLOG est né d'une idée simple : créer un espace où chacun peut publier, lire et échanger autour d'articles
+            Plume &amp; Clic est né d'une idée simple : créer un espace où chacun peut publier, lire et échanger autour d'articles
             soigneusement rédigés. Nos auteurs proposent des contenus variés, notre équipe veille à leur qualité, et nos
             lecteurs enrichissent les discussions par leurs commentaires.
         </p>
@@ -22,7 +22,7 @@
         </p>
     </div>
     <div class="w-full h-64 sm:h-80 rounded-2xl overflow-hidden shadow-md border border-gray-200">
-        <img src="<?= WEBROOT ?>uploads/1781403275_6a2e0e8b9ccf5.jpeg" alt="GES-BLOG" class="w-full h-full object-cover">
+        <img src="<?= WEBROOT ?>uploads/1781403275_6a2e0e8b9ccf5.jpeg" alt="Plume &amp; Clic" class="w-full h-full object-cover">
     </div>
 </div>
 

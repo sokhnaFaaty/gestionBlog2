@@ -4,7 +4,7 @@
 <head>
     <meta charset='UTF-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gestion Blog</title>
+    <title>Plume &amp; Clic</title>
     <meta name="csrf-token" content="<?= htmlspecialchars(csrfToken()) ?>">
     <script>
     (function () {
@@ -87,7 +87,7 @@
         <!-- Logo -->
         <div class='px-6 py-5 border-b border-indigo-700 flex items-center justify-between'>
             <span class='text-xl font-bold tracking-wide text-white'>
-                <i class='fa-solid fa-book-open mr-2'></i>GES-BLOG
+                <i class='fa-solid fa-book-open mr-2'></i>Plume &amp; Clic
             </span>
             <!-- Bouton fermer sidebar sur mobile -->
             <button onclick="fermerSidebar()" class='lg:hidden text-indigo-300 hover:text-white'>

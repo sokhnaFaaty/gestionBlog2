@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestion Blog</title>
+  <title>Plume &amp; Clic</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -17,7 +17,7 @@
  
         <!-- Logo + liens -->
         <div class="flex items-center space-x-8">
-          <a href="<?= path('dashboard', 'index') ?>" class="text-xl font-bold text-[#1A237E] "><i class="fas fa-book"></i> GES-BLOG</a>
+          <a href="<?= path('dashboard', 'index') ?>" class="text-xl font-bold text-[#1A237E] "><i class="fas fa-book"></i> Plume &amp; Clic</a>
           <div class="hidden sm:flex space-x-2">
             <a href="<?= path('dashboard', 'index') ?>"
                class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'dashboard' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
