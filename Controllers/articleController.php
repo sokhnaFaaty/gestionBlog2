@@ -20,35 +20,52 @@ $liste = function () {
     loadView("articles/liste", [], "side");
 };
 
-// Page d'accueil publique (paginée)
+// Page d'accueil publique (paginée + filtres)
 $home = function () {
-    $page     = (int)($_GET["page"] ?? 1);
-    $total    = countArticlesPublies();
-    $parPage  = 3;
-    $articles = findArticlesPubliesPagines($page, $parPage);
+    require_once ROOT . "/models/utilisateurModel.php";
+
+    $page    = max(1, (int)($_GET["page"] ?? 1));
+    $parPage = 3;
+
+    $filtres = [
+        "id_auteur"    => $_GET["auteur"] ?? null,
+        "id_categorie" => $_GET["categorie"] ?? null,
+        "q"            => trim($_GET["q"] ?? ""),
+    ];
+
+    $total    = countArticlesPublies($filtres);
+    $articles = findArticlesPubliesPagines($page, $parPage, $filtres);
+
     loadView("articles/home", [
         "articles"   => $articles,
         "page"       => $page,
-        "totalPages" => ceil($total / $parPage),
+        "totalPages" => (int)ceil($total / $parPage),
+        "auteurs"    => findAllAuteurs(),
+        "categories" => findAllCategories(),
+        "filtres"    => $filtres,
     ], "base");
 };
 
 // Voir un article
 $voirArticle = function () {
     require_once ROOT . "/models/commentaireModel.php";
+    require_once ROOT . "/models/jaimeModel.php";
     $id = (int)($_GET["id"] ?? 0);
     if (!$id) redirectTo("article", "home");
 
-    $article      = findArticleById($id);
-    $commentaires = findCommentairesByArticle($id);
-
+    $article = findArticleById($id);
     if (!$article) redirectTo("article", "home");
+
+    $commentaires = findCommentairesByArticle($id);
+    $likes        = contexteJaimesArticle($id, $commentaires);
 
     $layout = hasRole("auteur") || hasRole("admin") ? "side" : "base";
     loadView("articles/article", [
-        "article"      => $article,
-        "commentaires" => $commentaires,
-        "errors"       => [],
+        "article"           => $article,
+        "commentaires"      => $commentaires,
+        "errors"            => [],
+        "aimeArticle"       => $likes["aimeArticle"],
+        "commentairesAimes" => $likes["commentairesAimes"],
     ], $layout);
 };
 

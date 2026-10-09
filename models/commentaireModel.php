@@ -4,7 +4,8 @@ require_once(ROOT . "/db/database.php");
 
 // Commentaires d'un article
 function findCommentairesByArticle(int $id_article): array {
-    $sql = "SELECT c.*, u.nom as utilisateur_nom
+    $sql = "SELECT c.*, u.nom as utilisateur_nom,
+            (SELECT COUNT(*) FROM jaime WHERE type = 'commentaire' AND id_cible = c.id_commentaire) as nb_jaimes
             FROM commentaire c
             INNER JOIN utilisateur u ON c.id_utilisateur = u.id_utilisateur
             WHERE c.id_article = :id

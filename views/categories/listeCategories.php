@@ -1,8 +1,11 @@
 <div class="max-w-4xl mx-auto my-8 px-4">
 
-    <div class="mb-6 pb-4 border-b border-gray-200">
-        <h2 class="text-2xl font-bold text-gray-800">Gestion des catégories</h2>
-        <p class="text-sm text-gray-500 mt-1">Ajoutez, modifiez ou supprimez les catégories d'articles.</p>
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 pb-4 border-b border-gray-200 gap-4">
+        <div>
+            <h2 class="text-2xl font-bold text-gray-800">Gestion des catégories</h2>
+            <p class="text-sm text-gray-500 mt-1">Ajoutez, modifiez ou supprimez les catégories d'articles.</p>
+        </div>
+        <?php viewToggle('categories-admin'); ?>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -31,70 +34,73 @@
         </div>
 
         <!-- Liste des catégories -->
-        <div class="md:col-span-2">
-            <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-x-auto">
-                <table class="w-full min-w-full text-left border-collapse text-sm">
-                    <thead>
-                        <tr class="bg-gray-50 border-b border-gray-100 text-gray-600 text-xs uppercase font-semibold">
-                            <th class="px-5 py-4 whitespace-nowrap">Catégorie</th>
-                            <th class="px-5 py-4 whitespace-nowrap">Articles</th>
-                            <th class="px-5 py-4 text-right whitespace-nowrap">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100 text-gray-700">
-                    <?php if (empty($categories)): ?>
-                        <tr>
-                            <td colspan="3" class="px-5 py-10 text-center text-gray-400">
-                                Aucune catégorie pour le moment.
-                            </td>
-                        </tr>
-                    <?php else: ?>
-                        <?php foreach ($categories as $cat): ?>
-                        <tr class="hover:bg-gray-50 transition">
-                            <td class="px-5 py-4 font-medium text-gray-900">
-                                <?= htmlspecialchars($cat['libelle']) ?>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="px-2.5 py-1 rounded-md text-xs font-semibold border bg-blue-50 text-blue-700 border-blue-100">
-                                    <?= $cat['nb_articles'] ?> article<?= $cat['nb_articles'] > 1 ? 's' : '' ?>
-                                </span>
-                            </td>
-                            <td class="px-5 py-4 text-right">
-                                <div class="flex gap-2 justify-end">
-                                    <!-- Modifier -->
-                                    <a href="<?= path('categorie', 'edit', ['id' => $cat['id_categorie']]) ?>"
-                                       class="px-3 py-1.5 text-xs font-medium rounded-lg border bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100 transition">
-                                        Modifier
-                                    </a>
-                                    <!-- Supprimer — désactivé si la catégorie a des articles -->
-                                    <?php if ((int)$cat['nb_articles'] === 0): ?>
-                                    <form id="form-supprimer-cat-<?= $cat['id_categorie'] ?>"
-                                          method="POST"
-                                          action="<?= path('categorie', 'supprimer') ?>"
-                                          class="hidden">
-                                        <input type="hidden" name="id_categorie" value="<?= $cat['id_categorie'] ?>">
-                                    </form>
-                                    <button type="button"
-                                            onclick="confirmerAction(this)"
-                                            data-form="form-supprimer-cat-<?= $cat['id_categorie'] ?>"
-                                            data-message="Supprimer la catégorie « <?= htmlspecialchars($cat['libelle'], ENT_QUOTES) ?> » ?"
-                                            class="px-3 py-1.5 text-xs font-medium rounded-lg border bg-red-50 text-red-700 border-red-200 hover:bg-red-100 transition">
-                                        Supprimer
-                                    </button>
-                                    <?php else: ?>
-                                    <span class="px-3 py-1.5 text-xs font-medium rounded-lg border bg-gray-50 text-gray-400 border-gray-200 cursor-not-allowed"
-                                          title="Impossible de supprimer une catégorie utilisée par des articles">
-                                        Supprimer
+        <div class="md:col-span-2" data-view-container="categories-admin">
+            <!-- Vue tableau -->
+            <div data-view-pane="table">
+                <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-x-auto">
+                    <table class="w-full min-w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-gray-50 border-b border-gray-100 text-gray-600 text-xs uppercase font-semibold">
+                                <th class="px-5 py-4 whitespace-nowrap">Catégorie</th>
+                                <th class="px-5 py-4 whitespace-nowrap">Articles</th>
+                                <th class="px-5 py-4 text-right whitespace-nowrap">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100 text-gray-700">
+                        <?php if (empty($categories)): ?>
+                            <tr>
+                                <td colspan="3" class="px-5 py-10 text-center text-gray-400">
+                                    Aucune catégorie pour le moment.
+                                </td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($categories as $cat): ?>
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-5 py-4 font-medium text-gray-900">
+                                    <?= htmlspecialchars($cat['libelle']) ?>
+                                </td>
+                                <td class="px-5 py-4">
+                                    <span class="px-2.5 py-1 rounded-md text-xs font-semibold border bg-blue-50 text-blue-700 border-blue-100">
+                                        <?= $cat['nb_articles'] ?> article<?= $cat['nb_articles'] > 1 ? 's' : '' ?>
                                     </span>
-                                    <?php endif; ?>
-                                </div>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                    </tbody>
-                </table>
+                                </td>
+                                <td class="px-5 py-4 text-right">
+                                    <div class="flex gap-2 justify-end">
+                                        <?php $suffixe = 't'; require ROOT . "/views/categories/_actions_categorie.php"; ?>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        </tbody>
+                    </table>
                 </div>
+            </div>
+
+            <!-- Vue cartes -->
+            <div data-view-pane="card" class="hidden">
+                <?php if (empty($categories)): ?>
+                    <p class="text-center text-gray-400 py-10">Aucune catégorie pour le moment.</p>
+                <?php else: ?>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <?php foreach ($categories as $cat): ?>
+                    <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5 flex flex-col">
+                        <div class="flex items-center gap-2">
+                            <span class="w-9 h-9 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                                <i class="fa-solid fa-tag"></i>
+                            </span>
+                            <p class="font-semibold text-gray-900"><?= htmlspecialchars($cat['libelle']) ?></p>
+                        </div>
+                        <span class="self-start mt-3 px-2.5 py-1 rounded-md text-xs font-semibold border bg-blue-50 text-blue-700 border-blue-100">
+                            <?= $cat['nb_articles'] ?> article<?= $cat['nb_articles'] > 1 ? 's' : '' ?>
+                        </span>
+                        <div class="mt-4 pt-4 border-t border-gray-100 flex gap-2 justify-end">
+                            <?php $suffixe = 'c'; require ROOT . "/views/categories/_actions_categorie.php"; ?>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
 

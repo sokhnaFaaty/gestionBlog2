@@ -289,6 +289,44 @@ document.addEventListener('keydown', function (e) {
 </script>
 
 <script>
+/* Bascule d'affichage Tableau / Cartes des listes du dashboard */
+(function () {
+    function activer(key, mode) {
+        document.querySelectorAll('[data-view-container="' + key + '"]').forEach(function (c) {
+            c.querySelectorAll('[data-view-pane]').forEach(function (p) {
+                p.classList.toggle('hidden', p.dataset.viewPane !== mode);
+            });
+        });
+        document.querySelectorAll('[data-view-toggle="' + key + '"] [data-mode]').forEach(function (b) {
+            var on = b.dataset.mode === mode;
+            b.classList.toggle('bg-indigo-600', on);
+            b.classList.toggle('text-white', on);
+            b.classList.toggle('text-gray-600', !on);
+        });
+        try { localStorage.setItem('view:' + key, mode); } catch (e) {}
+    }
+
+    window.definirVue = activer;
+
+    document.addEventListener('click', function (e) {
+        var btn = e.target.closest ? e.target.closest('[data-view-toggle] [data-mode]') : null;
+        if (!btn) return;
+        activer(btn.closest('[data-view-toggle]').dataset.viewToggle, btn.dataset.mode);
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('[data-view-toggle]').forEach(function (t) {
+            var key    = t.dataset.viewToggle;
+            var defaut = t.dataset.viewDefaut || 'table';
+            var mode   = defaut;
+            try { mode = localStorage.getItem('view:' + key) || defaut; } catch (e) {}
+            activer(key, mode);
+        });
+    });
+})();
+</script>
+
+<script>
 (function () {
     var input   = document.getElementById('search-global');
     var results = document.getElementById('search-results');

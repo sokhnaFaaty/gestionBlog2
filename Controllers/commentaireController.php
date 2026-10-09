@@ -26,11 +26,16 @@ $ajouter = function () {
     $article      = findArticleById($id);
     $commentaires = findCommentairesByArticle($id);
 
+    require_once ROOT . "/models/jaimeModel.php";
+    $likes = contexteJaimesArticle($id, $commentaires);
+
     $layout = hasRole("auteur") || hasRole("admin") ? "side" : "base";
     loadView("articles/article", [
-        "article"      => $article,
-        "commentaires" => $commentaires,
-        "errors"       => $errors,
+        "article"           => $article,
+        "commentaires"      => $commentaires,
+        "errors"            => $errors,
+        "aimeArticle"       => $likes["aimeArticle"],
+        "commentairesAimes" => $likes["commentairesAimes"],
     ], $layout);
 };
 

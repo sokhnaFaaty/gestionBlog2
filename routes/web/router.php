@@ -15,6 +15,7 @@ $controllers = [
       "commentairejs"    => "commentaireJs",
       "newsletterjs"    => "newsletterJs",
        "notificationjs"    => "notificationJs",
+       "likejs"    => "likeJs",
 ];
 
 $controller = $_REQUEST["controller"] ?? "article";
