@@ -60,7 +60,7 @@ $aDesFiltres    = $auteurFiltre || $categorieFiltre || $recherche !== "";
 
             <div class="flex gap-2">
                 <button type="submit"
-                        class="flex-1 px-4 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition shadow-sm">
+                        class="flex-1 px-4 py-2.5 bg-[#1A237E] text-white text-sm font-medium rounded-lg hover:bg-[#141A5F] transition shadow-sm">
                     <i class="fa-solid fa-filter mr-1"></i> Filtrer
                 </button>
                 <?php if ($aDesFiltres): ?>
