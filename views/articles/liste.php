@@ -8,7 +8,7 @@
         <div class="flex items-center gap-3">
             <?php viewToggle('articles-auteur'); ?>
             <a href="<?= path("article", "add") ?>"
-                class="inline-flex items-center px-4 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition shadow-sm">
+                class="inline-flex items-center px-4 py-2.5 bg-[#1A237E] text-white text-sm font-medium rounded-lg hover:bg-[#141A5F] transition shadow-sm">
                 <i class="fa-solid fa-plus mr-2"></i> Écrire un article
             </a>
         </div>
@@ -87,7 +87,7 @@
                          class="w-12 h-12 object-cover rounded-lg border border-gray-200">
                 </td>
                 <td class="px-6 py-4">
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-[#1A237E] border border-blue-100">
                         ${echapper(article.categorie_nom)}
                     </span>
                 </td>
@@ -99,7 +99,7 @@
                 </td>
                 <td class="px-6 py-4 text-right space-x-2">
                     <a href="/article/edit?id=${article.id_article}"
-                       class="text-indigo-600 hover:text-indigo-900 font-medium transition">Modifier</a>
+                       class="text-[#1A237E] hover:text-[#141A5F] font-medium transition">Modifier</a>
                 </td>
             </tr>`;
     }
@@ -113,7 +113,7 @@
                          class="w-full h-full object-cover">
                 </div>
                 <div class="p-4 flex-1 flex flex-col">
-                    <span class="self-start inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100">
+                    <span class="self-start inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-[#1A237E] border border-blue-100">
                         ${echapper(article.categorie_nom)}
                     </span>
                     <h3 class="font-semibold text-gray-900 mt-2 line-clamp-2">${echapper(article.titre)}</h3>
@@ -126,7 +126,7 @@
                             ${echapper(article.statut)}
                         </span>
                         <a href="/article/edit?id=${article.id_article}"
-                           class="text-sm text-indigo-600 hover:text-indigo-900 font-medium transition">
+                           class="text-sm text-[#1A237E] hover:text-[#141A5F] font-medium transition">
                             <i class="fa-solid fa-pen mr-1"></i>Modifier
                         </a>
                     </div>
@@ -148,7 +148,7 @@
 
         const bouton = (numero, libelle, actif) => {
             const style = actif
-                ? "bg-indigo-600 text-white border-indigo-600"
+                ? "bg-[#1A237E] text-white border-[#1A237E]"
                 : "border-gray-300 text-gray-600 hover:bg-gray-50";
             const b = document.createElement("button");
             b.className = `px-3 py-2 rounded-lg border text-sm font-medium transition ${style}`;

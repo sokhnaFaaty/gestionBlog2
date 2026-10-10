@@ -1,4 +1,4 @@
-﻿<div class="max-w-6xl mx-auto my-8 px-4">
+<div class="max-w-6xl mx-auto my-8 px-4">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 pb-4 border-b border-gray-200 gap-4">
         <div>
             <h2 class="text-2xl font-bold text-gray-800">Gestion des articles</h2>
@@ -14,7 +14,7 @@
                 ?>
                 <a href="<?= $val ? path('article', 'listeAdmin', ['statut' => $val]) : path('article', 'listeAdmin') ?>"
                    class="px-3 py-1.5 rounded-lg text-sm font-medium border transition
-                   <?= $active ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50' ?>">
+                   <?= $active ? 'bg-[#1A237E] text-white border-[#1A237E]' : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50' ?>">
                     <?= $label ?>
                 </a>
                 <?php endforeach; ?>
@@ -59,7 +59,7 @@
                                 <?php endif; ?>
                             </td>
                             <td class="px-5 py-4">
-                                <span class="px-2.5 py-0.5 rounded-full text-xs bg-blue-50 text-blue-700 border border-blue-100">
+                                <span class="px-2.5 py-0.5 rounded-full text-xs bg-blue-50 text-[#1A237E] border border-blue-100">
                                     <?= htmlspecialchars($art['categorie_nom']) ?>
                                 </span>
                             </td>
@@ -118,7 +118,7 @@
                         <?php endif; ?>
                     </div>
                     <div class="p-4 flex-1 flex flex-col">
-                        <span class="self-start inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-blue-50 text-blue-700 border border-blue-100">
+                        <span class="self-start inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-blue-50 text-[#1A237E] border border-blue-100">
                             <?= htmlspecialchars($art['categorie_nom']) ?>
                         </span>
                         <h3 class="font-semibold text-gray-900 mt-2 line-clamp-2"><?= htmlspecialchars($art['titre']) ?></h3>

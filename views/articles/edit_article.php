@@ -15,7 +15,7 @@
             <label for="titre" class="block text-sm font-semibold text-gray-700 mb-2">Titre</label>
             <input type="text" name="titre" id="titre"
                    value="<?= htmlspecialchars($_POST['titre'] ?? $article['titre']) ?>"
-                   class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition">
+                   class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1A237E] focus:border-[#1A237E] outline-none transition">
             <?php if (isset($errors['titre'])): ?>
                 <span class="text-red-600 text-xs mt-1 block"><?= $errors['titre'] ?></span>
             <?php endif; ?>
@@ -25,7 +25,7 @@
         <div>
             <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Photo de couverture</label>
             <input type="file" name="image" id="image" accept="image/*"
-                   class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 border border-gray-300 rounded-lg p-1.5 focus:ring-2 focus:ring-indigo-500 outline-none transition">
+                   class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-[#1A237E] hover:file:bg-indigo-100 border border-gray-300 rounded-lg p-1.5 focus:ring-2 focus:ring-[#1A237E] outline-none transition">
             <?php if (isset($errors['image'])): ?>
                 <span class="text-red-800 text-xs"><?= $errors['image'] ?></span>
             <?php endif; ?>
@@ -35,7 +35,7 @@
         <div>
             <label for="categorie_id" class="block text-sm font-semibold text-gray-700 mb-2">Catégorie</label>
             <select name="categorie_id" id="categorie_id"
-                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white transition">
+                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1A237E] outline-none bg-white transition">
                 <option value="">-- Choisir une catégorie --</option>
                 <?php foreach ($categories as $cat): ?>
                     <option value="<?= $cat['id_categorie'] ?>"
@@ -53,7 +53,7 @@
         <div>
             <label for="contenu" class="block text-sm font-semibold text-gray-700 mb-2">Contenu</label>
             <textarea name="contenu" id="contenu" rows="8"
-                      class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition resize-y"><?= htmlspecialchars($_POST['contenu'] ?? $article['contenu']) ?></textarea>
+                      class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1A237E] outline-none transition resize-y"><?= htmlspecialchars($_POST['contenu'] ?? $article['contenu']) ?></textarea>
             <?php if (isset($errors['contenu'])): ?>
                 <span class="text-red-600 text-xs mt-1 block"><?= $errors['contenu'] ?></span>
             <?php endif; ?>
@@ -77,7 +77,7 @@
                     Annuler
                 </a>
                 <button type="submit" name="btn_modifier"
-                        class="px-5 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition shadow-sm">
+                        class="px-5 py-2.5 bg-[#1A237E] text-white text-sm font-medium rounded-lg hover:bg-[#141A5F] transition shadow-sm">
                     Enregistrer
                 </button>
             </div>

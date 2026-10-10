@@ -25,7 +25,7 @@
       <div>
         <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Adresse email</label>
         <input type="text" name="email" id="email"  value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" 
-               class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+               class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1A237E] focus:border-[#1A237E] outline-none transition"
                placeholder="vous@exemple.fr">
         <span class="text-red-800"> <?=$errors["email"] ?? "" ?></span>
       </div>
@@ -35,7 +35,7 @@
         <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Mot de passe</label>
         <div class="relative">
           <input type="password" name="password" id="password"
-                 class="w-full px-4 py-2.5 pr-10 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+                 class="w-full px-4 py-2.5 pr-10 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1A237E] focus:border-[#1A237E] outline-none transition"
                  placeholder="••••••••">
           <button type="button" data-toggle-password="password"
                   class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-400 hover:text-gray-600 focus:outline-none"
@@ -50,7 +50,7 @@
     <input type="hidden" name="action" value="login">
       <!-- Bouton -->
       <button type="submit" name="connect"
-              class="w-full py-2.5 bg-[#1A237E] text-white text-sm font-medium rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition shadow-sm">
+              class="w-full py-2.5 bg-[#1A237E] text-white text-sm font-medium rounded-lg hover:bg-[#141A5F] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1A237E] transition shadow-sm">
         Se connecter
       </button>
     </form>
@@ -60,7 +60,7 @@
       Démo : admin@gesBlog.fr / password
     </p>
     <p class="mt-6 text-center text-sm text-gray-500">
-  Pas encore de compte ? <a href="<?= path('auth', 'register') ?>" class="text-indigo-600 hover:underline">S'inscrire</a>
+  Pas encore de compte ? <a href="<?= path('auth', 'register') ?>" class="text-[#1A237E] hover:underline">S'inscrire</a>
 </p>
   </div>
 

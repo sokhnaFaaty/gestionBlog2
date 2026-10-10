@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $filtres        = $filtres ?? ["id_auteur" => null, "id_categorie" => null, "q" => ""];
 $auteurFiltre   = $filtres["id_auteur"] ?? null;
 $categorieFiltre = $filtres["id_categorie"] ?? null;
@@ -15,7 +15,7 @@ $aDesFiltres    = $auteurFiltre || $categorieFiltre || $recherche !== "";
             S'inscrire
         </a>
         <a href="<?= path('auth', 'login') ?>"
-           class="px-6 py-2.5 border border-white text-white font-semibold rounded-lg hover:bg-indigo-700 transition text-sm">
+           class="px-6 py-2.5 border border-white text-white font-semibold rounded-lg hover:bg-[#141A5F] transition text-sm">
             Se connecter
         </a>
     </div>
@@ -33,11 +33,11 @@ $aDesFiltres    = $auteurFiltre || $categorieFiltre || $recherche !== "";
                 <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
                 <input type="text" name="q" value="<?= htmlspecialchars($recherche) ?>"
                        placeholder="Rechercher un article..."
-                       class="w-full pl-9 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition">
+                       class="w-full pl-9 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1A237E] focus:border-[#1A237E] outline-none transition">
             </div>
 
             <select name="auteur"
-                    class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition">
+                    class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-700 focus:ring-2 focus:ring-[#1A237E] focus:border-[#1A237E] outline-none transition">
                 <option value="">Tous les auteurs</option>
                 <?php foreach (($auteurs ?? []) as $a): ?>
                     <option value="<?= $a['id_utilisateur'] ?>"
@@ -48,7 +48,7 @@ $aDesFiltres    = $auteurFiltre || $categorieFiltre || $recherche !== "";
             </select>
 
             <select name="categorie"
-                    class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition">
+                    class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-700 focus:ring-2 focus:ring-[#1A237E] focus:border-[#1A237E] outline-none transition">
                 <option value="">Toutes les catégories</option>
                 <?php foreach (($categories ?? []) as $c): ?>
                     <option value="<?= $c['id_categorie'] ?>"
@@ -99,12 +99,12 @@ $aDesFiltres    = $auteurFiltre || $categorieFiltre || $recherche !== "";
                     <?php endif; ?>
 
                     <div class="flex-1">
-                        <span class="inline-block px-2.5 py-0.5 rounded-full text-xs bg-blue-50 text-blue-700 border border-blue-100 mb-2">
+                        <span class="inline-block px-2.5 py-0.5 rounded-full text-xs bg-blue-50 text-[#1A237E] border border-blue-100 mb-2">
                             <?= htmlspecialchars($article['categorie_nom']) ?>
                         </span>
                         <h3 class="text-lg font-semibold text-gray-900">
                             <a href="<?= path('article', 'voir', ['id' => $article['id_article']]) ?>"
-                               class="hover:text-indigo-600 transition">
+                               class="hover:text-[#1A237E] transition">
                                 <?= htmlspecialchars($article['titre']) ?>
                             </a>
                         </h3>
@@ -121,7 +121,7 @@ $aDesFiltres    = $auteurFiltre || $categorieFiltre || $recherche !== "";
                 </div>
                 <div class="mt-4">
                     <a href="<?= path('article', 'voir', ['id' => $article['id_article']]) ?>"
-                       class="text-sm font-medium text-[#1A237E]  hover:text-indigo-800 transition">
+                       class="text-sm font-medium text-[#1A237E]  hover:text-[#141A5F] transition">
                         Lire la suite <i class="fa-solid fa-arrow-right ml-1"></i>
                     </a>
                 </div>

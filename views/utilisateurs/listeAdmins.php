@@ -10,7 +10,7 @@
         <div class="flex items-center gap-3">
             <?php viewToggle('admins-admin'); ?>
             <a href="<?= path('utilisateur', 'addAdmin') ?>"
- class="inline-flex items-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition shadow-sm">
+ class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#1A237E] hover:bg-[#141A5F] text-white text-sm font-medium rounded-lg transition shadow-sm">
                 <i class="fas fa-plus"></i>
                 Ajouter un administrateur
             </a>
@@ -37,7 +37,7 @@
                                     <tr class="hover:bg-gray-50/75 transition">
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center gap-3">
-                                                <div class="w-9 h-9 bg-indigo-50 border border-indigo-100 text-indigo-600 font-semibold rounded-full flex items-center justify-center text-sm uppercase">
+                                                <div class="w-9 h-9 bg-indigo-50 border border-indigo-100 text-[#1A237E] font-semibold rounded-full flex items-center justify-center text-sm uppercase">
                                                     <?= mb_substr(htmlspecialchars($admin['prenom']), 0, 1) . mb_substr(htmlspecialchars($admin['nom']), 0, 1) ?>
                                                 </div>
                                                 <div>
@@ -51,7 +51,7 @@
                                             <?= htmlspecialchars($admin['email']) ?>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-100">
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-indigo-50 text-[#1A237E] border border-indigo-100">
                                                 <?= htmlspecialchars($admin['role']) ?>
                                             </span>
                                         </td>
@@ -85,7 +85,7 @@
                 <?php foreach ($admins as $admin): ?>
                 <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-5 flex flex-col">
                     <div class="flex items-center gap-3">
-                        <div class="w-11 h-11 bg-indigo-50 border border-indigo-100 text-indigo-600 font-bold rounded-full flex items-center justify-center uppercase">
+                        <div class="w-11 h-11 bg-indigo-50 border border-indigo-100 text-[#1A237E] font-bold rounded-full flex items-center justify-center uppercase">
                             <?= mb_substr(htmlspecialchars($admin['prenom']), 0, 1) . mb_substr(htmlspecialchars($admin['nom']), 0, 1) ?>
                         </div>
                         <div class="min-w-0">
@@ -95,7 +95,7 @@
                             <p class="text-xs text-gray-500 truncate"><?= htmlspecialchars($admin['email']) ?></p>
                         </div>
                     </div>
-                    <span class="self-start mt-4 inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-100">
+                    <span class="self-start mt-4 inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-indigo-50 text-[#1A237E] border border-indigo-100">
                         <?= htmlspecialchars($admin['role']) ?>
                     </span>
                     <div class="mt-4 pt-4 border-t border-gray-100 flex justify-end text-base">

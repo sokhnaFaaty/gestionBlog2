@@ -93,8 +93,8 @@
         </a>
         <a href="<?= path('article', 'listeAdmin') ?>"
            class="block bg-indigo-50 border border-indigo-200 rounded-xl p-5 hover:bg-indigo-100 transition">
-            <p class="font-semibold text-indigo-800">Tous les articles</p>
-            <p class="text-sm text-indigo-600 mt-1">Gérer les signalements</p>
+            <p class="font-semibold text-[#141A5F]">Tous les articles</p>
+            <p class="text-sm text-[#1A237E] mt-1">Gérer les signalements</p>
         </a>
         <a href="<?= path('utilisateur', 'listeAuteurs') ?>"
            class="block bg-gray-50 border border-gray-200 rounded-xl p-5 hover:bg-gray-100 transition">

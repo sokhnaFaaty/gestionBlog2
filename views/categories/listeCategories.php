@@ -20,13 +20,13 @@
                         <input type="text" name="libelle" id="libelle"
                                value="<?= htmlspecialchars($_POST['libelle'] ?? '') ?>"
                                placeholder="Ex: Technologie"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition">
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1A237E] focus:border-[#1A237E] outline-none transition">
                         <?php if (isset($errors['libelle'])): ?>
                             <span class="text-red-600 text-xs mt-1 block"><?= $errors['libelle'] ?></span>
                         <?php endif; ?>
                     </div>
                     <button type="submit" name="btn_ajouter"
-                            class="w-full px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition">
+                            class="w-full px-4 py-2 bg-[#1A237E] text-white text-sm font-medium rounded-lg hover:bg-[#141A5F] transition">
                         Ajouter
                     </button>
                 </form>
@@ -60,7 +60,7 @@
                                     <?= htmlspecialchars($cat['libelle']) ?>
                                 </td>
                                 <td class="px-5 py-4">
-                                    <span class="px-2.5 py-1 rounded-md text-xs font-semibold border bg-blue-50 text-blue-700 border-blue-100">
+                                    <span class="px-2.5 py-1 rounded-md text-xs font-semibold border bg-blue-50 text-[#1A237E] border-blue-100">
                                         <?= $cat['nb_articles'] ?> article<?= $cat['nb_articles'] > 1 ? 's' : '' ?>
                                     </span>
                                 </td>
@@ -86,12 +86,12 @@
                     <?php foreach ($categories as $cat): ?>
                     <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5 flex flex-col">
                         <div class="flex items-center gap-2">
-                            <span class="w-9 h-9 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                            <span class="w-9 h-9 rounded-lg bg-indigo-50 text-[#1A237E] flex items-center justify-center">
                                 <i class="fa-solid fa-tag"></i>
                             </span>
                             <p class="font-semibold text-gray-900"><?= htmlspecialchars($cat['libelle']) ?></p>
                         </div>
-                        <span class="self-start mt-3 px-2.5 py-1 rounded-md text-xs font-semibold border bg-blue-50 text-blue-700 border-blue-100">
+                        <span class="self-start mt-3 px-2.5 py-1 rounded-md text-xs font-semibold border bg-blue-50 text-[#1A237E] border-blue-100">
                             <?= $cat['nb_articles'] ?> article<?= $cat['nb_articles'] > 1 ? 's' : '' ?>
                         </span>
                         <div class="mt-4 pt-4 border-t border-gray-100 flex gap-2 justify-end">

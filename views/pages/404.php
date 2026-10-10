@@ -12,7 +12,7 @@
             Vous pouvez retourner à l'accueil pour continuer votre lecture.
         </p>
         <a href="<?= path('article', 'home') ?>"
-           class="inline-flex items-center gap-2 px-6 py-3 bg-[#1A237E] text-white text-sm font-semibold rounded-lg hover:bg-[#141A5F] focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition shadow-sm">
+           class="inline-flex items-center gap-2 px-6 py-3 bg-[#1A237E] text-white text-sm font-semibold rounded-lg hover:bg-[#141A5F] focus:ring-2 focus:ring-offset-2 focus:ring-[#1A237E] transition shadow-sm">
             <i class="fa-solid fa-house"></i> Retour à l'accueil
         </a>
     </div>

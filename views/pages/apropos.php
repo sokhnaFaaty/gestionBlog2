@@ -10,7 +10,7 @@
 <!-- Notre mission -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-16">
     <div>
-        <span class="inline-block px-2.5 py-0.5 rounded-full text-xs bg-blue-50 text-blue-700 border border-blue-100 mb-3">Notre mission</span>
+        <span class="inline-block px-2.5 py-0.5 rounded-full text-xs bg-blue-50 text-[#1A237E] border border-blue-100 mb-3">Notre mission</span>
         <h2 class="text-2xl font-bold text-gray-800 mb-4">Donner la parole aux auteurs, offrir la qualité aux lecteurs</h2>
         <p class="text-gray-600 text-sm leading-relaxed mb-4">
             Plume &amp; Clic est né d'une idée simple : créer un espace où chacun peut publier, lire et échanger autour d'articles

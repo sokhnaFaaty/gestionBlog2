@@ -14,7 +14,7 @@
         <a href="?<?= http_build_query(array_merge($_GET, ['page' => $i])) ?>"
            class="px-3 py-2 rounded-lg border text-sm font-medium transition
            <?= $i === $page
-               ? 'bg-indigo-600 text-white border-indigo-600'
+               ? 'bg-[#1A237E] text-white border-[#1A237E]'
                : 'border-gray-300 text-gray-600 hover:bg-gray-50' ?>">
             <?= $i ?>
         </a>

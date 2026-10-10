@@ -227,7 +227,7 @@
                         <div class='flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-gray-50'>
                             <p class='text-sm font-bold text-gray-800'>Notifications</p>
                             <button onclick='marquerToutLu()'
-                                    class='text-xs font-medium text-indigo-600 hover:text-indigo-800 transition'>
+                                    class='text-xs font-medium text-[#1A237E] hover:text-[#141A5F] transition'>
                                 <i class='fa-solid fa-check-double mr-1'></i>Tout lire
                             </button>
                         </div>
@@ -299,7 +299,7 @@ document.addEventListener('keydown', function (e) {
         });
         document.querySelectorAll('[data-view-toggle="' + key + '"] [data-mode]').forEach(function (b) {
             var on = b.dataset.mode === mode;
-            b.classList.toggle('bg-indigo-600', on);
+            b.classList.toggle('bg-[#1A237E]', on);
             b.classList.toggle('text-white', on);
             b.classList.toggle('text-gray-600', !on);
         });
@@ -464,7 +464,7 @@ document.addEventListener('keydown', function (e) {
                 return n.espace === sp.key && !n.lu;
             }).length;
             if (sp.key === espaceActif) {
-                html += '<button onclick="setEspace(\'' + sp.key + '\')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white whitespace-nowrap transition">' + sp.label;
+                html += '<button onclick="setEspace(\'' + sp.key + '\')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#1A237E] text-white whitespace-nowrap transition">' + sp.label;
             } else {
                 html += '<button onclick="setEspace(\'' + sp.key + '\')" class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-gray-100 whitespace-nowrap transition">' + sp.label;
             }
@@ -487,12 +487,12 @@ document.addEventListener('keydown', function (e) {
             var icone = iconeEspace(n.espace);
             var classe = n.lu ? 'opacity-60' : '';
             html += '<a href="' + (n.lien ? n.lien : '#') + '" onclick="marquerLuUne(\'' + n.espace + '\', event)" class="flex items-start gap-3 px-4 py-3 hover:bg-indigo-50 transition border-b border-gray-50 ' + classe + '">'
-                  + '<span class="w-8 h-8 rounded-full bg-indigo-50 text-indigo-500 flex items-center justify-center shrink-0"><i class="fa-solid ' + icone + ' text-xs"></i></span>'
+                  + '<span class="w-8 h-8 rounded-full bg-indigo-50 text-[#1A237E] flex items-center justify-center shrink-0"><i class="fa-solid ' + icone + ' text-xs"></i></span>'
                   + '<span class="flex-1 min-w-0">'
                   +   '<span class="block text-sm text-gray-700 leading-snug">' + echapper(n.message) + '</span>'
                   +   '<span class="block text-[11px] text-gray-400 mt-0.5">' + formatDate(n.date_creation) + '</span>'
                   + '</span>'
-                  + (n.lu ? '' : '<span class="w-2 h-2 rounded-full bg-indigo-500 shrink-0 mt-1.5"></span>')
+                  + (n.lu ? '' : '<span class="w-2 h-2 rounded-full bg-[#1A237E] shrink-0 mt-1.5"></span>')
                   + '</a>';
         });
         listEl.innerHTML = html;

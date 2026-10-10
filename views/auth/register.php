@@ -24,7 +24,7 @@
         <div>
           <label for="prenom" class="block text-xs font-medium text-gray-700 mb-1">Prénom</label>
           <input type="text" name="prenom" id="prenom" value="<?= htmlspecialchars($_POST['prenom'] ?? '') ?>" 
-                 class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+                 class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1A237E] focus:border-[#1A237E] outline-none transition"
                  placeholder="Moussa">
           <span class="text-red-800 text-xs block mt-0.5"> <?=$errors["prenom"] ?? "" ?></span>
         </div>
@@ -33,7 +33,7 @@
         <div>
           <label for="nom" class="block text-xs font-medium text-gray-700 mb-1">Nom</label>
           <input type="text" name="nom" id="nom" value="<?= htmlspecialchars($_POST['nom'] ?? '') ?>" 
-                 class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+                 class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1A237E] focus:border-[#1A237E] outline-none transition"
                  placeholder="Diallo">
           <span class="text-red-800 text-xs block mt-0.5"> <?=$errors["nom"] ?? "" ?></span>
         </div>
@@ -43,7 +43,7 @@
       <div>
         <label for="email" class="block text-xs font-medium text-gray-700 mb-1">Adresse email</label>
         <input type="text" name="email" id="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" 
-               class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+               class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1A237E] focus:border-[#1A237E] outline-none transition"
                placeholder="vous@exemple.fr">
         <span class="text-red-800 text-xs block mt-0.5"> <?=$errors["email"] ?? "" ?></span>
       </div>
@@ -53,7 +53,7 @@
         <label for="password" class="block text-xs font-medium text-gray-700 mb-1">Mot de passe</label>
         <div class="relative">
           <input type="password" name="password" id="password"
-                 class="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+                 class="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1A237E] focus:border-[#1A237E] outline-none transition"
                  placeholder="••••••••">
           <button type="button" data-toggle-password="password"
                   class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-400 hover:text-gray-600 focus:outline-none"
@@ -69,7 +69,7 @@
         <label for="password_confirmation" class="block text-xs font-medium text-gray-700 mb-1">Confirmer le mot de passe</label>
         <div class="relative">
           <input type="password" name="password_confirmation" id="password_confirmation"
-                 class="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+                 class="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1A237E] focus:border-[#1A237E] outline-none transition"
                  placeholder="••••••••">
           <button type="button" data-toggle-password="password_confirmation"
                   class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-400 hover:text-gray-600 focus:outline-none"
@@ -106,14 +106,14 @@
 
       <!-- Bouton -->
       <button type="submit" name="register_btn"
-              class="w-full py-2.5 bg-[#1A237E] text-white text-sm font-medium rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition shadow-sm mt-2">
+              class="w-full py-2.5 bg-[#1A237E] text-white text-sm font-medium rounded-lg hover:bg-[#141A5F] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1A237E] transition shadow-sm mt-2">
         S'inscrire
       </button>
     </form>
 
     <!-- Lien vers connexion -->
     <p class="mt-6 text-center text-sm text-gray-500">
-      Déjà inscrit ? <a href="<?= path('auth', 'login') ?>" class="text-indigo-600 hover:underline">Se connecter</a>
+      Déjà inscrit ? <a href="<?= path('auth', 'login') ?>" class="text-[#1A237E] hover:underline">Se connecter</a>
     </p>
 </div>
 

@@ -86,25 +86,25 @@
           <div class="hidden sm:flex space-x-2">
             <?php if (!hasRole('lecteur')): ?>
             <a href="<?= path('utilisateur', 'dashboard') ?>"
-               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'dashboard' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
+               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'dashboard' ? 'text-[#1A237E] bg-indigo-50' : 'text-gray-600 hover:text-[#1A237E] hover:bg-gray-100' ?> transition">
               Dashboard
             </a>
             <?php endif; ?>
             <a href="<?= (hasRole('auteur') || hasRole('admin')) ? path('article', 'liste') : path('article', 'home') ?>"
-               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'article' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
+               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'article' ? 'text-[#1A237E] bg-indigo-50' : 'text-gray-600 hover:text-[#1A237E] hover:bg-gray-100' ?> transition">
               Articles
             </a>
             <a href="<?= path('page', 'apropos') ?>"
-               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['action'] ?? '') == 'apropos' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
+               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['action'] ?? '') == 'apropos' ? 'text-[#1A237E] bg-indigo-50' : 'text-gray-600 hover:text-[#1A237E] hover:bg-gray-100' ?> transition">
               À propos
             </a>
             <a href="<?= path('page', 'contact') ?>"
-               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['action'] ?? '') == 'contact' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
+               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['action'] ?? '') == 'contact' ? 'text-[#1A237E] bg-indigo-50' : 'text-gray-600 hover:text-[#1A237E] hover:bg-gray-100' ?> transition">
               Contact
             </a>
             <?php if (hasRole('admin')): ?>
             <a href="<?= path('utilisateur', 'dashboard') ?>"
-               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'admin' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-100' ?> transition">
+               class="px-3 py-2 rounded-md text-sm font-medium <?= ($_REQUEST['controller'] ?? '') == 'admin' ? 'text-[#1A237E] bg-indigo-50' : 'text-gray-600 hover:text-[#1A237E] hover:bg-gray-100' ?> transition">
               Administration
             </a>
             <?php endif; ?>

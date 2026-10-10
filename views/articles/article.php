@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $connecte           = isConnected();
 $aimeArticle        = !empty($aimeArticle);
 $commentairesAimes  = $commentairesAimes ?? [];
@@ -7,7 +7,7 @@ $commentairesAimes  = $commentairesAimes ?? [];
 
     <!-- Article -->
     <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-8 mb-6">
-        <span class="inline-block px-2.5 py-0.5 rounded-full text-xs bg-blue-50 text-blue-700 border border-blue-100 mb-3">
+        <span class="inline-block px-2.5 py-0.5 rounded-full text-xs bg-blue-50 text-[#1A237E] border border-blue-100 mb-3">
             <?= htmlspecialchars($article['categorie_nom']) ?>
         </span>
         <h1 class="text-2xl font-bold text-gray-900 mb-2">
@@ -98,7 +98,7 @@ $commentairesAimes  = $commentairesAimes ?? [];
                                     <input type="hidden" name="id_commentaire" value="<?= $c['id_commentaire'] ?>">
                                     <input type="hidden" name="id_article"     value="<?= $article['id_article'] ?>">
                                     <textarea name="contenu" rows="3"
-                                              class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none resize-none"><?= htmlspecialchars($c['contenu']) ?></textarea>
+                                              class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1A237E] outline-none resize-none"><?= htmlspecialchars($c['contenu']) ?></textarea>
                                     <div class="flex gap-2 mt-2 justify-end">
                                         <button type="button"
                                                 onclick="toggleEditComment(<?= $c['id_commentaire'] ?>)"
@@ -106,7 +106,7 @@ $commentairesAimes  = $commentairesAimes ?? [];
                                             Annuler
                                         </button>
                                         <button type="submit"
-                                                class="px-3 py-1.5 bg-indigo-600 text-white text-xs font-medium rounded-lg hover:bg-indigo-700 transition">
+                                                class="px-3 py-1.5 bg-[#1A237E] text-white text-xs font-medium rounded-lg hover:bg-[#141A5F] transition">
                                             Sauvegarder
                                         </button>
                                     </div>
@@ -132,7 +132,7 @@ $commentairesAimes  = $commentairesAimes ?? [];
                                 <button type="button"
                                         onclick="toggleEditComment(<?= $c['id_commentaire'] ?>)"
                                         title="Modifier mon commentaire"
-                                        class="text-xs text-gray-300 hover:text-indigo-500 transition">
+                                        class="text-xs text-gray-300 hover:text-[#1A237E] transition">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
                                 <!-- Supprimer -->
@@ -185,14 +185,14 @@ $commentairesAimes  = $commentairesAimes ?? [];
             <input type="hidden" name="id_article" value="<?= $article['id_article'] ?>">
             <div>
                 <textarea name="contenu" rows="4" placeholder="Votre commentaire..."
-                          class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition resize-none"><?= htmlspecialchars($_POST['contenu'] ?? '') ?></textarea>
+                          class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1A237E] outline-none transition resize-none"><?= htmlspecialchars($_POST['contenu'] ?? '') ?></textarea>
                 <?php if (isset($errors['contenu'])): ?>
                     <span class="text-red-600 text-xs mt-1 block"><?= $errors['contenu'] ?></span>
                 <?php endif; ?>
             </div>
             <div class="text-right">
                 <button type="submit"
-                        class="px-5 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition shadow-sm">
+                        class="px-5 py-2.5 bg-[#1A237E] text-white text-sm font-medium rounded-lg hover:bg-[#141A5F] transition shadow-sm">
                     Publier le commentaire
                 </button>
             </div>
@@ -203,7 +203,7 @@ $commentairesAimes  = $commentairesAimes ?? [];
         <p class="text-sm text-gray-500 mb-3">Vous devez avoir un compte pour commenter ou signaler.</p>
         <div class="flex justify-center gap-3">
             <a href="<?= path('auth', 'register') ?>"
-               class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition">
+               class="px-4 py-2 bg-[#1A237E] text-white text-sm font-medium rounded-lg hover:bg-[#141A5F] transition">
                 S'inscrire
             </a>
             <a href="<?= path('auth', 'login') ?>"

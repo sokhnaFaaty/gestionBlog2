@@ -20,7 +20,7 @@
                 </label>
                 <input type="text" name="libelle" id="libelle"
                        value="<?= htmlspecialchars($_POST['libelle'] ?? $categorie['libelle']) ?>"
-                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition">
+                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#1A237E] focus:border-[#1A237E] outline-none transition">
                 <?php if (isset($errors['libelle'])): ?>
                     <span class="text-red-600 text-xs mt-1 block"><?= $errors['libelle'] ?></span>
                 <?php endif; ?>
@@ -32,7 +32,7 @@
                     Annuler
                 </a>
                 <button type="submit" name="btn_modifier"
-                        class="px-5 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition shadow-sm">
+                        class="px-5 py-2.5 bg-[#1A237E] text-white text-sm font-medium rounded-lg hover:bg-[#141A5F] transition shadow-sm">
                     Enregistrer
                 </button>
             </div>

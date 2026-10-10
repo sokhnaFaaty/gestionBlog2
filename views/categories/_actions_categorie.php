@@ -2,7 +2,7 @@
 <?php $suffixe = $suffixe ?? ''; ?>
 <!-- Modifier -->
 <a href="<?= path('categorie', 'edit', ['id' => $cat['id_categorie']]) ?>"
-   class="px-3 py-1.5 text-xs font-medium rounded-lg border bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100 transition">
+   class="px-3 py-1.5 text-xs font-medium rounded-lg border bg-indigo-50 text-[#1A237E] border-indigo-200 hover:bg-indigo-100 transition">
     Modifier
 </a>
 <!-- Supprimer — désactivé si la catégorie a des articles -->

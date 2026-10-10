@@ -55,7 +55,7 @@
                 <?php foreach ($auteurs as $auteur): ?>
                 <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5 flex flex-col <?= $auteur['banni'] ? 'opacity-70' : '' ?>">
                     <div class="flex items-center gap-3">
-                        <div class="w-11 h-11 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 font-bold flex items-center justify-center uppercase">
+                        <div class="w-11 h-11 rounded-full bg-indigo-50 border border-indigo-100 text-[#1A237E] font-bold flex items-center justify-center uppercase">
                             <?= mb_substr($auteur['nom'], 0, 1) ?>
                         </div>
                         <div class="min-w-0">
@@ -69,7 +69,7 @@
                         <?php else: ?>
                             <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-green-50 text-green-700 border border-green-100">Actif</span>
                         <?php endif; ?>
-                        <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-100">
+                        <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-blue-50 text-[#1A237E] border border-blue-100">
                             <?= (int)$auteur['nb_articles'] ?> article(s)
                         </span>
                     </div>
