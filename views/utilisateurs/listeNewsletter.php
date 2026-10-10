@@ -3,23 +3,33 @@
         <div>
             <h2 class="text-2xl font-bold text-gray-800">Newsletter</h2>
             <p class="text-sm text-gray-500 mt-1">
-                <?= count($newsletters) ?> abonné<?= count($newsletters) > 1 ? 's' : '' ?> inscrit<?= count($newsletters) > 1 ? 's' : '' ?>
+                <?= $total ?> abonné<?= $total > 1 ? 's' : '' ?> inscrit<?= $total > 1 ? 's' : '' ?>
             </p>
         </div>
         <?php viewToggle('newsletter-admin'); ?>
     </div>
 
-    <div data-view-container="newsletter-admin">
-        <!-- Vue tableau -->
-        <div data-view-pane="table">
-            <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full min-w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-gray-50 border-b border-gray-200">
-                                <th class="px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider">#</th>
-                                <th class="px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider">Adresse email</th>
-                                <th class="px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider">Date d'inscription</th>
+    <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full min-w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-gray-50 border-b border-gray-200">
+                        <th class="px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider">#</th>
+                        <th class="px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider">Adresse email</th>
+                        <th class="px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider">Date d'inscription</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    <?php if (!empty($newsletters)): ?>
+                        <?php foreach ($newsletters as $i => $row): ?>
+                            <tr class="hover:bg-gray-50/75 transition">
+                                <td class="px-6 py-4 text-sm text-gray-400"><?= (($page - 1) * $parPage) + $i + 1 ?></td>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-800">
+                                    <?= htmlspecialchars($row['email']) ?>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-500">
+                                    <?= date('d/m/Y à H:i', strtotime($row['date_inscription'])) ?>
+                                </td>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100">
@@ -72,4 +82,6 @@
             <?php endif; ?>
         </div>
     </div>
+
+    <?php require_once ROOT . "/views/partials/pagination.php"; ?>
 </div>

@@ -1,7 +1,7 @@
 <div class="max-w-5xl mx-auto">
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl font-bold text-gray-800">Commentaires signalés</h1>
-        <span class="text-sm text-gray-500"><?= count($signalements) ?> commentaire(s) signalé(s)</span>
+        <span class="text-sm text-gray-500"><?= $total ?> commentaire(s) signalé(s)</span>
     </div>
 
     <?php if (empty($signalements)): ?>
@@ -53,4 +53,6 @@
         <?php endforeach; ?>
         </div>
     <?php endif; ?>
+
+    <?php require_once ROOT . "/views/partials/pagination.php"; ?>
 </div>

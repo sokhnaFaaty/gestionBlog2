@@ -290,7 +290,7 @@ function countAllArticles(): int {
 }
 
 // Articles admin paginés
-function findAllArticlesAdminPagines(?string $statut = null, int $page = 1, int $parPage = 10): array {
+function findAllArticlesAdminPagines(?string $statut = null, int $page = 1, int $parPage = 6): array {
     $where  = $statut ? "WHERE a.statut = :statut" : "";
     $params = $statut ? ["statut" => $statut] : [];
     $params["limit"]  = $parPage;

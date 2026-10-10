@@ -28,6 +28,32 @@ function findSignalementsCommentaires(): array {
     return executeSelect($sql, []);
 }
 
+// Commentaires signalés paginés (admin)
+function findSignalementsCommentairesPagines(int $page = 1, int $parPage = 6): array {
+    $offset = ($page - 1) * $parPage;
+    $sql = "SELECT c.id_commentaire, c.contenu, c.date_commentaire, c.id_article,
+            u.nom as auteur_nom,
+            a.titre as article_titre,
+            COUNT(sc.id_utilisateur) as nb_signalements
+            FROM commentaire c
+            INNER JOIN utilisateur u ON c.id_utilisateur = u.id_utilisateur
+            INNER JOIN article a ON c.id_article = a.id_article
+            INNER JOIN signalement_commentaire sc ON c.id_commentaire = sc.id_commentaire
+            GROUP BY c.id_commentaire, u.nom, a.titre, a.id_article
+            ORDER BY nb_signalements DESC, c.date_commentaire DESC
+            LIMIT :limit OFFSET :offset";
+    return executeSelect($sql, ["limit" => $parPage, "offset" => $offset]);
+}
+
+function countSignalementsCommentaires(): int {
+    $result = executeSelect(
+        "SELECT COUNT(DISTINCT id_commentaire) as total FROM signalement_commentaire",
+        [],
+        true
+    );
+    return (int)($result["total"] ?? 0);
+}
+
 // ── CRÉATION / MODIFICATION / SUPPRESSION ────────────
 
 function addCommentaire(int $id_article, int $id_utilisateur, string $contenu): void {

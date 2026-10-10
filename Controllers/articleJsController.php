@@ -81,7 +81,7 @@ $liste = function () {
     hasRoleJson("auteur", "admin");
 
     $page    = max(1, (int)($_GET["page"] ?? 1));
-    $parPage = 3;
+    $parPage = 6;
     $total   = countAllArticles();
 
     loadJson([
@@ -258,7 +258,7 @@ $listeAdmin = function () {
 
     $statut  = $_GET["statut"] ?? null;
     $page    = max(1, (int)($_GET["page"] ?? 1));
-    $parPage = 10;
+    $parPage = 6;
     $total   = countAllArticlesAdmin($statut);
 
     loadJson([

@@ -11,7 +11,7 @@ auth();
 $listeAuteurs = function () {
     if (!hasRole("admin")) redirectTo("article", "home");
     $page     = (int)($_GET["page"] ?? 1);
-    $parPage  = 10;
+    $parPage  = 6;
     $total    = countAllAuteurs();
     $auteurs  = findAllAuteursPagines($page, $parPage);
     loadView("utilisateurs/listeAuteurs", [
@@ -31,7 +31,7 @@ $banirAuteur = function () {
 $listeAdmins = function () {
     if (!hasRole("admin")) redirectTo("article", "home");
     $page     = (int)($_GET["page"] ?? 1);
-    $parPage  = 10;
+    $parPage  = 6;
     $total    = countAllAdmins();
     $admins   = findAllAdminsPagines($page, $parPage);
     loadView("utilisateurs/listeAdmins", [
@@ -78,8 +78,17 @@ $supprimerAdmin = function () {
 $listeNewsletters = function () {
     if (!hasRole("admin")) redirectTo("article", "home");
     require_once ROOT . "/models/newsletterModel.php";
-    $newsletters = findAllNewslettersEmails();
-    loadView("utilisateurs/listeNewsletter", ["newsletters" => $newsletters], "side");
+    $page        = (int)($_GET["page"] ?? 1);
+    $parPage     = 6;
+    $total       = countAllNewsletters();
+    $newsletters = findNewslettersEmailsPagines($page, $parPage);
+    loadView("utilisateurs/listeNewsletter", [
+        "newsletters" => $newsletters,
+        "page"        => $page,
+        "parPage"     => $parPage,
+        "total"       => $total,
+        "totalPages"  => ceil($total / $parPage),
+    ], "side");
 };
 
 $dashboard = function () {

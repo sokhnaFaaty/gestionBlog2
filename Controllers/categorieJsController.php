@@ -14,7 +14,7 @@ $liste = function () {
     hasRoleJson("admin");
 
     $page    = max(1, (int)($_GET["page"] ?? 1));
-    $parPage = 10;
+    $parPage = 6;
     $total   = countAllCategories();
 
     loadJson([

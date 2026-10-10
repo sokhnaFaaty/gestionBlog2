@@ -19,3 +19,16 @@ function findAllNewslettersEmails(){
     
     return executeSelect($sql);
 }
+
+function findNewslettersEmailsPagines(int $page = 1, int $parPage = 6): array {
+    $offset = ($page - 1) * $parPage;
+    $sql = "SELECT email, date_inscription FROM newsletter
+            ORDER BY date_inscription DESC
+            LIMIT :limit OFFSET :offset";
+    return executeSelect($sql, ["limit" => $parPage, "offset" => $offset]);
+}
+
+function countAllNewsletters(): int {
+    $result = executeSelect("SELECT COUNT(*) as total FROM newsletter", [], true);
+    return (int)($result["total"] ?? 0);
+}

@@ -75,8 +75,16 @@ $supprimerAdmin = function () {
 
 $signalements = function () {
     if (!hasRole("admin")) redirectTo("article", "home");
-    $signalements = findSignalementsCommentaires();
-    loadView("commentaires/signalements", ["signalements" => $signalements], "side");
+    $page         = (int)($_GET["page"] ?? 1);
+    $parPage      = 6;
+    $total        = countSignalementsCommentaires();
+    $signalements = findSignalementsCommentairesPagines($page, $parPage);
+    loadView("commentaires/signalements", [
+        "signalements" => $signalements,
+        "page"         => $page,
+        "total"        => $total,
+        "totalPages"   => ceil($total / $parPage),
+    ], "side");
 };
 
 $supprimerSignale = function () {
