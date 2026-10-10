@@ -46,7 +46,7 @@ function deleteCategorie(int $id): void {
 }
 // ── PAGINATION ──────────────────────────────────────
 
-function findAllCategoriesPaginees(int $page = 1, int $parPage = 10): array {
+function findAllCategoriesPaginees(int $page = 1, int $parPage = 6): array {
     $offset = ($page - 1) * $parPage;
     $sql = "SELECT c.id_categorie, c.libelle,
             (SELECT COUNT(*) FROM article_categorie ac WHERE ac.id_categorie = c.id_categorie) as nb_articles

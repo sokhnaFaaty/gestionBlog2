@@ -78,7 +78,7 @@ function toggleBanAuteur(int $id): void {
 // ── PAGINATION 
 
 // Auteurs paginés
-function findAllAuteursPagines(int $page = 1, int $parPage = 10): array {
+function findAllAuteursPagines(int $page = 1, int $parPage = 6): array {
     $offset = ($page - 1) * $parPage;
     $sql = "SELECT u.*,
             (SELECT COUNT(*) FROM article WHERE id_utilisateur = u.id_utilisateur) as nb_articles
@@ -96,7 +96,7 @@ function countAllAuteurs(): int {
 }
 
 // Admins paginés
-function findAllAdminsPagines(int $page = 1, int $parPage = 10): array {
+function findAllAdminsPagines(int $page = 1, int $parPage = 6): array {
     $offset = ($page - 1) * $parPage;
     $sql = "SELECT * FROM utilisateur 
             WHERE role = 'admin' 

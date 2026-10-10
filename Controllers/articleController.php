@@ -214,7 +214,7 @@ $listeAdmin = function () {
 
     $statut   = $_GET["statut"] ?? null;
     $page     = (int)($_GET["page"] ?? 1);
-    $parPage  = 10;
+    $parPage  = 6;
     $total    = countAllArticlesAdmin($statut);
     $articles = findAllArticlesAdminPagines($statut, $page, $parPage);
     loadView("articles/listeArticles", [

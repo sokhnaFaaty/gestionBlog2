@@ -11,7 +11,7 @@ $liste = function () {
     if (!hasRole("admin")) redirectTo("article", "home");
 
     $page       = (int)($_GET["page"] ?? 1);
-    $parPage    = 10;
+    $parPage    = 6;
     $total      = countAllCategories();
     $categories = findAllCategoriesPaginees($page, $parPage);
     $errors     = [];

@@ -3,7 +3,7 @@
         <div>
             <h2 class="text-2xl font-bold text-gray-800">Newsletter</h2>
             <p class="text-sm text-gray-500 mt-1">
-                <?= count($newsletters) ?> abonné<?= count($newsletters) > 1 ? 's' : '' ?> inscrit<?= count($newsletters) > 1 ? 's' : '' ?>
+                <?= $total ?> abonné<?= $total > 1 ? 's' : '' ?> inscrit<?= $total > 1 ? 's' : '' ?>
             </p>
         </div>
     </div>
@@ -22,7 +22,7 @@
                     <?php if (!empty($newsletters)): ?>
                         <?php foreach ($newsletters as $i => $row): ?>
                             <tr class="hover:bg-gray-50/75 transition">
-                                <td class="px-6 py-4 text-sm text-gray-400"><?= $i + 1 ?></td>
+                                <td class="px-6 py-4 text-sm text-gray-400"><?= (($page - 1) * $parPage) + $i + 1 ?></td>
                                 <td class="px-6 py-4 text-sm font-medium text-gray-800">
                                     <?= htmlspecialchars($row['email']) ?>
                                 </td>
@@ -45,4 +45,6 @@
             </table>
         </div>
     </div>
+
+    <?php require_once ROOT . "/views/partials/pagination.php"; ?>
 </div>
