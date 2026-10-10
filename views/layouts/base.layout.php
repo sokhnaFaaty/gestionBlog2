@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestion Blog</title>
+  <title>Plume &amp; Clic</title>
   <meta name="csrf-token" content="<?= htmlspecialchars(csrfToken()) ?>">
   <script>
   (function () {
@@ -82,7 +82,7 @@
 
         <!-- Logo + liens -->
         <div class="flex items-center space-x-8">
-          <a href="<?= path('utilisateur', 'dashboard') ?>" class="text-xl font-bold text-[#1A237E]"><i class="fa-solid fa-book-open mr-2"></i>GES-BLOG</a>
+          <a href="<?= path('utilisateur', 'dashboard') ?>" class="text-xl font-bold text-[#1A237E]"><i class="fa-solid fa-book-open mr-2"></i>Plume &amp; Clic</a>
           <div class="hidden sm:flex space-x-2">
             <?php if (!hasRole('lecteur')): ?>
             <a href="<?= path('utilisateur', 'dashboard') ?>"
@@ -170,7 +170,7 @@
         <!-- Logo + description -->
         <div>
           <a href="<?= path('article', 'home') ?>" class="text-xl font-bold text-white flex items-center gap-2">
-            <i class="fa-solid fa-book-open"></i> GES-BLOG
+            <i class="fa-solid fa-book-open"></i> Plume &amp; Clic
           </a>
           <p class="mt-3 text-indigo-200 text-sm leading-relaxed">
             Découvrez des articles de qualité rédigés par nos auteurs. Rejoignez la communauté et partagez vos idées.

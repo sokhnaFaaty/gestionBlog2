@@ -4,7 +4,7 @@
     <!-- Logo / Titre -->
     <div class="text-center mb-8">
       <div class="text-4xl mb-2 text-[#1A237E]">    <i class="fa-solid fa-book"></i></div>
-      <h1 class="text-2xl font-bold text-gray-900">GESTION BLOG</h1>
+      <h1 class="text-2xl font-bold text-gray-900">Plume &amp; Clic</h1>
       <p class="text-sm text-gray-500 mt-1">Connectez-vous pour accéder au tableau de bord</p>
     </div>
           <?php if (!empty($errors["banned"])): ?>

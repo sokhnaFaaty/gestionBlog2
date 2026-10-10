@@ -1,4 +1,9 @@
-﻿<div class="max-w-3xl mx-auto my-8 px-4">
+﻿<?php
+$connecte           = isConnected();
+$aimeArticle        = !empty($aimeArticle);
+$commentairesAimes  = $commentairesAimes ?? [];
+?>
+<div class="max-w-3xl mx-auto my-8 px-4">
 
     <!-- Article -->
     <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-8 mb-6">
@@ -12,12 +17,35 @@
             Par <strong><?= htmlspecialchars($article['utilisateur_nom']) ?></strong>
             · <?= date('d/m/Y à H:i', strtotime($article['date_publication'])) ?>
         </p>
+
+        <!-- Image de l'article -->
+        <?php if (!empty($article['image'])): ?>
+        <div class="mb-6 rounded-xl overflow-hidden border border-gray-100 bg-gray-50">
+            <img src="<?= WEBROOT ?>uploads/<?= htmlspecialchars($article['image']) ?>"
+                 alt="<?= htmlspecialchars($article['titre']) ?>"
+                 onerror="this.onerror=null;this.src='<?= WEBROOT ?>uploads/image-indisponible.svg'"
+                 loading="lazy"
+                 class="w-full max-h-[460px] object-cover">
+        </div>
+        <?php endif; ?>
+
         <div class="text-gray-700 leading-relaxed whitespace-pre-line">
             <?= htmlspecialchars($article['contenu']) ?>
         </div>
 
-        <?php if (isConnected()): ?>
-        <div class="mt-6 pt-4 border-t border-gray-100">
+        <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between gap-3">
+            <!-- J'aime article -->
+            <button type="button"
+                    class="jaime-btn flex items-center gap-1.5 text-sm font-medium transition <?= $aimeArticle ? 'text-red-500' : 'text-gray-400 hover:text-red-500' ?>"
+                    data-type="article"
+                    data-id="<?= $article['id_article'] ?>"
+                    data-login="<?= $connecte ? '0' : '1' ?>"
+                    onclick="basculerJaime(this)">
+                <i class="<?= $aimeArticle ? 'fa-solid' : 'fa-regular' ?> fa-heart"></i>
+                <span class="jaime-count"><?= (int)$article['nb_jaimes'] ?></span>
+            </button>
+
+            <?php if ($connecte): ?>
             <form id="form-signaler-art-<?= $article['id_article'] ?>"
                   method="POST"
                   action="<?= path('article', 'signalerArticle') ?>"
@@ -31,8 +59,8 @@
                     class="text-xs text-gray-400 hover:text-red-500 transition">
                 <i class="fa-solid fa-flag"></i> Signaler cet article
             </button>
+            <?php endif; ?>
         </div>
-        <?php endif; ?>
     </div>
 
     <!-- Commentaires -->
@@ -46,7 +74,10 @@
         <?php else: ?>
             <div class="space-y-4">
             <?php foreach ($commentaires as $c): ?>
-                <?php $isOwner = isConnected() && (int)$_SESSION['user']['id_utilisateur'] === (int)$c['id_utilisateur']; ?>
+                <?php
+                $isOwner = $connecte && (int)$_SESSION['user']['id_utilisateur'] === (int)$c['id_utilisateur'];
+                $aimeCom = in_array((int)$c['id_commentaire'], array_map('intval', $commentairesAimes), true);
+                ?>
                 <div class="border-l-4 border-indigo-100 pl-4">
                     <div class="flex items-start justify-between gap-2">
                         <div class="flex-1 min-w-0">
@@ -85,6 +116,17 @@
 
                         <!-- Boutons d'action -->
                         <div class="flex-shrink-0 flex items-center gap-1.5">
+                            <!-- J'aime commentaire -->
+                            <button type="button"
+                                    class="jaime-btn flex items-center gap-1 text-xs font-medium transition <?= $aimeCom ? 'text-red-500' : 'text-gray-300 hover:text-red-500' ?>"
+                                    data-type="commentaire"
+                                    data-id="<?= $c['id_commentaire'] ?>"
+                                    data-login="<?= $connecte ? '0' : '1' ?>"
+                                    onclick="basculerJaime(this)">
+                                <i class="<?= $aimeCom ? 'fa-solid' : 'fa-regular' ?> fa-heart"></i>
+                                <span class="jaime-count"><?= (int)$c['nb_jaimes'] ?></span>
+                            </button>
+
                             <?php if ($isOwner): ?>
                                 <!-- Modifier -->
                                 <button type="button"
@@ -109,7 +151,7 @@
                                         class="text-xs text-gray-300 hover:text-red-400 transition">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
-                            <?php elseif (isConnected()): ?>
+                            <?php elseif ($connecte): ?>
                                 <!-- Signaler (autres utilisateurs) -->
                                 <form id="form-signaler-com-<?= $c['id_commentaire'] ?>"
                                       method="POST"
@@ -136,7 +178,7 @@
     </div>
 
     <!-- Formulaire commentaire -->
-    <?php if (isConnected()): ?>
+    <?php if ($connecte): ?>
     <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
         <h2 class="text-lg font-semibold text-gray-800 mb-4">Laisser un commentaire</h2>
         <form method="POST" action="<?= path('commentaire', 'ajouter') ?>" class="space-y-4">
@@ -185,5 +227,46 @@ function toggleEditComment(id) {
     var form   = document.getElementById('edit-form-'  + id);
     texte.classList.toggle('hidden');
     form.classList.toggle('hidden');
+}
+
+function basculerJaime(btn) {
+    if (btn.dataset.login === '1') {
+        window.location.href = '<?= path('auth', 'login') ?>';
+        return;
+    }
+    if (btn.dataset.enCours === '1') return;
+    btn.dataset.enCours = '1';
+
+    fetch('<?= WEBROOT ?>likejs/basculer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: btn.dataset.type, id: btn.dataset.id })
+    })
+    .then(function (r) {
+        if (r.status === 401) {
+            window.location.href = '<?= path('auth', 'login') ?>';
+            return null;
+        }
+        return r.json();
+    })
+    .then(function (data) {
+        if (!data || !data.success) return;
+        var icone = btn.querySelector('i');
+        var count = btn.querySelector('.jaime-count');
+        count.textContent = data.total;
+        if (data.aime) {
+            icone.classList.remove('fa-regular');
+            icone.classList.add('fa-solid');
+            btn.classList.add('text-red-500');
+            btn.classList.remove('text-gray-400', 'text-gray-300');
+        } else {
+            icone.classList.remove('fa-solid');
+            icone.classList.add('fa-regular');
+            btn.classList.remove('text-red-500');
+            btn.classList.add(btn.dataset.type === 'article' ? 'text-gray-400' : 'text-gray-300');
+        }
+    })
+    .catch(function () {})
+    .then(function () { btn.dataset.enCours = '0'; });
 }
 </script>

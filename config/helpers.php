@@ -131,6 +131,33 @@ function csrfField(): string {
     return '<input type="hidden" name="csrf_token" value="' . htmlspecialchars(csrfToken()) . '">';
 }
 
+// ── Bascule d'affichage Tableau / Cartes (dashboards) ──
+
+/**
+ * Affiche les boutons de bascule Tableau / Cartes.
+ * La liste doit contenir deux panneaux :
+ *   <div data-view-container="KEY">
+ *     <div data-view-pane="table">…</div>
+ *     <div data-view-pane="card" class="hidden">…</div>
+ *   </div>
+ */
+function viewToggle(string $key, string $defaut = "table"): void {
+    ?>
+    <div class="inline-flex rounded-lg border border-gray-300 overflow-hidden"
+         data-view-toggle="<?= htmlspecialchars($key) ?>"
+         data-view-defaut="<?= htmlspecialchars($defaut) ?>">
+        <button type="button" data-mode="table"
+                class="px-3 py-1.5 text-xs font-medium flex items-center gap-1.5 transition">
+            <i class="fa-solid fa-table-list"></i> Tableau
+        </button>
+        <button type="button" data-mode="card"
+                class="px-3 py-1.5 text-xs font-medium flex items-center gap-1.5 transition">
+            <i class="fa-solid fa-grip"></i> Cartes
+        </button>
+    </div>
+    <?php
+}
+
 // ── Page 404 ──
 
 function notFound(string $message = "Page introuvable"): never {

@@ -13,7 +13,7 @@
     <!-- Coordonnées -->
     <div class="lg:col-span-2 space-y-4">
         <div class="w-full h-44 rounded-xl overflow-hidden shadow-sm border border-gray-200">
-            <img src="<?= WEBROOT ?>uploads/contact-illustration.jpg" alt="Contactez GES-BLOG" class="w-full h-full object-cover">
+            <img src="<?= WEBROOT ?>uploads/contact-illustration.jpg" alt="Contactez Plume &amp; Clic" class="w-full h-full object-cover">
         </div>
         <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5 flex items-start gap-4">
             <div class="w-11 h-11 rounded-lg bg-indigo-50 text-[#1A237E] flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-envelope"></i></div>
@@ -105,7 +105,7 @@
     <div class="space-y-3">
         <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
             <button type="button" onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-5 py-4 text-left">
-                <span class="text-sm font-semibold text-gray-800">Comment devenir auteur sur GES-BLOG ?</span>
+                <span class="text-sm font-semibold text-gray-800">Comment devenir auteur sur Plume &amp; Clic ?</span>
                 <i class="fa-solid fa-chevron-down text-gray-400 transition-transform"></i>
             </button>
             <div class="hidden px-5 pb-4 text-sm text-gray-500 leading-relaxed">Créez un compte, puis contactez-nous via ce formulaire pour demander le rôle auteur. Notre équipe étudie votre demande.</div>

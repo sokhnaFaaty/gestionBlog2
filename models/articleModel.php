@@ -36,7 +36,8 @@ function findAllArticlesAdmin(?string $statut = null): array {
 // Articles publiés (lecteur)
 function findArticlesPublies(): array {
     $sql = "SELECT a.*, u.nom as utilisateur_nom, c.libelle as categorie_nom,
-            (SELECT COUNT(*) FROM commentaire WHERE id_article = a.id_article) as nb_commentaires
+            (SELECT COUNT(*) FROM commentaire WHERE id_article = a.id_article) as nb_commentaires,
+            (SELECT COUNT(*) FROM jaime WHERE type = 'article' AND id_cible = a.id_article) as nb_jaimes
             FROM article a
             INNER JOIN utilisateur u ON a.id_utilisateur = u.id_utilisateur
             INNER JOIN article_categorie ac ON a.id_article = ac.id_article
@@ -48,13 +49,34 @@ function findArticlesPublies(): array {
 
 // Un article par id (public)
 function findArticleById(int $id): array|false {
-    $sql = "SELECT a.*, u.nom as utilisateur_nom, c.libelle as categorie_nom
+    $sql = "SELECT a.*, u.nom as utilisateur_nom, c.libelle as categorie_nom,
+            (SELECT COUNT(*) FROM jaime WHERE type = 'article' AND id_cible = a.id_article) as nb_jaimes
             FROM article a
             INNER JOIN utilisateur u ON a.id_utilisateur = u.id_utilisateur
             INNER JOIN article_categorie ac ON a.id_article = ac.id_article
             INNER JOIN categorie c ON ac.id_categorie = c.id_categorie
             WHERE a.id_article = :id AND a.statut = 'Publie'";
     return executeSelect($sql, ["id" => $id], true);
+}
+
+// Construit la clause WHERE + les paramètres des filtres publics
+function _filtresArticles(array $filtres, array &$params): string {
+    $where = "WHERE a.statut = 'Publie' AND (u.banni IS NULL OR u.banni = false)";
+
+    if (!empty($filtres["id_auteur"])) {
+        $where .= " AND a.id_utilisateur = :id_auteur";
+        $params["id_auteur"] = (int)$filtres["id_auteur"];
+    }
+    if (!empty($filtres["id_categorie"])) {
+        $where .= " AND c.id_categorie = :id_categorie";
+        $params["id_categorie"] = (int)$filtres["id_categorie"];
+    }
+    if (!empty($filtres["q"])) {
+        $where .= " AND (a.titre ILIKE :q_titre OR a.contenu ILIKE :q_contenu)";
+        $params["q_titre"]   = "%" . $filtres["q"] . "%";
+        $params["q_contenu"] = "%" . $filtres["q"] . "%";
+    }
+    return $where;
 }
 
 // Un article par id pour l'auteur (sans filtre statut)
@@ -215,7 +237,8 @@ function searchGlobal(string $query): array {
 function findAllArticlesPagines(int $page = 1, int $parPage = 6): array {
     $id_utilisateur = $_SESSION['user']['id_utilisateur'];
     $offset = ($page - 1) * $parPage;
-    $sql = "SELECT a.*, u.nom as utilisateur_nom, c.libelle as categorie_nom
+    $sql = "SELECT a.*, u.nom as utilisateur_nom, c.libelle as categorie_nom,
+            (SELECT COUNT(*) FROM jaime WHERE type = 'article' AND id_cible = a.id_article) as nb_jaimes
             FROM article a
             INNER JOIN utilisateur u ON a.id_utilisateur = u.id_utilisateur
             INNER JOIN article_categorie ac ON a.id_article = ac.id_article
@@ -229,25 +252,34 @@ function findAllArticlesPagines(int $page = 1, int $parPage = 6): array {
         "offset"         => $offset,
     ]);
 }
-function findArticlesPubliesPagines(int $page = 1, int $parPage = 6): array {
+function findArticlesPubliesPagines(int $page = 1, int $parPage = 6, array $filtres = []): array {
     $offset = ($page - 1) * $parPage;
+    $params = [];
+    $where  = _filtresArticles($filtres, $params);
+    $params["limit"]  = $parPage;
+    $params["offset"] = $offset;
     $sql = "SELECT a.*, u.nom as utilisateur_nom, c.libelle as categorie_nom,
-            (SELECT COUNT(*) FROM commentaire WHERE id_article = a.id_article) as nb_commentaires
+            (SELECT COUNT(*) FROM commentaire WHERE id_article = a.id_article) as nb_commentaires,
+            (SELECT COUNT(*) FROM jaime WHERE type = 'article' AND id_cible = a.id_article) as nb_jaimes
             FROM article a
             INNER JOIN utilisateur u ON a.id_utilisateur = u.id_utilisateur
             INNER JOIN article_categorie ac ON a.id_article = ac.id_article
             INNER JOIN categorie c ON ac.id_categorie = c.id_categorie
-            WHERE a.statut = 'Publie' AND (u.banni IS NULL OR u.banni = false)
+            $where
             ORDER BY a.date_publication DESC
             LIMIT :limit OFFSET :offset";
-    return executeSelect($sql, ["limit" => $parPage, "offset" => $offset]);
+    return executeSelect($sql, $params);
 }
-function countArticlesPublies(): int {
+function countArticlesPublies(array $filtres = []): int {
+    $params = [];
+    $where  = _filtresArticles($filtres, $params);
     $sql = "SELECT COUNT(*) as total
             FROM article a
             INNER JOIN utilisateur u ON a.id_utilisateur = u.id_utilisateur
-            WHERE a.statut = 'Publie' AND (u.banni IS NULL OR u.banni = false)";
-    $result = executeSelect($sql, [], true);
+            INNER JOIN article_categorie ac ON a.id_article = ac.id_article
+            INNER JOIN categorie c ON ac.id_categorie = c.id_categorie
+            $where";
+    $result = executeSelect($sql, $params, true);
     return (int)$result["total"];
 }
 function countAllArticles(): int {
@@ -266,7 +298,8 @@ function findAllArticlesAdminPagines(?string $statut = null, int $page = 1, int 
     $sql = "SELECT a.*, u.nom as utilisateur_nom, u.banni,
             c.libelle as categorie_nom,
             (SELECT COUNT(*) FROM signalement WHERE id_article = a.id_article) as nb_signalements,
-            (SELECT COUNT(*) FROM commentaire WHERE id_article = a.id_article) as nb_commentaires
+            (SELECT COUNT(*) FROM commentaire WHERE id_article = a.id_article) as nb_commentaires,
+            (SELECT COUNT(*) FROM jaime WHERE type = 'article' AND id_cible = a.id_article) as nb_jaimes
             FROM article a
             INNER JOIN utilisateur u ON a.id_utilisateur = u.id_utilisateur
             INNER JOIN article_categorie ac ON a.id_article = ac.id_article
